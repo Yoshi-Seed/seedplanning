@@ -3,63 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>受注経路セレクター（End Client → Agency → SEED）</title>
+  <title>受注エコシステム（選択でふわっと展開）</title>
   <link rel="stylesheet" href="./styles.css" />
+  <!-- Cytoscape + Dagre layout (CDN) -->
+  <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
 </head>
 <body>
   <div class="bg"></div>
 
-  <main class="shell">
-    <header class="top">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>受注経路セレクター</h1>
-          <p class="sub">End Client → 一次エージェンシー →（二次 or 直）→ シード・プランニング</p>
-        </div>
+  <div class="shell">
+    <aside class="panel">
+      <div class="panelTop">
+        <div class="badge">Interactive</div>
+        <h1>受注エコシステム</h1>
+        <p class="sub">
+          Lillyを選ぶ → 一次がふわっと表示。一次を選ぶ → 二次 or SEEDへの流れが展開。
+          <span class="muted">（全体は薄く残して俯瞰）</span>
+        </p>
       </div>
 
-      <div class="actions">
-        <button id="btnBack" class="btn ghost" type="button" disabled>戻る</button>
+      <div class="controls">
         <button id="btnReset" class="btn ghost" type="button">リセット</button>
-      </div>
-    </header>
-
-    <section class="card">
-      <div class="cardHeader">
-        <h2 id="stepTitle">エンドクライアントを選択</h2>
-        <div id="stepHint" class="hint">まずは最上流を選ぶだけ。あとは順番に出てきます。</div>
+        <button id="btnShowAll" class="btn ghost" type="button">全て表示</button>
       </div>
 
-      <div class="content">
-        <div class="left">
-          <div id="choices" class="choices" aria-live="polite"></div>
-          <div id="note" class="note" role="status"></div>
-        </div>
-
-        <div class="right">
-          <div class="miniTitle">選択中の経路</div>
-          <div id="path" class="path" aria-live="polite"></div>
-
-          <div class="divider"></div>
-
-          <div class="miniTitle">プレビュー</div>
-          <div id="preview" class="preview"></div>
-
-          <div class="divider"></div>
-
-          <button id="btnCopy" class="btn" type="button" disabled>経路テキストをコピー</button>
-          <div id="copied" class="copied" aria-live="polite"></div>
-        </div>
+      <div class="section">
+        <div class="sectionTitle">選択中の経路</div>
+        <div id="path" class="path"></div>
       </div>
-    </section>
 
-    <footer class="foot">
-      <span>静的HTMLだけで動作（ビルド不要）</span>
-      <span class="dot">•</span>
-      <span>GitHub PagesでもOK</span>
-    </footer>
-  </main>
+      <div class="section">
+        <div class="sectionTitle">ヒント</div>
+        <ul class="tips">
+          <li>ノードをクリックで展開</li>
+          <li>空白をクリックで解除</li>
+          <li>スクロールでズーム、ドラッグで移動</li>
+        </ul>
+      </div>
+
+      <div class="foot">
+        <span>静的HTMLのみ</span><span class="dot">•</span><span>GitHub Pages OK</span>
+      </div>
+    </aside>
+
+    <main class="canvasWrap">
+      <div class="topBar">
+        <div class="topTitle">クリックで「ふわっ」と展開</div>
+        <div class="topHint">End Client は常に表示 / 俯瞰用に未選択ノードは薄く残します</div>
+      </div>
+      <div id="cy" class="cy"></div>
+    </main>
+  </div>
 
   <script src="./data.js"></script>
   <script src="./app.js"></script>
