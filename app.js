@@ -5,6 +5,13 @@
   const $btnReset = document.getElementById("btnReset");
   const $btnShowAll = document.getElementById("btnShowAll");
 
+  const $popup = document.getElementById("popup");
+  const $popupBackdrop = document.getElementById("popupBackdrop");
+  const $popupClose = document.getElementById("popupClose");
+  const $popupKicker = document.getElementById("popupKicker");
+  const $popupTitle = document.getElementById("popupTitle");
+  const $popupBody = document.getElementById("popupBody");
+
   // --- Build Cytoscape elements
   const elements = [];
   for (const n of ECOSYSTEM.nodes){
@@ -80,7 +87,7 @@
           "background-color": "rgba(255,245,235,0.98)"
       }},
 
-      // Dim / Hidden / Revealed
+      // Dim / Revealed
       { selector: ".dim", style: { "opacity": 0.16 } },
       { selector: "edge.dim", style: { "opacity": 0.08 } },
 
@@ -100,21 +107,56 @@
           "opacity": 0.95
       }},
 
-      { selector: ".glow", style: {
-          "border-color": "rgba(167,243,208,0.92)",
-          "border-width": 5
-      }}
+      { selector: ".glow", style: { "border-color": "rgba(167,243,208,0.92)", "border-width": 5 } }
     ]
   });
 
-  // --- State / Helpers
-  const state = {
-    end: null,
-    primary: null,
-    secondary: null,
-    mode: "start" // start | endSelected | primarySelected | done
-  };
+  // --- Popup
+  function showPopup(nodeId){
+    const d = ECOSYSTEM.descriptions[nodeId];
+    if(!d){
+      hidePopup();
+      return;
+    }
+    $popupKicker.textContent = d.role || "";
+    $popupTitle.textContent = d.name || "";
+    $popupBody.innerHTML = `
+      <div class="label">概要</div>
+      <div class="desc">${escapeHtml(d.desc || "（情報なし）")}</div>
+    `;
 
+    $popup.hidden = false;
+    $popupBackdrop.hidden = false;
+    requestAnimationFrame(() => {
+      $popup.classList.add("show");
+      $popupBackdrop.classList.add("show");
+    });
+  }
+
+  function hidePopup(){
+    $popup.classList.remove("show");
+    $popupBackdrop.classList.remove("show");
+    setTimeout(() => {
+      $popup.hidden = true;
+      $popupBackdrop.hidden = true;
+    }, 220);
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  $popupClose.addEventListener("click", hidePopup);
+  $popupBackdrop.addEventListener("click", hidePopup);
+  document.addEventListener("keydown", (e) => { if(e.key === "Escape") hidePopup(); });
+
+  // --- State / Helpers
+  const state = { end: null, primary: null, secondary: null, mode: "start" };
   function byId(id){ return cy.getElementById(id); }
 
   function resetVisual(keepEnd = true){
@@ -122,11 +164,9 @@
     cy.nodes().addClass("dim");
     cy.edges().addClass("dim");
 
-    // Always keep these visible (but can be dimmed slightly if you want)
     if(keepEnd){
       byId("eli_lilly").removeClass("dim").addClass("reveal");
-      // keep SEED faintly visible for ecosystem anchor
-      byId("seed").removeClass("dim").addClass("reveal").addClass("dim"); // intentionally re-dim (light anchor)
+      byId("seed").removeClass("dim").addClass("reveal").addClass("dim");
       byId("seed").style("opacity", 0.24);
     }else{
       byId("seed").style("opacity", 1);
@@ -153,24 +193,12 @@
       $path.innerHTML = pill("(未選択)", false);
       return;
     }
-
-    for(const p of parts){
-      $path.insertAdjacentHTML("beforeend", pill(p.label, p.active));
-    }
+    for(const p of parts){ $path.insertAdjacentHTML("beforeend", pill(p.label, p.active)); }
   }
 
   function pill(label, isActive){
     const cls = isActive ? "pill active" : "pill";
     return `<div class="${cls}"><span class="pillDot"></span><span>${escapeHtml(label)}</span></div>`;
-  }
-
-  function escapeHtml(str){
-    return String(str)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
   }
 
   function labelOf(id){
@@ -182,7 +210,6 @@
     for(const id of ids){
       const n = byId(id);
       n.removeClass("dim").addClass("reveal");
-      // animate "pop" by briefly scaling through animate
       n.animate({ style: { opacity: 1 } }, { duration: 220, easing: "ease-out" });
     }
   }
@@ -197,20 +224,16 @@
 
   function setActivePath(pathNodeIds){
     cy.elements().removeClass("active glow");
-    // keep revealed as-is; active highlights
     for(const id of pathNodeIds){
       byId(id).addClass("active").removeClass("dim").addClass("reveal");
       byId(id).style("opacity", 1);
     }
-    // Always keep End highlighted if selected
     if(state.end) byId(state.end).addClass("active").style("opacity", 1);
-    // keep seed glow when done
     if(state.mode === "done"){
       byId("seed").removeClass("dim").addClass("reveal glow").style("opacity", 1);
     }
   }
 
-  // --- Logic (progressive reveal)
   function onSelectEnd(endId){
     clearState();
     state.end = endId;
@@ -219,7 +242,6 @@
     resetVisual(true);
     byId(endId).addClass("active").style("opacity", 1);
 
-    // reveal primaries connected to this end
     const primaries = ECOSYSTEM.nodes.filter(n => n.type === "primary" && n.end === endId).map(n => n.id);
     const edges = ECOSYSTEM.edges.filter(e => e.source === endId && primaries.includes(e.target)).map(e => e.id);
 
@@ -230,35 +252,25 @@
   }
 
   function onSelectPrimary(primaryId){
-    if(!state.end){
-      // if user clicked primary first, treat as: select end then primary
-      onSelectEnd("eli_lilly");
-    }
+    if(!state.end){ onSelectEnd("eli_lilly"); }
     state.primary = primaryId;
     state.secondary = null;
-
-    const primary = ECOSYSTEM.nodes.find(n => n.id === primaryId);
     state.mode = "primarySelected";
 
-    // keep current reveals; just highlight and reveal downstream
-    revealNodes([primaryId, "seed"]);
+    const primary = ECOSYSTEM.nodes.find(n => n.id === primaryId);
 
-    // edge end -> primary
+    revealNodes([primaryId, "seed"]);
     const edgeEnd = ECOSYSTEM.edges.find(e => e.source === state.end && e.target === primaryId);
     if(edgeEnd) revealEdges([edgeEnd.id]);
 
-    // downstream
     if(primary && primary.route === "secondary"){
       const secs = ECOSYSTEM.nodes.filter(n => n.type === "secondary" && n.primary === primaryId).map(n => n.id);
       const e1 = ECOSYSTEM.edges.filter(e => e.source === primaryId && secs.includes(e.target)).map(e => e.id);
 
       revealNodes(secs);
       revealEdges(e1);
-
-      // don't auto-complete; wait for secondary click
       setActivePath([state.end, primaryId]);
     }else{
-      // direct to seed (complete)
       const edgeToSeed = ECOSYSTEM.edges.find(e => e.source === primaryId && e.target === "seed");
       if(edgeToSeed) revealEdges([edgeToSeed.id]);
 
@@ -270,14 +282,10 @@
   }
 
   function onSelectSecondary(secondaryId){
-    if(!state.end || !state.primary){
-      // defensive: bring to consistent state
-      onSelectEnd("eli_lilly");
-    }
+    if(!state.end || !state.primary){ onSelectEnd("eli_lilly"); }
     state.secondary = secondaryId;
     state.mode = "done";
 
-    // reveal secondary + edges to seed
     revealNodes([secondaryId, "seed"]);
 
     const ePrimary = ECOSYSTEM.edges.find(e => e.source === state.primary && e.target === secondaryId);
@@ -296,25 +304,20 @@
     renderPath();
   }
 
-  // --- Event bindings
+  // --- Events
   cy.on("tap", "node", (evt) => {
     const n = evt.target;
     const type = n.data("type");
     const id = n.id();
 
-    // "ふわっ"感のため、クリック直後に少しだけ強調
+    // Popup (only for nodes with descriptions)
+    showPopup(id);
+
     n.animate({ style: { opacity: 1 } }, { duration: 160, easing: "ease-out" });
 
-    if(type === "end"){
-      onSelectEnd(id);
-      return;
-    }
-    if(type === "primary"){
-      onSelectPrimary(id);
-      return;
-    }
+    if(type === "end"){ onSelectEnd(id); return; }
+    if(type === "primary"){ onSelectPrimary(id); return; }
     if(type === "secondary"){
-      // only allow secondary if current primary matches; otherwise treat as primary selection flow
       const sec = ECOSYSTEM.nodes.find(x => x.id === id);
       if(sec && sec.primary){
         if(!state.primary || state.primary !== sec.primary){
@@ -324,19 +327,14 @@
       }
       return;
     }
-    if(type === "seed"){
-      // if user taps seed, just highlight if done
-      if(state.mode === "done") setActivePath([state.end, state.primary, state.secondary, "seed"].filter(Boolean));
-      return;
-    }
   });
 
   cy.on("tap", (evt) => {
     if(evt.target === cy){
-      // background click: de-select step but keep end visible
       clearState();
       resetVisual(true);
       renderPath();
+      hidePopup();
     }
   });
 
@@ -344,19 +342,14 @@
     clearState();
     resetVisual(true);
     renderPath();
+    hidePopup();
   });
 
-  $btnShowAll.addEventListener("click", () => {
-    showAll();
-  });
+  $btnShowAll.addEventListener("click", () => { showAll(); });
 
   // --- Init
   clearState();
   resetVisual(true);
   renderPath();
-
-  // Center view smoothly
-  setTimeout(() => {
-    cy.fit(cy.elements(), 80);
-  }, 50);
+  setTimeout(() => { cy.fit(cy.elements(), 80); }, 50);
 })();

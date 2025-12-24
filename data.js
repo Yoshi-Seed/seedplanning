@@ -1,6 +1,32 @@
-// Edit here if you add more ecosystems.
-// Model: End Client -> Primary -> (Secondary?) -> SEED
+// Ecosystem graph + descriptions (for popups)
 window.ECOSYSTEM = {
+  descriptions: {
+    "eli_lilly": {
+      name: "Eli Lilly",
+      role: "エンドクライアント",
+      desc: "代謝・中枢神経。肥満症薬（Mounjaro）急成長に伴う生活実態・心理調査が急増 。"
+    },
+    "hall": {
+      name: "Hall & Partners",
+      role: "一次エージェンシー",
+      desc: "ブランド・コミュニケーション戦略に特化。定量・定性を融合したモデルを展開 。"
+    },
+    "tlg": {
+      name: "The Link Group",
+      role: "一次エージェンシー",
+      desc: "戦略的ブティック。定性調査とジャーニーマッピングに特化し、深い心理的洞察を提供 。"
+    },
+    "escalent": {
+      name: "Escalent",
+      role: "一次エージェンシー",
+      desc: "産業特化型の専門知識を持つミドル・ティア企業。大規模パネルと戦略的価値を両立 。"
+    },
+    "marketxcel": {
+      name: "MarketXcel",
+      role: "二次エージェンシー",
+      desc: "インド拠点のデータスペシャリスト。アジア全域へのアクセスと安価なデータ処理（KPO）を提供 。"
+    }
+  },
   nodes: [
     { id: "eli_lilly", label: "Eli Lilly\n(End Client)", type: "end" },
     { id: "seed", label: "シード・プランニング", type: "seed" },

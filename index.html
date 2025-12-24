@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>受注エコシステム（選択でふわっと展開）</title>
+  <title>受注エコシステム（展開 + 詳細ポップアップ）</title>
   <link rel="stylesheet" href="./styles.css" />
   <!-- Cytoscape + Dagre layout (CDN) -->
   <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
@@ -19,7 +19,7 @@
         <div class="badge">Interactive</div>
         <h1>受注エコシステム</h1>
         <p class="sub">
-          Lillyを選ぶ → 一次がふわっと表示。一次を選ぶ → 二次 or SEEDへの流れが展開。
+          クリックで段階的に展開しつつ、各ノードの詳細はポップアップで確認できます。
           <span class="muted">（全体は薄く残して俯瞰）</span>
         </p>
       </div>
@@ -37,7 +37,7 @@
       <div class="section">
         <div class="sectionTitle">ヒント</div>
         <ul class="tips">
-          <li>ノードをクリックで展開</li>
+          <li>ノードをクリックで展開 & 詳細表示</li>
           <li>空白をクリックで解除</li>
           <li>スクロールでズーム、ドラッグで移動</li>
         </ul>
@@ -50,10 +50,23 @@
 
     <main class="canvasWrap">
       <div class="topBar">
-        <div class="topTitle">クリックで「ふわっ」と展開</div>
-        <div class="topHint">End Client は常に表示 / 俯瞰用に未選択ノードは薄く残します</div>
+        <div class="topTitle">クリックで「ふわっ」と展開 + 詳細</div>
+        <div class="topHint">End Client は常に表示 / 詳細は右下ポップアップで表示</div>
       </div>
       <div id="cy" class="cy"></div>
+
+      <!-- Popup -->
+      <div id="popupBackdrop" class="popupBackdrop" hidden></div>
+      <section id="popup" class="popup" hidden role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <div class="popupTop">
+          <div>
+            <div id="popupKicker" class="popupKicker"></div>
+            <h2 id="popupTitle" class="popupTitle"></h2>
+          </div>
+          <button id="popupClose" class="popupClose" type="button" aria-label="閉じる">×</button>
+        </div>
+        <div id="popupBody" class="popupBody"></div>
+      </section>
     </main>
   </div>
 
