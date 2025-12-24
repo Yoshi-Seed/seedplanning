@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>受注エコシステム（展開 + 詳細ポップアップ）</title>
+  <title>受注エコシステム（複数End + 分岐ルート）</title>
   <link rel="stylesheet" href="./styles.css" />
   <!-- Cytoscape + Dagre layout (CDN) -->
   <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
@@ -16,30 +16,33 @@
   <div class="shell">
     <aside class="panel">
       <div class="panelTop">
-        <div class="badge">Interactive</div>
+        <div class="badge">Prototype</div>
         <h1>受注エコシステム</h1>
         <p class="sub">
-          クリックで段階的に展開しつつ、各ノードの詳細はポップアップで確認できます。
-          <span class="muted">（全体は薄く残して俯瞰）</span>
+          <b>End を選択 → 一次が展開 → ルート分岐があれば選択</b>（例：HRWは「直→SEED」も「Holden経由」も両方）
+          <span class="muted">全体は薄く残して俯瞰できます。</span>
         </p>
       </div>
 
       <div class="controls">
         <button id="btnReset" class="btn ghost" type="button">リセット</button>
         <button id="btnShowAll" class="btn ghost" type="button">全て表示</button>
+        <button id="btnZoomOut" class="btn ghost" type="button">ズームアウト</button>
       </div>
 
       <div class="section">
         <div class="sectionTitle">選択中の経路</div>
         <div id="path" class="path"></div>
+        <div id="routeHint" class="routeHint" hidden></div>
       </div>
 
       <div class="section">
         <div class="sectionTitle">ヒント</div>
         <ul class="tips">
-          <li>ノードをクリックで展開 & 詳細表示</li>
-          <li>空白をクリックで解除</li>
-          <li>スクロールでズーム、ドラッグで移動</li>
+          <li>まず End をクリック（複数End対応）</li>
+          <li>一次をクリック → 二次 or 直→SEED が展開</li>
+          <li>分岐がある場合は、SEED または二次をクリックして経路を確定</li>
+          <li>空白クリックで解除</li>
         </ul>
       </div>
 
@@ -51,7 +54,7 @@
     <main class="canvasWrap">
       <div class="topBar">
         <div class="topTitle">クリックで「ふわっ」と展開 + 詳細</div>
-        <div class="topHint">End Client は常に表示 / 詳細は右下ポップアップで表示</div>
+        <div class="topHint">ポップアップは社長向けに大きめ（Escで閉じる）</div>
       </div>
       <div id="cy" class="cy"></div>
 
