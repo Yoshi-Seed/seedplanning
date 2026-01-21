@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール登録 | シード・プランニング</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://www.genspark.ai/api/files/s/RbDe6Zjz" alt="SEED PLANNING" class="logo">
+            </div>
+            <h1>社員プロフィール 登録・編集</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <a href="index.html" class="btn btn-secondary">← 一覧に戻る</a>
+            </div>
+
+            <form id="profileForm" class="profile-form">
+                <input type="hidden" id="employeeId" name="employeeId">
+
+                <div class="form-section">
+                    <h2>基本情報</h2>
+                    
+                    <div class="form-group">
+                        <label for="employeeNumber">社員番号 <span class="required">*</span></label>
+                        <input type="text" id="employeeNumber" name="employeeNumber" required 
+                               placeholder="例: 001">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">氏名 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required 
+                               placeholder="例: 山田 太郎">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="department">所属 <span class="required">*</span></label>
+                            <select id="department" name="department" required>
+                                <option value="">選択してください</option>
+                                <option value="経営企画部">経営企画部</option>
+                                <option value="第1研究部">第1研究部</option>
+                                <option value="第2研究部">第2研究部</option>
+                                <option value="第3研究部">第3研究部</option>
+                                <option value="営業部">営業部</option>
+                                <option value="管理部">管理部</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="position">役職 <span class="required">*</span></label>
+                            <select id="position" name="position" required>
+                                <option value="">選択してください</option>
+                                <option value="代表取締役社長">代表取締役社長</option>
+                                <option value="取締役">取締役</option>
+                                <option value="執行役員">執行役員</option>
+                                <option value="部長">部長</option>
+                                <option value="次長">次長</option>
+                                <option value="課長">課長</option>
+                                <option value="主任研究員">主任研究員</option>
+                                <option value="研究員">研究員</option>
+                                <option value="アシスタント">アシスタント</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="joinYear">入社年 <span class="required">*</span></label>
+                        <input type="number" id="joinYear" name="joinYear" required 
+                               min="1970" max="2030" placeholder="例: 2020">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>担当分野</h2>
+                    <p class="section-description">複数選択可能です</p>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="エネルギー・環境">
+                            <span>エネルギー・環境</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="エレクトロニクス・IT">
+                            <span>エレクトロニクス・IT</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="その他の市場分野">
+                            <span>その他の市場分野</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="ヘルスケア">
+                            <span>ヘルスケア</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="メディカル・バイオ">
+                            <span>メディカル・バイオ</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="fields" value="医療IT">
+                            <span>医療IT</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>経歴・実績</h2>
+                    
+                    <div class="form-group">
+                        <label for="biography">略歴</label>
+                        <textarea id="biography" name="biography" rows="4" 
+                                  placeholder="学歴、前職、主な経験など"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recentProjects">最近のプロジェクト</label>
+                        <textarea id="recentProjects" name="recentProjects" rows="4" 
+                                  placeholder="直近で担当したプロジェクトを記載してください"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectRoles">プロジェクトでの役割</label>
+                        <textarea id="projectRoles" name="projectRoles" rows="3" 
+                                  placeholder="プロジェクトマネージャー、リサーチャー、アナリストなど"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="freeText">自由記述</label>
+                        <textarea id="freeText" name="freeText" rows="5" 
+                                  placeholder="専門スキル、資格、趣味、その他アピールポイントなど"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-large">保存</button>
+                    <button type="button" onclick="location.href='index.html'" class="btn btn-secondary btn-large">キャンセル</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Confidential | For internal use only</p>
+    </footer>
+
+    <script src="form.js"></script>
+</body>
+</html>

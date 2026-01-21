@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社員プロフィール | シード・プランニング</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://www.genspark.ai/api/files/s/RbDe6Zjz" alt="SEED PLANNING" class="logo">
+            </div>
+            <h1>社員プロフィール データベース</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="toolbar">
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="名前、担当分野、プロジェクトなどで検索..." class="search-input">
+                <button onclick="searchProfiles()" class="btn btn-primary">検索</button>
+                <button onclick="clearSearch()" class="btn btn-secondary">クリア</button>
+            </div>
+            <div class="action-section">
+                <a href="form.html" class="btn btn-add">+ 新規登録</a>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="fieldFilter">担当分野:</label>
+                <select id="fieldFilter" onchange="applyFilters()">
+                    <option value="">すべて</option>
+                    <option value="エネルギー・環境">エネルギー・環境</option>
+                    <option value="エレクトロニクス・IT">エレクトロニクス・IT</option>
+                    <option value="その他の市場分野">その他の市場分野</option>
+                    <option value="ヘルスケア">ヘルスケア</option>
+                    <option value="メディカル・バイオ">メディカル・バイオ</option>
+                    <option value="医療IT">医療IT</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="positionFilter">役職:</label>
+                <select id="positionFilter" onchange="applyFilters()">
+                    <option value="">すべて</option>
+                    <option value="代表取締役社長">代表取締役社長</option>
+                    <option value="取締役">取締役</option>
+                    <option value="執行役員">執行役員</option>
+                    <option value="部長">部長</option>
+                    <option value="次長">次長</option>
+                    <option value="課長">課長</option>
+                    <option value="主任研究員">主任研究員</option>
+                    <option value="研究員">研究員</option>
+                    <option value="アシスタント">アシスタント</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="deptFilter">所属:</label>
+                <select id="deptFilter" onchange="applyFilters()">
+                    <option value="">すべて</option>
+                    <option value="経営企画部">経営企画部</option>
+                    <option value="第1研究部">第1研究部</option>
+                    <option value="第2研究部">第2研究部</option>
+                    <option value="第3研究部">第3研究部</option>
+                    <option value="営業部">営業部</option>
+                    <option value="管理部">管理部</option>
+                </select>
+            </div>
+
+            <div class="results-count">
+                <span id="resultsCount">0</span> 件表示
+            </div>
+        </div>
+
+        <div id="profilesGrid" class="profiles-grid">
+            <!-- プロフィールカードがここに動的に表示されます -->
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <p>該当する社員が見つかりませんでした。</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Confidential | For internal use only</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
