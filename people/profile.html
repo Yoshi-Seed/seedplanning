@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール詳細 | シード・プランニング</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://www.genspark.ai/api/files/s/RbDe6Zjz" alt="SEED PLANNING" class="logo">
+            </div>
+            <h1>社員プロフィール 詳細</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-detail-container">
+            <div class="detail-header">
+                <a href="index.html" class="btn btn-secondary">← 一覧に戻る</a>
+                <div class="detail-actions">
+                    <button onclick="editProfile()" class="btn btn-primary">編集</button>
+                    <button onclick="deleteProfile()" class="btn btn-danger">削除</button>
+                </div>
+            </div>
+
+            <div id="profileDetail" class="profile-detail">
+                <!-- プロフィール詳細がここに動的に表示されます -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Confidential | For internal use only</p>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
