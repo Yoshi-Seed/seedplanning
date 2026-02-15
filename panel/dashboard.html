@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ダッシュボード - Seed Planning Medical Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-video {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text-en {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .logo-text-ja {
+            font-size: 16px;
+            color: #2c5282;
+            font-weight: 600;
+        }
+
+        .logout-link {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .logout-link:hover {
+            color: #2c5282;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 78px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: #3d5a73;
+            color: white;
+            padding: 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu .icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .user-info {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Points Section */
+        .points-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .points-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .points-display {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .points-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .points-value {
+            font-size: 36px;
+            font-weight: 600;
+            color: #2c5282;
+        }
+
+        .points-unit {
+            font-size: 24px;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        .points-exchange-btn {
+            background-color: #5a8b7e;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .points-exchange-btn:hover {
+            background-color: #4a7568;
+        }
+
+        /* History Section */
+        .history-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .history-list {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-date {
+            font-size: 14px;
+            color: #666;
+            margin-right: 20px;
+        }
+
+        .history-description {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .history-points {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .history-points.positive {
+            color: #5a8b7e;
+        }
+
+        .history-points.negative {
+            color: #d9534f;
+        }
+
+        /* Notifications Section */
+        .notifications-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .notification-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .notification-list li {
+            padding: 12px 0;
+            color: #333;
+            font-size: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .notification-list li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-list li::before {
+            content: "・";
+            margin-right: 8px;
+            color: #5a8b7e;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .points-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .points-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-logo">
+            <video 
+                class="logo-video" 
+                autoplay 
+                loop 
+                muted 
+                playsinline
+                poster="Entry_HCP_Panel_poster.png"
+            >
+                <source src="Entry_HCP_Panel_web.mp4" type="video/mp4">
+            </video>
+            <div class="logo-text">
+                <span class="logo-text-en">Seed Planning Medical Panel</span>
+                <span class="logo-text-ja">ドクターパネル</span>
+            </div>
+        </div>
+        <a href="#" class="logout-link" onclick="handleLogout(event)">ログアウト</a>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#">
+                        <span class="icon">👤</span>
+                        <span>ゲッソ五ガーザ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">📋</span>
+                        <span>回答履歴</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">📝</span>
+                        <span>ポイント履歴</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">🔔</span>
+                        <span>お知らせ</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="user-info">山田 太郎 大主 (循環器内科)</div>
+
+            <!-- Points Section -->
+            <section class="points-section">
+                <div class="points-header">
+                    <div class="points-display">
+                        <div class="points-label">現在のポイント</div>
+                        <div>
+                            <span class="points-value">12,500</span>
+                            <span class="points-unit">pt</span>
+                        </div>
+                    </div>
+                    <a href="#" class="points-exchange-btn" onclick="handleExchange(event)">
+                        ポイント交換へ →
+                    </a>
+                </div>
+
+                <!-- History -->
+                <div class="history-section">
+                    <h2 class="section-title">履歴</h2>
+                    <div class="history-list">
+                        <div class="history-item">
+                            <span class="history-date">2026/02/08</span>
+                            <span class="history-description">訪問参加</span>
+                            <span class="history-points positive">+800</span>
+                        </div>
+                        <div class="history-item">
+                            <span class="history-date">2026/02/01</span>
+                            <span class="history-description">訪問参加</span>
+                            <span class="history-points positive">+600</span>
+                        </div>
+                        <div class="history-item">
+                            <span class="history-date">2026/01/28</span>
+                            <span class="history-description">Amazonギフト交換</span>
+                            <span class="history-points negative">-5,000</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications -->
+            <section class="notifications-section">
+                <h2 class="section-title">お知らせ</h2>
+                <ul class="notification-list">
+                    <li>メンテナンスのお知らせ</li>
+                    <li>ポイント付与ルール更新</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function handleLogout(event) {
+            event.preventDefault();
+            if (confirm('ログアウトしますか？')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function handleExchange(event) {
+            event.preventDefault();
+            alert('ポイント交換機能は実装されていません（モックページ）');
+        }
+    </script>
+</body>
+</html>
