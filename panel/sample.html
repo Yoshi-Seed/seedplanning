@@ -1,0 +1,454 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  ClipboardList, 
+  Coins, 
+  History, 
+  Bell, 
+  LogOut, 
+  Menu, 
+  X, 
+  ArrowRight,
+  CheckCircle2,
+  ChevronRight,
+  Building,
+  Gift
+} from 'lucide-react';
+
+// --- 共通コンポーネント ---
+
+const Card = ({ children, className = '' }) => (
+  <div className={`bg-white rounded-[8px] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E6E8EB] ${className}`}>
+    {children}
+  </div>
+);
+
+const Button = ({ children, variant = 'primary', className = '', ...props }) => {
+  const baseStyle = "inline-flex items-center justify-center min-h-[44px] px-6 py-2 rounded-[8px] font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
+  const variants = {
+    primary: "bg-[#5F8475] text-white hover:bg-[#567A6C] focus:ring-[#5F8475]",
+    secondary: "bg-[#243A52] text-white hover:bg-[#334B60] focus:ring-[#243A52]",
+    outline: "border border-[#E6E8EB] text-[#2B2F33] bg-white hover:bg-[#F5F6F7] focus:ring-[#E6E8EB]",
+    ghost: "text-[#6B7280] hover:text-[#2B2F33] hover:bg-[#F5F6F7] focus:ring-[#E6E8EB]"
+  };
+  return (
+    <button className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>
+      {children}
+    </button>
+  );
+};
+
+const Input = ({ className = '', ...props }) => (
+  <input 
+    className={`min-h-[44px] w-full border border-[#E6E8EB] rounded-[8px] px-4 py-2 text-[#2B2F33] placeholder-[#6B7280] focus:outline-none focus:border-[#5F8475] focus:ring-1 focus:ring-[#5F8475] transition-colors ${className}`} 
+    {...props} 
+  />
+);
+
+// --- 画面コンポーネント ---
+
+// 1. ログイン画面
+const LoginView = ({ onLogin }) => {
+  return (
+    <div className="min-h-screen bg-[#F5F6F7] flex items-center justify-center p-4">
+      <Card className="w-full max-w-md p-8">
+        {/* ロゴ動画プレースホルダー（ガイドライン準拠: autoplay / muted / playsinline） */}
+        <div className="mb-8 rounded-[8px] overflow-hidden bg-[#E6E8EB] relative aspect-video flex items-center justify-center">
+           <video 
+             className="absolute inset-0 w-full h-full object-cover opacity-80"
+             autoPlay 
+             muted 
+             playsInline 
+             // 実際の運用では Entry_HCP_Panel_web.mp4 を指定
+             src="https://www.w3schools.com/html/mov_bbb.mp4" 
+           />
+           <div className="relative z-10 bg-white/90 px-4 py-2 rounded text-[#243A52] font-bold tracking-wider text-sm">
+             Seed Planning Medical Panel
+           </div>
+        </div>
+
+        <h1 className="text-xl font-bold text-[#2B2F33] mb-6 text-center">ログイン</h1>
+        
+        <form onSubmit={(e) => { e.preventDefault(); onLogin(); }} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-[#6B7280] mb-2">メールアドレス または 医師ID</label>
+            <Input type="text" placeholder="IDを入力" required />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#6B7280] mb-2">パスワード</label>
+            <Input type="password" placeholder="パスワードを入力" required />
+          </div>
+          
+          <div className="pt-4">
+            <Button type="submit" variant="primary" className="w-full">
+              ログイン
+            </Button>
+          </div>
+        </form>
+        
+        <div className="mt-6 text-center">
+          <a href="#" className="text-sm text-[#5F8475] hover:underline">パスワードをお忘れの方</a>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+// 2. ダッシュボード画面
+const DashboardView = ({ onNavigate }) => {
+  const surveys = [
+    { id: 1, title: "循環器領域における新規治療薬の処方実態調査", time: "約15分", point: "2,000" },
+    { id: 2, title: "オンライン診療ツールの導入と課題に関するアンケート", time: "約5分", point: "500" },
+    { id: 3, title: "特定の希少疾患に関する専門医インタビュー（事前スクリーニング）", time: "約3分", point: "200" }
+  ];
+
+  const histories = [
+    { date: "2023.10.15", title: "糖尿病治療に関するアンケート", point: "+1,000" },
+    { date: "2023.09.28", title: "ポイント交換（Amazonギフト券）", point: "-5,000" },
+    { date: "2023.09.10", title: "呼吸器疾患に関する調査", point: "+1,500" }
+  ];
+
+  return (
+    <div className="space-y-8 max-w-6xl mx-auto">
+      <h2 className="text-2xl font-bold text-[#2B2F33]">ダッシュボード</h2>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+        
+        {/* 左側メインカラム：調査リスト・履歴 */}
+        <div className="lg:col-span-2 space-y-8">
+          
+          {/* 参加可能な調査（最重要） */}
+          <section>
+            <div className="flex items-center mb-4">
+              <ClipboardList className="w-5 h-5 text-[#243A52] mr-2" />
+              <h3 className="text-lg font-bold text-[#2B2F33]">参加可能な調査</h3>
+              <span className="ml-3 bg-[#E6E8EB] text-[#6B7280] text-xs font-bold px-2 py-1 rounded-full">{surveys.length}件</span>
+            </div>
+            
+            <div className="space-y-4">
+              {surveys.map((survey) => (
+                <Card key={survey.id} className="p-5 md:p-6 hover:border-[#5F8475] transition-colors">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex-1">
+                      <h4 className="text-[16px] font-medium text-[#2B2F33] leading-relaxed mb-3">
+                        {survey.title}
+                      </h4>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-[#6B7280]">
+                        <span className="flex items-center">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E6E8EB] mr-2"></span>
+                          所要時間: {survey.time}
+                        </span>
+                        <span className="flex items-center">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E6E8EB] mr-2"></span>
+                          謝礼: {survey.point} pt
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <Button className="w-full sm:w-auto">回答する</Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {/* 履歴（透明性＝信頼） */}
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center">
+                <History className="w-5 h-5 text-[#243A52] mr-2" />
+                <h3 className="text-lg font-bold text-[#2B2F33]">最近の履歴</h3>
+              </div>
+              <button className="text-sm text-[#5F8475] hover:underline flex items-center">
+                すべて見る <ChevronRight className="w-4 h-4 ml-1" />
+              </button>
+            </div>
+            <Card className="overflow-hidden">
+              <div className="divide-y divide-[#E6E8EB]">
+                {histories.map((history, i) => (
+                  <div key={i} className="flex items-center justify-between p-4 hover:bg-[#F5F6F7] transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                      <span className="text-sm text-[#6B7280] w-24">{history.date}</span>
+                      <span className="text-sm font-medium text-[#2B2F33]">{history.title}</span>
+                    </div>
+                    <span className={`text-sm font-medium whitespace-nowrap ${history.point.startsWith('+') ? 'text-[#243A52]' : 'text-[#6B7280]'}`}>
+                      {history.point} pt
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </section>
+
+        </div>
+
+        {/* 右側サイドカラム：ポイント・お知らせ */}
+        <div className="space-y-8">
+          
+          {/* ポイント（控えめに） */}
+          <section>
+            <Card className="p-6 border-t-4 border-t-[#243A52]">
+              <h3 className="text-sm font-bold text-[#6B7280] mb-2 flex items-center">
+                <Coins className="w-4 h-4 mr-2" />現在のポイント
+              </h3>
+              <div className="flex items-baseline mb-6">
+                <span className="text-[28px] font-bold text-[#243A52] tracking-tight">12,500</span>
+                <span className="text-sm text-[#6B7280] ml-2">pt</span>
+              </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => onNavigate('exchange')}
+              >
+                ポイントを交換する
+              </Button>
+            </Card>
+          </section>
+
+          {/* お知らせ（静かに） */}
+          <section>
+            <div className="flex items-center mb-4">
+              <Bell className="w-5 h-5 text-[#243A52] mr-2" />
+              <h3 className="text-lg font-bold text-[#2B2F33]">お知らせ</h3>
+            </div>
+            <Card className="p-0">
+              <div className="divide-y divide-[#E6E8EB]">
+                <div className="p-4 hover:bg-[#F5F6F7] cursor-pointer transition-colors">
+                  <div className="text-xs text-[#6B7280] mb-1">2023.10.01</div>
+                  <div className="text-sm text-[#2B2F33] leading-snug">医師向けパネルサイトをリニューアルいたしました。</div>
+                </div>
+                <div className="p-4 hover:bg-[#F5F6F7] cursor-pointer transition-colors">
+                  <div className="text-xs text-[#6B7280] mb-1">2023.09.25</div>
+                  <div className="text-sm text-[#2B2F33] leading-snug">システムメンテナンスのお知らせ（10月15日 AM2:00-5:00）</div>
+                </div>
+              </div>
+            </Card>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 3. ポイント交換画面
+const ExchangeView = ({ onNavigate }) => {
+  const [step, setStep] = useState('input'); // 'input' | 'success'
+
+  if (step === 'success') {
+    return (
+      <div className="max-w-2xl mx-auto mt-10">
+        <Card className="p-10 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#F0F5F3] text-[#4F7A6D] mb-6">
+            <CheckCircle2 className="w-8 h-8" />
+          </div>
+          <h2 className="text-xl font-bold text-[#2B2F33] mb-4">ポイント交換の申請を受け付けました</h2>
+          <p className="text-[#6B7280] text-sm mb-8 leading-relaxed">
+            申請内容を確認の上、ご指定の交換先へ手続きを行います。<br />
+            完了まで数営業日かかる場合がございます。
+          </p>
+          <Button onClick={() => onNavigate('dashboard')} variant="outline">
+            ダッシュボードへ戻る
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-3xl mx-auto space-y-8">
+      <div className="flex items-center text-sm text-[#6B7280] mb-6">
+        <button onClick={() => onNavigate('dashboard')} className="hover:text-[#2B2F33] transition-colors">ダッシュボード</button>
+        <ChevronRight className="w-4 h-4 mx-2" />
+        <span className="text-[#2B2F33]">ポイント交換</span>
+      </div>
+
+      <h2 className="text-2xl font-bold text-[#2B2F33]">ポイント交換</h2>
+
+      <div className="bg-white p-6 rounded-[8px] border border-[#E6E8EB] flex items-center justify-between mb-8">
+        <span className="text-[#6B7280] font-medium">交換可能ポイント</span>
+        <div className="text-xl font-bold text-[#243A52]">12,500 <span className="text-sm font-normal text-[#6B7280]">pt</span></div>
+      </div>
+
+      <Card className="p-6 md:p-8">
+        <h3 className="text-lg font-bold text-[#2B2F33] mb-6 border-b border-[#E6E8EB] pb-4">交換先の選択</h3>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          {/* 交換先選択肢（シンプルに） */}
+          <label className="relative flex items-start p-4 cursor-pointer rounded-[8px] border-2 border-[#5F8475] bg-[#F5F8F7]">
+            <div className="flex items-center h-5">
+              <input type="radio" name="exchange_method" defaultChecked className="w-4 h-4 text-[#5F8475] focus:ring-[#5F8475] border-gray-300" />
+            </div>
+            <div className="ml-3 flex flex-col">
+              <span className="block text-sm font-medium text-[#2B2F33] flex items-center mb-1">
+                <Gift className="w-4 h-4 mr-2 text-[#5F8475]" /> Amazonギフト券
+              </span>
+              <span className="block text-xs text-[#6B7280]">登録メールアドレスへ送付</span>
+            </div>
+          </label>
+
+          <label className="relative flex items-start p-4 cursor-pointer rounded-[8px] border border-[#E6E8EB] hover:bg-[#F5F6F7] transition-colors">
+            <div className="flex items-center h-5">
+              <input type="radio" name="exchange_method" className="w-4 h-4 text-[#5F8475] focus:ring-[#5F8475] border-gray-300" />
+            </div>
+            <div className="ml-3 flex flex-col">
+              <span className="block text-sm font-medium text-[#2B2F33] flex items-center mb-1">
+                <Building className="w-4 h-4 mr-2 text-[#6B7280]" /> 銀行振込
+              </span>
+              <span className="block text-xs text-[#6B7280]">ご登録の銀行口座へ振込</span>
+            </div>
+          </label>
+        </div>
+
+        <h3 className="text-lg font-bold text-[#2B2F33] mb-6 border-b border-[#E6E8EB] pb-4">交換ポイント数の入力</h3>
+        <div className="max-w-xs mb-8">
+          <label className="block text-sm font-medium text-[#6B7280] mb-2">ポイント数 (1,000pt単位)</label>
+          <div className="relative">
+            <Input type="number" defaultValue="5000" step="1000" min="1000" max="12500" />
+            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-[#6B7280] text-sm">
+              pt
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-end pt-6 border-t border-[#E6E8EB]">
+          <Button onClick={() => setStep('success')} className="min-w-[200px]">
+            申請内容を確認する
+          </Button>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+
+// --- メインレイアウトとルーティング ---
+
+export default function App() {
+  const [currentView, setCurrentView] = useState('login'); // 'login' | 'dashboard' | 'exchange'
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // ログイン画面は独立したレイアウト
+  if (currentView === 'login') {
+    return <LoginView onLogin={() => setCurrentView('dashboard')} />;
+  }
+
+  const menuItems = [
+    { id: 'dashboard', label: 'ダッシュボード', icon: ClipboardList },
+    { id: 'exchange', label: 'ポイント交換', icon: Coins },
+    { id: 'history', label: '履歴照会', icon: History },
+    { id: 'settings', label: '登録情報変更', icon: Bell },
+  ];
+
+  return (
+    <div className="flex min-h-screen bg-[#F5F6F7] font-sans">
+      
+      {/* PC用 Sidebar (固定 260px) */}
+      <aside className="hidden md:flex flex-col w-[260px] bg-[#334B60] text-[#E6E8EB] fixed h-full z-20">
+        <div className="h-[72px] flex items-center px-6 border-b border-white/10">
+          <h1 className="text-white font-bold text-sm tracking-wide">Medical Panel</h1>
+        </div>
+        <nav className="flex-1 py-6 px-4 space-y-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = currentView === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setCurrentView(item.id)}
+                className={`w-full flex items-center px-4 py-3 rounded-[8px] transition-colors min-h-[44px] ${
+                  isActive 
+                    ? 'bg-white/10 text-white font-medium' 
+                    : 'text-[#E6E8EB] hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <Icon className="w-5 h-5 mr-3 opacity-80" />
+                <span className="text-sm">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <div className="p-4 border-t border-white/10">
+          <button 
+            onClick={() => setCurrentView('login')}
+            className="w-full flex items-center px-4 py-3 text-sm text-[#E6E8EB] hover:text-white hover:bg-white/5 rounded-[8px] transition-colors min-h-[44px]"
+          >
+            <LogOut className="w-5 h-5 mr-3 opacity-80" />
+            ログアウト
+          </button>
+        </div>
+      </aside>
+
+      {/* モバイル用 Drawer Menu (768px以下) */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden flex">
+          <div className="fixed inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)}></div>
+          <aside className="relative w-64 max-w-[80%] bg-[#334B60] h-full flex flex-col shadow-xl">
+            <div className="h-[72px] flex items-center justify-between px-4 border-b border-white/10">
+              <span className="text-white font-bold text-sm">Medical Panel</span>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <nav className="flex-1 py-4 px-2 space-y-1">
+              {menuItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = currentView === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => { setCurrentView(item.id); setIsMobileMenuOpen(false); }}
+                    className={`w-full flex items-center px-4 py-3 rounded-[8px] min-h-[44px] ${
+                      isActive ? 'bg-white/10 text-white font-medium' : 'text-[#E6E8EB]'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5 mr-3" />
+                    <span className="text-sm">{item.label}</span>
+                  </button>
+                );
+              })}
+            </nav>
+          </aside>
+        </div>
+      )}
+
+      {/* メインコンテンツエリア */}
+      <div className="flex-1 flex flex-col md:ml-[260px] min-w-0">
+        
+        {/* Header (固定 72px) */}
+        <header className="h-[72px] bg-white border-b border-[#E6E8EB] flex items-center justify-between px-4 md:px-8 sticky top-0 z-10">
+          <div className="flex items-center">
+            {/* モバイル用ハンバーガーメニュー */}
+            <button 
+              className="md:hidden mr-4 text-[#2B2F33] min-h-[44px] min-w-[44px] flex items-center justify-center -ml-2"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <span className="md:hidden font-bold text-[#243A52] text-sm">Medical Panel</span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-[#2B2F33] hidden sm:block">山田 太郎 先生</span>
+            <div className="w-8 h-8 rounded-full bg-[#E6E8EB] flex items-center justify-center text-[#6B7280] text-sm font-bold">
+              山
+            </div>
+          </div>
+        </header>
+
+        {/* コンテンツ本体 (Main padding: 32-40px PC, 16px Mobile) */}
+        <main className="flex-1 p-4 md:p-8 overflow-x-hidden">
+          {currentView === 'dashboard' && <DashboardView onNavigate={setCurrentView} />}
+          {currentView === 'exchange' && <ExchangeView onNavigate={setCurrentView} />}
+          {/* その他はモック省略 */}
+          {['history', 'settings'].includes(currentView) && (
+             <div className="text-center py-20 text-[#6B7280]">
+               この画面（{currentView}）はモックアップのため準備中です。<br/>
+               左メニューまたは画面上のリンクから「ダッシュボード」か「ポイント交換」をご覧ください。
+             </div>
+          )}
+        </main>
+      </div>
+      
+    </div>
+  );
+}
