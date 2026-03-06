@@ -173,19 +173,38 @@ a{ color: inherit; }
 /* Home hero */
 .hero{
   background: var(--c-olive);
+  background-image: url('header_pattern_new.png');
+  background-size: auto 230px;
+  background-position: top center;
+  background-repeat: repeat-x;
   color: var(--c-base-bg);
-  padding: 48px 0 40px;
+  padding: 420px 0 120px;
+  display: flex;
+  align-items: flex-end;
+}
+.hero .wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 0;
+  padding-right: var(--pad-x);
+  margin-top: auto;
+  margin-bottom: 0;
+  margin-left: 40px;
 }
 .hero__title{
-  margin:0;
-  font-size: var(--fs-xxl);
+  margin:0 0 0 0;
+  font-size: 60px;
   font-weight: 500;
-  letter-spacing: .06em;
+  letter-spacing: .02em;
+  padding-left: 0;
 }
 .hero__subtitle{
-  margin: 10px 0 0;
-  font-size: 18px;
+  margin: 10px 0 0 40px;
+  font-size: 28px;
   opacity: .95;
+  padding-left: 0;
+  letter-spacing: .02em;
 }
 
 /* ===== Section basics ===== */
