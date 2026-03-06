@@ -2,7 +2,16 @@
   Interactions
   - Home: left list toggles right detail panel
   - Voice cards: "続きを読む" expands / collapses
+  - Menu bar: mobile toggle
 */
+
+// ===== Menu bar toggle (mobile) =====
+function toggleMenu() {
+  const nav = document.getElementById('menuNav');
+  if (nav) {
+    nav.classList.toggle('is-open');
+  }
+}
 
 (function(){
   // ===== Home topic switcher =====
