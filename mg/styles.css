@@ -554,10 +554,14 @@ a{ color: inherit; }
 
 /* ===== Contact / Footer ===== */
 .contact{
-  margin-top: 74px;
+  margin-top: 0;
   background: var(--c-olive);
   color: var(--c-base-bg);
   padding: 54px 0;
+}
+.contact .wrap{
+  padding-left: 0;
+  margin-left: 60px;
 }
 .contact__grid{
   display:grid;
@@ -567,12 +571,13 @@ a{ color: inherit; }
 }
 .contact__title{
   margin:0 0 26px;
-  font-size: 26px;
+  font-size: 36px;
   letter-spacing:.12em;
 }
 .contact__company{
   margin:0 0 10px;
   font-weight: 700;
+  font-size: 20px;
   letter-spacing:.06em;
 }
 .contact__line{
@@ -580,7 +585,13 @@ a{ color: inherit; }
   display:flex;
   gap: 10px;
   align-items:flex-start;
-  font-size: 14px;
+  font-size: 16px;
+}
+.contact__icon{
+  width: 45px;
+  height: 36px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
 }
 .contact__icons{
   display:flex;
@@ -588,24 +599,33 @@ a{ color: inherit; }
   margin-top: 18px;
 }
 .social{
-  width: 26px;
-  height: 26px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(255,248,237,.55);
-  border-radius: 6px;
-  text-decoration:none;
-  font-weight: 800;
+  width: 40px;
+  height: 40px;
+  display:inline-block;
+  background-image: url('social_icons.png');
+  background-size: 80px 40px;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.social--x{
+  background-position: 0 0;
+}
+.social--instagram{
+  background-position: -40px 0;
 }
 
 .footer{
   background: var(--c-base-bg);
   padding: 22px 0 28px;
 }
+.footer .wrap{
+  padding-left: 0;
+  margin-left: 60px;
+}
 .footer__grid{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto;
   gap: 18px;
   align-items:start;
 }
@@ -618,6 +638,7 @@ a{ color: inherit; }
 .footer__copy{
   font-size: 12px;
   opacity:.85;
+  margin-top: 20px;
 }
 .footer__nav{
   display:grid;
@@ -625,6 +646,7 @@ a{ color: inherit; }
   gap: 10px 26px;
   justify-content:end;
   font-size: 13px;
+  padding-right: 100px;
 }
 .footer__nav a{ text-decoration:none; }
 .footer__nav a:hover{ text-decoration:underline; }
