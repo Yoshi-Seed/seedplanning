@@ -224,23 +224,41 @@ a{ color: inherit; }
 /* ===== Home: intro ===== */
 .intro{
   background: var(--c-base-bg);
-  padding: 46px 0 54px;
+  padding: 120px 0 90px;
+}
+.intro .wrap {
+  padding-left: 0;
+  margin-left: 0;
+  max-width: 100%;
+  width: 100%;
+  padding-right: 80px;
 }
 .intro__grid{
   display:grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 48px;
+  grid-template-columns: 1.3fr 1.3fr;
+  gap: 10px;
   align-items:center;
+  margin-left: 120px;
+}
+.intro__grid > div:last-child {
+  margin-left: -30px;
+}
+.intro__image-wrapper {
+  margin-left: 0;
+}
+.intro__image {
+  transform: translateX(-20px) scale(1.0);
 }
 .intro__title{
   margin:0 0 18px;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 42px;
+  font-weight: 400;
   letter-spacing:.05em;
 }
 .intro__text{
   margin:0;
-  font-size: var(--fs-md);
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 /* ===== Home: topic picker ===== */
