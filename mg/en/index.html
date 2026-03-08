@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Living with "Invisible Symptoms" — Voices of Myasthenia Gravis Patients</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script defer src="scripts.js"></script>
+</head>
+<body>
+  <!-- Menu Bar -->
+  <nav class="menu-bar">
+    <div class="menu-bar__wrap">
+      <a href="index.html" class="menu-bar__logo">
+        <img src="../seedplanning_logo.png" alt="SEED PLANNING" />
+      </a>
+      <button class="menu-bar__toggle" type="button" aria-label="Menu" onclick="toggleMenu()">☰</button>
+      <div class="menu-bar__nav" id="menuNav">
+        <a href="index.html" class="is-active">HOME</a>
+        <a href="diagnosis.html">Path to Diagnosis</a>
+        <a href="daily.html">Daily Life Challenges</a>
+        <a href="medical.html">Navigating Medical Care</a>
+        <a href="message.html">Messages to Share</a>
+        <a href="resources.html">Resources &amp; Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO (HOME only) -->
+  <header class="hero">
+    <div class="wrap">
+      <h1 class="hero__title">Living with "Invisible Symptoms"</h1>
+      <p class="hero__subtitle">— Voices of Myasthenia Gravis Patients</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Intro -->
+    <section class="intro">
+      <div class="wrap">
+        <div class="intro__grid">
+          <div class="intro__image-wrapper">
+            <img src="../flower%20and%20bird.png" alt="" aria-hidden="true" class="intro__image" />
+          </div>
+          <div>
+            <h2 class="intro__title">To You, Living with Invisible Symptoms</h2>
+            <p class="intro__text">
+              Myasthenia gravis is a designated intractable disease with many symptoms that are<br>difficult to see from the outside, and it often takes time to reach a diagnosis.<br>Symptoms can also fluctuate depending on the time of day and physical condition,<br>making it difficult for those around you to fully understand. This "invisibility"<br>can lead to burdens not only in daily life but also emotionally.<br><br>
+              We interviewed seven myasthenia gravis patients and compiled their experiences<br>on the path to diagnosis, challenges in daily life, navigating medical care,<br>and the thoughts born from their experiences.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topic picker (HOME) -->
+    <section class="topic-picker">
+      <div class="wrap">
+        <div class="topic-picker__grid">
+          <!-- Left list -->
+          <nav class="topic-list" aria-label="Topics">
+            <button class="topic-list__item is-active" type="button" data-topic-button="diagnosis">Path to Diagnosis</button>
+            <button class="topic-list__item" type="button" data-topic-button="daily">Daily Life Challenges</button>
+            <button class="topic-list__item" type="button" data-topic-button="medical">Navigating Medical Care</button>
+            <button class="topic-list__item" type="button" data-topic-button="message">Messages to Share</button>
+          </nav>
+
+          <!-- Right detail (4 panels) -->
+          <div>
+            <!-- Diagnosis -->
+            <article class="topic-detail" data-topic-panel="diagnosis">
+              <img class="topic-detail__icon" src="../yellow_icon.png" alt="" aria-hidden="true" />
+              <p class="topic-detail__kicker">The experience from hard-to-notice symptoms to reaching a diagnosis</p>
+              <h3 class="topic-detail__title">Path to Diagnosis</h3>
+              <div class="rule" aria-hidden="true"></div>
+              <p class="topic-detail__body">
+                Myasthenia gravis has early symptoms that are difficult to recognize, and it can take time to reach a diagnosis.
+                Here, we summarize patients' experiences of initial discomfort, confusion, and uncertainty on the way to diagnosis.
+              </p>
+              <ul class="topic-detail__bullets">
+                <li>I thought it was just fatigue</li>
+                <li>I visited multiple departments without getting a diagnosis</li>
+                <li>Antibodies were not detected, and a psychogenic cause was suspected</li>
+                <li>Learning it was a "designated intractable disease" through an internet search heightened my anxiety</li>
+              </ul>
+              <a class="pill-link" href="diagnosis.html">Explore this topic</a>
+            </article>
+
+            <!-- Daily -->
+            <article class="topic-detail" data-topic-panel="daily" hidden>
+              <img class="topic-detail__icon" src="../red_icon.png" alt="" aria-hidden="true" />
+              <p class="topic-detail__kicker">Living with daily fluctuations while finding ways to cope</p>
+              <h3 class="topic-detail__title">Daily Life Challenges</h3>
+              <div class="rule" aria-hidden="true"></div>
+              <p class="topic-detail__body">
+                Because the symptoms are "invisible," difficulties can arise that are hard for others to understand.
+                Here, we summarize the realities of living with symptom fluctuations, daily coping strategies, and emotional burden.
+              </p>
+              <ul class="topic-detail__bullets">
+                <li>Symptoms worsen in the evening / vary greatly day to day</li>
+                <li>Increased difficulty with walking, stairs, and fine motor tasks</li>
+                <li>The challenge of choosing not to push yourself</li>
+                <li>The emotional toll of not being understood</li>
+              </ul>
+              <a class="pill-link" href="daily.html">Explore this topic</a>
+            </article>
+
+            <!-- Medical -->
+            <article class="topic-detail" data-topic-panel="medical" hidden>
+              <img class="topic-detail__icon" src="../plum_icon.png" alt="" aria-hidden="true" />
+              <p class="topic-detail__kicker">Treatment choices and the relationship with healthcare providers</p>
+              <h3 class="topic-detail__title">Navigating Medical Care</h3>
+              <div class="rule" aria-hidden="true"></div>
+              <p class="topic-detail__body">
+                There is no single treatment, and choices must be made to fit one's lifestyle and values.
+                Here, we summarize voices about treatment decisions and relationships with healthcare providers.
+              </p>
+              <ul class="topic-detail__bullets">
+                <li>Choosing based on efficacy, side effects, cost, and impact on daily life</li>
+                <li>Building trust through explanation and ongoing dialogue</li>
+                <li>Organizing information during periods of high anxiety</li>
+                <li>Relationships with primary physicians and nurses</li>
+              </ul>
+              <a class="pill-link" href="medical.html">Explore this topic</a>
+            </article>
+
+            <!-- Message -->
+            <article class="topic-detail" data-topic-panel="message" hidden>
+              <img class="topic-detail__icon" src="../green_icon.png" alt="" aria-hidden="true" />
+              <p class="topic-detail__kicker">The power of connection, and what we want you to know</p>
+              <h3 class="topic-detail__title">Messages to Share</h3>
+              <div class="rule" aria-hidden="true"></div>
+              <p class="topic-detail__body">
+                Meeting others with the same disease and having a safe space to talk can be a source of emotional support.
+                Here, we summarize the messages patients want to share.
+              </p>
+              <ul class="topic-detail__bullets">
+                <li>Through social media and communities, I felt "I'm not alone"</li>
+                <li>Finding the right fit with healthcare providers and support contacts matters</li>
+                <li>Knowing about support systems and public resources</li>
+                <li>Don't push yourself — build a support network you can rely on</li>
+              </ul>
+              <a class="pill-link" href="message.html">Explore this topic</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contact + Footer -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact__grid">
+        <div>
+          <h2 class="contact__title">Contact Us</h2>
+          <p class="contact__company">Seed Planning, Inc.</p>
+
+          <div class="contact__line">
+            <img src="../icon_mail.png" alt="" aria-hidden="true" class="contact__icon" />
+            <span>sf-info@seedplanning.co.jp</span>
+          </div>
+          <div class="contact__line">
+            <img src="../icon_phone.png" alt="" aria-hidden="true" class="contact__icon" />
+            <span>080-3454-8308</span>
+          </div>
+          <div class="contact__line">
+            <img src="../icon_location.png" alt="" aria-hidden="true" class="contact__icon" />
+            <span>Yushima First Bldg. 4F, 3-19-11 Yushima, Bunkyo-ku, Tokyo 113-0034, Japan</span>
+          </div>
+
+          <div class="contact__icons" aria-label="Social Media">
+            <a class="social social--x" href="#" aria-label="X"></a>
+            <a class="social social--instagram" href="#" aria-label="Instagram"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">
+            <img src="../seedplanning_logo.png" alt="SEED PLANNING" />
+          </div>
+          <div class="footer__copy">© Seed Planning Co., Ltd.</div>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer Navigation">
+          <a href="diagnosis.html">Path to Diagnosis</a>
+          <a href="message.html">Messages to Share</a>
+          <a href="daily.html">Daily Life Challenges</a>
+          <a href="resources.html">Resources &amp; Support</a>
+          <a href="medical.html">Navigating Medical Care</a>
+          <a href="#contact">Contact Us</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
