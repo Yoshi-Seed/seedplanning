@@ -505,7 +505,7 @@ a{ color: inherit; }
 }
 .voice-card__tape{
   position:absolute;
-  top: 0;
+  top: -19px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
   width: 170px;
