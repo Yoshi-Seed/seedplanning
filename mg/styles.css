@@ -575,12 +575,9 @@ a{ color: inherit; }
   letter-spacing: 0.08em;
 }
 .section-nav__arrow{
-  display: flex;
-  align-items: center;
-}
-.section-nav__arrow svg{
   width: 88px;
   height: 32px;
+  display: block;
 }
 
 /* ===== Resources page ===== */
