@@ -162,6 +162,50 @@ a{ color: inherit; }
   }
 }
 
+/* ===== Page Header (detail pages) ===== */
+.page-header {
+  background: #f5f0e8;
+  padding: 40px 0;
+  border-top: 1px solid #7d5d02;
+  border-bottom: 1px solid #7d5d02;
+}
+
+.page-header__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header__title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #7d5d02;
+  letter-spacing: 0.12em;
+}
+
+.page-header__icon {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.page-header__subtitle {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7d5d02;
+  letter-spacing: 0.06em;
+}
+
+.page-header__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--c-base-text);
+}
+
 /* ===== Header (common) ===== */
 .pattern-strip{
   height: 92px;
