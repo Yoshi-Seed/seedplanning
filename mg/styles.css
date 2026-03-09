@@ -561,7 +561,10 @@ a{ color: inherit; }
 /* ===== Section Navigation ===== */
 .section-nav{
   margin-top: 60px;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 .section-nav__link{
   display: inline-flex;
@@ -569,6 +572,12 @@ a{ color: inherit; }
   gap: 16px;
   text-decoration: none;
   transition: opacity 0.3s ease;
+}
+.section-nav__link--left{
+  justify-content: flex-start;
+}
+.section-nav__link--right{
+  justify-content: flex-end;
 }
 .section-nav__link:hover{
   opacity: 0.7;
