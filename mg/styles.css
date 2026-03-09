@@ -578,6 +578,7 @@ a{ color: inherit; }
 }
 .section-nav__link--right{
   justify-content: flex-end;
+  margin-left: auto;
 }
 .section-nav__link:hover{
   opacity: 0.7;
