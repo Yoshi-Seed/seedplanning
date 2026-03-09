@@ -469,7 +469,7 @@ a{ color: inherit; }
 
 /* ===== Voice section ===== */
 .voice-section{
-  padding: 26px 0 64px;
+  padding: 26px 0 100px;
 }
 .voice-header{
   display:flex;
