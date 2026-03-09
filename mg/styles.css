@@ -553,6 +553,36 @@ a{ color: inherit; }
   letter-spacing:.08em;
 }
 
+/* ===== Section Navigation ===== */
+.section-nav{
+  margin-top: 60px;
+  text-align: right;
+}
+.section-nav__link{
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.section-nav__link:hover{
+  opacity: 0.7;
+}
+.section-nav__text{
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--c-text);
+  letter-spacing: 0.08em;
+}
+.section-nav__arrow{
+  display: flex;
+  align-items: center;
+}
+.section-nav__arrow svg{
+  width: 88px;
+  height: 32px;
+}
+
 /* ===== Resources page ===== */
 .resource-hero{
   background: var(--c-resources-header);
