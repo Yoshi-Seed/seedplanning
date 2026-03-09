@@ -508,16 +508,14 @@ a{ color: inherit; }
   top: -7px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
-  width: 173px;
-  height: 51px;
+  width: 170px;
+  height: 38px;
   overflow: hidden;
 }
 .voice-card__tape img{
-  width: 100%;
-  height: 100%;
+  width: 220px;
   display: block;
-  object-fit: cover;
-  object-position: center center;
+  margin-top: -10px;
   filter: var(--tape-filter, none);
 }
 
