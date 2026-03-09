@@ -509,16 +509,15 @@ a{ color: inherit; }
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
   width: 170px;
-  height: 35px;
+  height: 25px;
   overflow: hidden;
-  display: flex;
-  align-items: flex-start;
 }
 .voice-card__tape img{
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  margin-top: -5px;
+  object-fit: cover;
+  object-position: center top;
   filter: var(--tape-filter, none);
 }
 
