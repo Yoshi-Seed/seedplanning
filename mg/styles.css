@@ -476,6 +476,7 @@ a{ color: inherit; }
   align-items:center;
   justify-content:space-between;
   padding: 22px 0;
+  margin-bottom: 30px;
   border-top: 1px solid var(--c-line);
   border-bottom: 1px solid var(--c-line);
 }
