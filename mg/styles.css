@@ -121,6 +121,7 @@ a{ color: inherit; }
 .menu-bar__nav a.is-active{
   background: rgba(125, 93, 2, .15);
   font-weight: 700;
+  border-radius: 12px;
 }
 
 /* Mobile menu toggle */
@@ -643,12 +644,13 @@ a{ color: inherit; }
   display:flex;
   gap: 14px;
   align-items:center;
+  margin-top: 20px;
 }
 .footer__brand img{ width: 190px; }
 .footer__copy{
   font-size: 12px;
   opacity:.85;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .footer__nav{
   display:grid;
