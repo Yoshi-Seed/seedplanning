@@ -180,8 +180,8 @@ a{ color: inherit; }
   margin-bottom: 18px;
   padding-top: 18px;
   padding-bottom: 18px;
-  border-top: 1px solid #d4b896;
-  border-bottom: 1px solid #d4b896;
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
 }
 
 .page-header__title {
