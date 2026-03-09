@@ -165,7 +165,7 @@ a{ color: inherit; }
 /* ===== Page Header (detail pages) ===== */
 .page-header {
   background: #f5f0e8;
-  padding: 40px 0;
+  padding: 32px 0 28px;
   border-top: 1px solid #7d5d02;
   border-bottom: 1px solid #7d5d02;
 }
@@ -174,7 +174,9 @@ a{ color: inherit; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #7d5d02;
 }
 
 .page-header__title {
@@ -192,11 +194,11 @@ a{ color: inherit; }
 }
 
 .page-header__subtitle {
-  margin: 0 0 16px 0;
-  font-size: 18px;
+  margin: 0 0 12px 0;
+  font-size: 16px;
   font-weight: 700;
   color: #7d5d02;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
 .page-header__text {
