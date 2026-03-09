@@ -499,9 +499,9 @@ a{ color: inherit; }
 
 .voice-card{
   position:relative;
-  background: var(--c-base-bg);
+  background: #ffffff;
   padding: 44px 28px 22px;
-  box-shadow: 0 10px 24px rgba(0,0,0,.07);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 .voice-card__tape{
   position:absolute;
