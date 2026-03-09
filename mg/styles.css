@@ -166,8 +166,6 @@ a{ color: inherit; }
 .page-header {
   background: #fcf3dd;
   padding: 32px 0 28px;
-  border-top: 1px solid #7d5d02;
-  border-bottom: 1px solid #7d5d02;
 }
 
 .page-header__title-row {
