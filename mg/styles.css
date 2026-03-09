@@ -511,11 +511,12 @@ a{ color: inherit; }
   width: 170px;
   height: 38px;
   overflow:hidden;
+  background: var(--tape-color, #d4a574);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .voice-card__tape img{
-  width: 220px;
-  height: auto;
-  filter: var(--tape-filter, none);
+  display: none;
 }
 
 .voice-card__text{
