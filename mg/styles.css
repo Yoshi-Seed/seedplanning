@@ -295,7 +295,7 @@ main {
 /* ===== Home: intro ===== */
 .intro{
   background: var(--c-base-bg);
-  padding: 120px 0 90px;
+  padding: 60px 0 90px;
 }
 .intro .wrap {
   padding-left: 0;
