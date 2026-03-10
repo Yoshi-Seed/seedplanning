@@ -176,6 +176,10 @@ a{ color: inherit; }
   background: var(--c-page-header);
 }
 
+.page-header--message {
+  background: #e6dff5;
+}
+
 .page-header__title-row {
   display: flex;
   justify-content: space-between;
