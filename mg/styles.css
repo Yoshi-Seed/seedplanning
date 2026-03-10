@@ -73,8 +73,11 @@ a{ color: inherit; }
   color: var(--c-base-text);
   padding: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,.1);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
 }
 .menu-bar__wrap{
@@ -133,6 +136,11 @@ a{ color: inherit; }
   font-size: 24px;
   cursor: pointer;
   padding: 8px;
+}
+
+/* Main content offset for fixed menu */
+main {
+  padding-top: 90px;
 }
 
 @media (max-width: 980px){
