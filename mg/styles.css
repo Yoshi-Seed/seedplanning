@@ -172,6 +172,10 @@ a{ color: inherit; }
   background: #f5d4a5;
 }
 
+.page-header--medical {
+  background: var(--c-page-header);
+}
+
 .page-header__title-row {
   display: flex;
   justify-content: space-between;
