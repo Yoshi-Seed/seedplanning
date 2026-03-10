@@ -1,8 +1,11 @@
 /*
   MG Website – Layout scaffold generated from "デザイン指示書_重症筋無力症.pptx".
   - Images are expected in the repository root (same folder as HTML files).
-  - Font: ヒカリ角ゴ (Glow Sans). If you add font files, wire them in @font-face below.
+  - Font: Zen Maru Gothic (Google Fonts).
 */
+
+/* Google Fonts - Zen Maru Gothic */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
 
 :root{
   /* Common */
@@ -53,7 +56,7 @@ body{
   margin:0;
   background: var(--c-base-bg);
   color: var(--c-base-text);
-  font-family: "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, sans-serif;
   line-height: var(--lh);
   letter-spacing: .02em;
 }
