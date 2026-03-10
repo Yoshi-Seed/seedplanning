@@ -618,6 +618,7 @@ main {
 .resource-hero{
   background: var(--c-resources-header);
   padding: 54px 0 46px;
+  padding-top: 144px;
   position:relative;
 }
 .resource-hero__title{
