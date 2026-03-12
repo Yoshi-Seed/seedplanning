@@ -586,7 +586,7 @@ main {
 }
 
 .voice-card__name{
-  margin-top: 22px;
+  margin-top: 30px;
   font-size: 13px;
   font-weight: 700;
   color: var(--c-card-name);
