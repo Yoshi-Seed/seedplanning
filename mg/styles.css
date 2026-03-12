@@ -560,8 +560,18 @@ main {
   display: none;
 }
 
+.voice-card__more::before{
+  content: "…";
+  display: inline;
+}
+
 .voice-card.is-expanded .voice-card__more{
   display: inline;
+}
+
+.voice-card.is-expanded .voice-card__more::before{
+  content: "";
+  display: none;
 }
 
 .voice-card__toggle{
