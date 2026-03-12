@@ -556,6 +556,14 @@ main {
   -webkit-line-clamp: unset;
 }
 
+.voice-card__more{
+  display: none;
+}
+
+.voice-card.is-expanded .voice-card__more{
+  display: inline;
+}
+
 .voice-card__toggle{
   margin-top: 14px;
   display:inline-block;
