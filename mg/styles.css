@@ -569,7 +569,7 @@ main {
 }
 
 .voice-card.is-expanded .voice-card__more{
-  display: block;
+  display: inline;
 }
 
 .voice-card__toggle{
