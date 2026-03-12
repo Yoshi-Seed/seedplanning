@@ -556,22 +556,20 @@ main {
   -webkit-line-clamp: unset;
 }
 
+.voice-card__ellipsis{
+  display: inline;
+}
+
+.voice-card.is-expanded .voice-card__ellipsis{
+  display: none;
+}
+
 .voice-card__more{
   display: none;
 }
 
-.voice-card__more::before{
-  content: "…";
-  display: inline;
-}
-
 .voice-card.is-expanded .voice-card__more{
   display: inline;
-}
-
-.voice-card.is-expanded .voice-card__more::before{
-  content: "";
-  display: none;
 }
 
 .voice-card__toggle{
