@@ -345,7 +345,7 @@ main {
 }
 
 .topic-list{
-  padding: 20px 40px 20px 0;
+  padding: 20px 20px 20px 0;
   border-right: 1px solid #7d5d02;
 }
 .topic-list__item{
@@ -357,11 +357,11 @@ main {
   border:0;
   padding: 14px 0;
   font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, sans-serif;
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 500;
   color: var(--c-base-text);
   cursor: pointer;
-  letter-spacing: .10em;
+  letter-spacing: .05em;
 }
 .topic-list__icon{
   width: 30px;
