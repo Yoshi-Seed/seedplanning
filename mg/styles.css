@@ -246,7 +246,7 @@ main {
   background: var(--c-olive);
   background-image: url('header_pattern_new.png');
   background-size: auto 230px;
-  background-position: top center;
+  background-position: center 40px;
   background-repeat: repeat-x;
   color: var(--c-base-bg);
   padding: 420px 0 120px;
