@@ -356,6 +356,7 @@ main {
   background: transparent;
   border:0;
   padding: 14px 0;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, sans-serif;
   font-size: 26px;
   font-weight: 500;
   color: var(--c-base-text);
