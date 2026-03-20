@@ -1,46 +1,39 @@
-# Seed Planning — Static Website Demo (HTML/CSS/JS)
+# Seed Planning Global Website (GitHub-ready)
 
-This is a clean, responsive, animated one-page website template inspired by the provided mockups.
+この zip は、そのまま GitHub にアップロードしやすい静的サイト構成です。
 
-## Files
-- `index.html`
-- `css/styles.css`
-- `js/main.js`
-- `assets/` (images + favicon)
-- `downloads/` (placeholder PDFs used by "Download PDF" buttons)
+## 主なファイル
+- `index.html` トップページ
+- `how-we-work.html`
+- `japan-fact-sheets.html`
+- `about-team.html`
+- `rare-disease.html`
+- `contact.html`
+- `fact-sheet.html` 1つの共通詳細ページ（URL の `?slug=` で内容が切り替わります）
+- `assets/css/styles.css` デザイン全体のスタイル
+- `assets/js/data.js` テキスト・カード一覧・PDFリンク・チーム情報などの管理用データ
+- `assets/js/main.js` 画面の動き、フィルター、カルーセル、フォーム制御
+- `assets/docs/` ダウンロード用PDF
 
-## Run locally
-Just open `index.html` in your browser.
+## GitHub へのアップロード方法
+1. zip を展開
+2. 中のファイルを GitHub リポジトリのルートにアップロード
+3. GitHub Pages を `Deploy from a branch` / `root` で公開
 
-If you prefer a local server (recommended for some browsers):
-- Python:
-  - `python -m http.server 8000`
-  - then open `http://localhost:8000`
+## いちばん編集しやすい場所
+### 文言やカード内容を変えたい
+`assets/js/data.js`
 
-## GitHub Pages
-1. Create a repo and push these files to the root (or `/docs`).
-2. In GitHub: Settings → Pages → Deploy from a branch → select your branch and root folder.
-3. Your site will be available at the GitHub Pages URL.
+### 色や余白や見た目を変えたい
+`assets/css/styles.css`
 
-## "Send URL to my PC" button
-This uses a `mailto:` link (opens the default mail client) with:
-- Subject: `Check Seed Planning Website`
-- Body: the current page URL
+## フォーム送信について
+このサイトは GitHub Pages でも動くように、`assets/js/data.js` の `formEndpoint` が空の場合は、
+**メールアプリを開く fallback** で送れるようにしてあります。
 
-To change the recipient address, edit this line in `js/main.js`:
-```js
-const EMAIL_TO = "eddyhonda@gmail.com";
-```
+本番でフォームサービスを使うなら、`assets/js/data.js` の `siteConfig.formEndpoint` に
+Formspree などの endpoint を入れてください。
 
-Enjoy shipping 🚀
-
-
-
-## Splash intro (logo-only)
-- On first open (per browser tab/session), the site shows a logo-only splash screen.
-- Click/Tap the “living” logo:
-  - logo shrinks + page fades into the beige earth-tone background
-  - a small loading animation plays
-  - after ~2 seconds it redirects into the full site
-
-To see the splash again, open the site in a new tab or clear the session storage key `sp_intro_done_v1`.
+## 追加メモ
+- 画像とPDFはすべて相対パスなので、ルート構成を変えなければそのまま動きます。
+- 共通ヘッダー / フッター、Fact Sheets一覧、カルーセル、詳細ページの内容はJSで共通管理しています。
