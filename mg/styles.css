@@ -725,10 +725,9 @@ main {
   font-size: 16px;
 }
 .contact__icon{
-  width: 45px;
+  width: 36px;
   height: 36px;
   flex-shrink: 0;
-  filter: brightness(0) invert(1);
 }
 .contact__icons{
   display:flex;
