@@ -404,11 +404,13 @@ main {
 .topic-detail__content{
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 40px;
 }
-.topic-detail__body{
+.topic-detail__main{
   flex: 1;
+}
+.topic-detail__body{
   margin: 0;
   font-size: 14px;
   line-height: 1.7;
@@ -420,9 +422,7 @@ main {
 }
 .topic-detail__bullets li{ margin: 5px 0; font-weight: 700; }
 .topic-detail__button{
-  display: flex;
-  align-items: flex-end;
-  padding-top: 14px;
+  flex-shrink: 0;
 }
 
 .pill-link{
