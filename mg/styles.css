@@ -879,20 +879,57 @@ main {
   max-width: 800px;
   margin: 0 auto;
   background: #fffbf5;
-  border-radius: 12px;
-  padding: 60px 80px;
+  border-radius: 0 0 12px 12px;
+  padding: 80px 80px 60px;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
-.closing-message__tape{
+.closing-message__card::before{
+  content: '';
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 40px,
+      #e8d5c4 40px,
+      #e8d5c4 80px
+    ),
+    linear-gradient(180deg, #f5e6d3 0%, #fffbf5 100%);
+  border-radius: 12px 12px 0 0;
+}
+.closing-message__card::after{
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: 
+    radial-gradient(circle at 60px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 140px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 220px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 300px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 380px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 460px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 540px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 620px center, rgba(0,0,0,0.08) 6px, transparent 6px),
+    radial-gradient(circle at 700px center, rgba(0,0,0,0.08) 6px, transparent 6px);
+  z-index: 1;
+}
+.closing-message__tape{
+  position: absolute;
+  top: -30px;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  width: 80px;
-  height: 30px;
-  background: rgba(229, 115, 115, 0.6);
-  border-radius: 2px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 100px;
+  background: url('notepad-pin.png') center/contain no-repeat;
+  z-index: 10;
 }
 .closing-message__content{
   position: relative;
