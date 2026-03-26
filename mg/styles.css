@@ -405,9 +405,9 @@ main {
   width: 100%;
   max-width: none;
   margin: 0 0 20px;
-  font-size: 14px;
-  line-height: 1.7;
-  letter-spacing: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
 }
 .topic-detail__content{
   display: flex;
