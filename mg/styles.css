@@ -414,6 +414,7 @@ main {
   margin: 0;
   font-size: 14px;
   line-height: 1.7;
+  letter-spacing: -0.02em;
 }
 .topic-detail__bullets{
   margin: 14px 0 0;
