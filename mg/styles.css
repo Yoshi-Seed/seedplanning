@@ -305,6 +305,9 @@ main {
   line-height: 1.8;
   text-align: left;
 }
+.intro__text--condensed{
+  letter-spacing: -0.03em;
+}
 
 /* ===== Home: topic picker ===== */
 .topic-picker{
