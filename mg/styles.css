@@ -405,20 +405,9 @@ main {
   width: 100%;
   max-width: none;
   margin: 0 0 20px;
-  font-size: 13px;
-  line-height: 1.65;
-  letter-spacing: -0.01em;
-}
-.topic-detail__body--wide{
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 100% !important;
-  padding-right: 180px !important;
-  font-size: 14px !important;
-  line-height: 1.8 !important;
-  box-sizing: border-box !important;
-  flex: none !important;
-  display: block !important;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0;
 }
 .topic-detail__content{
   display: flex;
