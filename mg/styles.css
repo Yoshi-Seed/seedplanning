@@ -850,7 +850,7 @@ main {
 
 /* ===== Closing Message Section ===== */
 .closing-message{
-  background: url('closing-bg.png') center/cover no-repeat;
+  background: linear-gradient(135deg, #c8d5b9 0%, #f5e6d3 50%, #b8d4d8 100%);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
