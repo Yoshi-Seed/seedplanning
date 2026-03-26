@@ -242,41 +242,7 @@ main {
 }
 
 /* Home hero */
-.hero{
-  background: var(--c-olive);
-  background-image: url('header_pattern_new.png');
-  background-size: auto 230px;
-  background-position: center 40px;
-  background-repeat: repeat-x;
-  color: var(--c-base-bg);
-  padding: 420px 0 120px;
-  display: flex;
-  align-items: flex-end;
-}
-.hero .wrap{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 0;
-  padding-right: var(--pad-x);
-  margin-top: auto;
-  margin-bottom: 0;
-  margin-left: 40px;
-}
-.hero__title{
-  margin:0 0 0 0;
-  font-size: 60px;
-  font-weight: 500;
-  letter-spacing: .02em;
-  padding-left: 0;
-}
-.hero__subtitle{
-  margin: 10px 0 0 40px;
-  font-size: 28px;
-  opacity: .95;
-  padding-left: 0;
-  letter-spacing: .02em;
-}
+/* Hero section removed - now part of intro */
 
 /* ===== Section basics ===== */
 .section{
@@ -295,7 +261,7 @@ main {
 /* ===== Home: intro ===== */
 .intro{
   background: var(--c-base-bg);
-  padding: 60px 0 90px;
+  padding: 80px 0 90px;
 }
 .intro .wrap {
   padding-left: 0;
@@ -306,13 +272,13 @@ main {
 }
 .intro__grid{
   display:grid;
-  grid-template-columns: 1.3fr 1.3fr;
-  gap: 10px;
+  grid-template-columns: 1.2fr 1.5fr;
+  gap: 60px;
   align-items:center;
   margin-left: 120px;
 }
-.intro__grid > div:last-child {
-  margin-left: -30px;
+.intro__content {
+  text-align: right;
 }
 .intro__image-wrapper {
   margin-left: 0;
@@ -321,15 +287,23 @@ main {
   transform: translateX(-20px) scale(1.0);
 }
 .intro__title{
-  margin:0 0 30px;
-  font-size: 42px;
-  font-weight: 400;
+  margin:0 0 10px;
+  font-size: 48px;
+  font-weight: 500;
   letter-spacing:.05em;
+  line-height: 1.4;
+}
+.intro__subtitle{
+  margin: 0 0 40px;
+  font-size: 20px;
+  opacity: .85;
+  letter-spacing: .05em;
 }
 .intro__text{
   margin:0;
-  font-size: 20px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: left;
 }
 
 /* ===== Home: topic picker ===== */
@@ -805,7 +779,7 @@ main {
 @media (max-width: 640px){
   .voice-grid{ grid-template-columns: 1fr; }
   .topic-row{ grid-template-columns: 1fr; gap: 8px; }
-  .hero__title{ font-size: 30px; }
+  .intro__title{ font-size: 32px; }
 }
 
 /* ===== Page background helpers ===== */
