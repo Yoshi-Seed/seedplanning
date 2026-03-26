@@ -409,6 +409,9 @@ main {
   line-height: 1.7;
   letter-spacing: 0;
 }
+.topic-detail__body--daily{
+  letter-spacing: -0.03em;
+}
 .topic-detail__content{
   display: flex;
   justify-content: space-between;
