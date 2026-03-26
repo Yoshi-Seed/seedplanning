@@ -410,7 +410,7 @@ main {
   letter-spacing: 0;
 }
 .topic-detail__body--daily{
-  letter-spacing: -0.03em;
+  letter-spacing: -0.05em;
 }
 .topic-detail__content{
   display: flex;
