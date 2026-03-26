@@ -72,7 +72,7 @@ a{ color: inherit; }
 
 /* ===== Menu Bar ===== */
 .menu-bar{
-  background: #fff8ed;
+  background: #ffffff;
   color: var(--c-base-text);
   padding: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,.1);
