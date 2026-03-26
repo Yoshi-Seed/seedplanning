@@ -718,7 +718,7 @@ main {
   letter-spacing:.06em;
 }
 .contact__line{
-  margin: 4px 0;
+  margin: 10px 0;
   display:flex;
   gap: 10px;
   align-items:flex-start;
