@@ -285,7 +285,8 @@ main {
   margin-left: 0;
 }
 .intro__image {
-  transform: translateX(-20px) scale(1.0);
+  transform: translateX(-20px) scale(0.85);
+  max-width: 85%;
 }
 .intro__title{
   margin:0 0 10px;
