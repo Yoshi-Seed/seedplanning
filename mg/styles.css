@@ -307,6 +307,8 @@ main {
 .intro__header {
   text-align: right;
   margin-bottom: 60px;
+  margin-right: 0;
+  padding-right: 60px;
 }
 
 .intro__title{
