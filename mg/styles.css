@@ -839,7 +839,7 @@ main {
 
 .footer{
   background: var(--c-base-bg);
-  padding: 22px 0 28px;
+  padding: 16px 0 20px;
 }
 .footer .wrap{
   padding-left: 0;
@@ -858,7 +858,7 @@ main {
   display:flex;
   gap: 14px;
   align-items:center;
-  margin-top: 20px;
+  margin-top: 12px;
 }
 .footer__brand img{ width: 190px; }
 .footer__copy{
