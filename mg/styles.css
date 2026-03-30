@@ -838,7 +838,7 @@ main {
 }
 
 .footer{
-  background: var(--c-base-bg);
+  background: #dad1ba;
   padding: 22px 0 28px;
 }
 .footer .wrap{
