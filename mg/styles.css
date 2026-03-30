@@ -926,6 +926,8 @@ main {
 .closing-message__illustration{
   position: relative;
   z-index: 1;
+  max-width: 350px;
+  margin: 0 auto;
 }
 .closing-message__illustration img{
   width: 100%;
