@@ -343,9 +343,9 @@ main {
 .intro__text{
   margin: 0 0 24px;
   font-size: 15px;
-  line-height: 2.0;
+  line-height: 1.8;
   text-align: left;
-  color: #7d5d02;
+  color: #6b4d01;
   letter-spacing: 0.02em;
 }
 
