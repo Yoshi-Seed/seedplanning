@@ -920,3 +920,30 @@ main {
   height: auto;
   display: block;
 }
+.closing-message__nav{
+  margin-top: 60px;
+  text-align: right;
+  position: relative;
+  z-index: 1;
+}
+.closing-message__nav-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+.closing-message__nav-link:hover{
+  transform: translateX(5px);
+}
+.closing-message__nav-text{
+  font-size: 20px;
+  font-weight: 500;
+  color: #7d5d02;
+  letter-spacing: 0.05em;
+}
+.closing-message__nav-arrow{
+  width: 60px;
+  height: auto;
+  display: block;
+}
