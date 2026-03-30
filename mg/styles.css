@@ -294,7 +294,7 @@ main {
 .intro__decorative-text--bottom-left {
   bottom: 40px;
   left: 60px;
-  transform: rotate(-15deg);
+  transform: rotate(0deg);
   font-size: 16px;
 }
 
