@@ -342,7 +342,7 @@ main {
   font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, sans-serif;
   font-size: 18px;
   font-weight: 400;
-  color: rgba(74, 58, 42, 0.5);
+  color: rgba(125, 93, 2, 0.5);
   cursor: pointer;
   letter-spacing: .05em;
   position: relative;
@@ -350,7 +350,7 @@ main {
   opacity: 0.6;
 }
 .topic-list__item:hover{
-  color: #4a3a2a;
+  color: #7d5d02;
   opacity: 1;
 }
 .topic-list__icon{
@@ -359,7 +359,7 @@ main {
 .topic-list__item + .topic-list__item{ margin-top: 0; }
 .topic-list__item.is-active{
   font-weight: 700;
-  color: #4a3a2a;
+  color: #7d5d02;
   opacity: 1;
 }
 .topic-list__item.is-active::after{
@@ -370,7 +370,7 @@ main {
   transform: translateX(-50%);
   width: 40px;
   height: 3px;
-  background: #7ba75f;
+  background: #a4a65e;
   border-radius: 2px;
 }
 
