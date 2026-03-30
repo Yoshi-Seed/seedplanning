@@ -338,13 +338,20 @@ main {
   text-align: center;
   background: transparent;
   border: 0;
-  padding: 0;
+  padding: 0 0 8px;
   font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "HikariKakuGo", "Glow Sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, -apple-system, sans-serif;
   font-size: 18px;
-  font-weight: 500;
-  color: var(--c-base-text);
+  font-weight: 400;
+  color: rgba(74, 58, 42, 0.5);
   cursor: pointer;
   letter-spacing: .05em;
+  position: relative;
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+}
+.topic-list__item:hover{
+  color: #4a3a2a;
+  opacity: 1;
 }
 .topic-list__icon{
   display: none;
@@ -352,6 +359,19 @@ main {
 .topic-list__item + .topic-list__item{ margin-top: 0; }
 .topic-list__item.is-active{
   font-weight: 700;
+  color: #4a3a2a;
+  opacity: 1;
+}
+.topic-list__item.is-active::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: #7ba75f;
+  border-radius: 2px;
 }
 
 .topic-detail{
