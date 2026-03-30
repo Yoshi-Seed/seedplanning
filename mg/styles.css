@@ -260,12 +260,9 @@ main {
 
 /* ===== Home: intro ===== */
 .intro{
-  background: linear-gradient(to bottom, #bec084 0%, #bec084 calc(50% - 0.5px), var(--c-base-bg) calc(50% + 0.5px), var(--c-base-bg) 100%);
+  background: linear-gradient(to bottom, #bec084 0%, #bec084 50%, var(--c-base-bg) 50%, var(--c-base-bg) 100%);
   padding: 80px 0 90px;
   position: relative;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
 .intro .wrap {
   padding-left: 0;
@@ -289,12 +286,6 @@ main {
 }
 .intro__image {
   transform: translateX(-20px) scale(1.0);
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  image-rendering: high-quality;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  filter: contrast(1.02) brightness(1.01);
 }
 .intro__title{
   margin:0 0 10px;
