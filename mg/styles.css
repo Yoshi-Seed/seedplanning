@@ -260,7 +260,7 @@ main {
 
 /* ===== Home: intro ===== */
 .intro{
-  background: linear-gradient(to bottom, #bec084 0%, #bec084 50%, var(--c-base-bg) 50%, var(--c-base-bg) 100%);
+  background: linear-gradient(135deg, #c8d5b9 0%, #f5e6d3 50%, #b8d4d8 100%);
   padding: 80px 0 90px;
   position: relative;
 }
