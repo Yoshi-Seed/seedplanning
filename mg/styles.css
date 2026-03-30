@@ -905,15 +905,21 @@ main {
 .closing-message__card{
   max-width: 800px;
   margin: 0 auto;
-  background: url('closing-card-bg.png') center/cover no-repeat;
-  border-radius: 0;
-  padding: 80px 80px 60px;
+  background: #fffbf5;
+  border-radius: 12px;
+  padding: 60px 80px;
   position: relative;
-  box-shadow: none;
-  min-height: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 .closing-message__tape{
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80px;
+  height: 30px;
+  background: rgba(229, 115, 115, 0.6);
+  border-radius: 2px;
 }
 .closing-message__content{
   position: relative;
