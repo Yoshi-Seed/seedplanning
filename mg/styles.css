@@ -260,7 +260,7 @@ main {
 
 /* ===== Home: intro ===== */
 .intro{
-  background: url('intro-bg.png') center/cover no-repeat;
+  background: var(--c-base-bg);
   padding: 80px 0 90px;
   position: relative;
 }
