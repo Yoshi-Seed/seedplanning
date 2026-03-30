@@ -313,7 +313,7 @@ main {
 
 /* ===== Home: topic picker ===== */
 .topic-picker{
-  background: var(--c-soft-bg);
+  background: #fff8ed;
   padding: 100px 0;
 }
 .topic-picker__grid{
