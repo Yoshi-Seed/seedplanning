@@ -780,7 +780,7 @@ main {
   margin-top: 0;
   background: var(--c-olive);
   color: var(--c-base-bg);
-  padding: 54px 0;
+  padding: 40px 0;
 }
 .contact .wrap{
   padding-left: 0;
@@ -793,12 +793,12 @@ main {
   align-items:end;
 }
 .contact__title{
-  margin:0 0 26px;
+  margin:0 0 18px;
   font-size: 36px;
   letter-spacing:.12em;
 }
 .contact__company{
-  margin:0 0 10px;
+  margin:0 0 8px;
   font-weight: 700;
   font-size: 20px;
   letter-spacing:.06em;
