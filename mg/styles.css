@@ -260,55 +260,95 @@ main {
 
 /* ===== Home: intro ===== */
 .intro{
-  background: linear-gradient(135deg, #c8d5b9 0%, #f5e6d3 50%, #b8d4d8 100%);
-  padding: 80px 0 90px;
+  background: #d9d0b8;
+  padding: 80px 60px;
   position: relative;
+  min-height: 600px;
+  overflow: hidden;
 }
-.intro .wrap {
-  padding-left: 0;
-  margin-left: 0;
-  max-width: 100%;
-  width: 100%;
-  padding-right: 80px;
+
+.intro__decorative-text {
+  position: absolute;
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: #7d6f3a;
+  opacity: 0.8;
 }
-.intro__grid{
-  display:grid;
-  grid-template-columns: 1.2fr 1.5fr;
-  gap: 60px;
-  align-items:center;
-  margin-left: 120px;
+
+.intro__decorative-text--top-left {
+  top: 60px;
+  left: 60px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
-.intro__content {
-  text-align: right;
+
+.intro__decorative-text--bottom-right {
+  bottom: 60px;
+  right: 80px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
-.intro__image-wrapper {
-  margin-left: 0;
-}
-.intro__image {
-  transform: translateX(-20px) scale(0.9);
-  max-width: 90%;
-}
-.intro__title{
-  margin:0 0 10px;
-  font-size: 48px;
-  font-weight: 500;
-  letter-spacing:.05em;
-  line-height: 1.4;
-}
-.intro__subtitle{
-  margin: 0 0 100px;
-  font-size: 24px;
-  opacity: .85;
-  letter-spacing: .05em;
-}
-.intro__text{
-  margin:0;
+
+.intro__decorative-text--bottom-left {
+  bottom: 40px;
+  left: 60px;
+  transform: rotate(-15deg);
   font-size: 16px;
-  line-height: 1.8;
-  text-align: left;
 }
-.intro__text--condensed{
-  letter-spacing: -0.03em;
+
+.intro__container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+.intro__header {
+  text-align: right;
+  margin-bottom: 80px;
+}
+
+.intro__title{
+  margin: 0 0 30px;
+  font-size: 56px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  color: #7d5d02;
+}
+
+.intro__subtitle-box {
+  display: inline-block;
+  border: 2px solid #7d6f3a;
+  border-radius: 30px;
+  padding: 12px 40px;
+}
+
+.intro__subtitle{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #7d5d02;
+}
+
+.intro__body {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.intro__text{
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 2.0;
+  text-align: left;
+  color: #5a4a3a;
+  letter-spacing: 0.02em;
+}
+
+.intro__text:last-child {
+  margin-bottom: 0;
 }
 
 /* ===== Home: topic picker ===== */
