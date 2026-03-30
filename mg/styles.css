@@ -347,11 +347,7 @@ main {
   letter-spacing: .05em;
 }
 .topic-list__icon{
-  width: 40px;
-  height: 40px;
-  margin-right: 0;
-  margin-bottom: 8px;
-  flex-shrink: 0;
+  display: none;
 }
 .topic-list__item + .topic-list__item{ margin-top: 0; }
 .topic-list__item.is-active{
