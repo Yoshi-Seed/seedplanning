@@ -1034,7 +1034,9 @@ main {
   letter-spacing: -0.05em !important;
 }
 .closing-message__text-wider-span {
-  letter-spacing: -0.02em !important;
+  letter-spacing: -0.03em !important;
+  white-space: nowrap;
+  display: inline-block;
 }
 .closing-message__illustration{
   position: relative;
