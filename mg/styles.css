@@ -263,7 +263,7 @@ main {
   background: linear-gradient(to right, #c8d5b9 0%, #f5e6d3 50%, #b8d4d8 100%);
   padding: 60px 60px;
   position: relative;
-  min-height: 480px;
+  min-height: 580px;
   overflow: hidden;
 }
 
@@ -357,6 +357,13 @@ main {
   text-align: left;
   color: #7d5d02;
   letter-spacing: 0.02em;
+}
+
+.intro__text--note {
+  margin-top: 32px;
+  font-size: 14px;
+  line-height: 1.9;
+  opacity: 0.9;
 }
 
 .intro__text:last-child {
