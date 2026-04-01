@@ -1024,6 +1024,9 @@ main {
 .closing-message__text:last-child{
   margin-bottom: 0;
 }
+.closing-message__text--compact {
+  letter-spacing: -0.03em;
+}
 .closing-message__illustration{
   position: relative;
   z-index: 1;
