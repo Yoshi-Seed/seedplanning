@@ -284,6 +284,13 @@ main {
   text-orientation: mixed;
 }
 
+.intro__decorative-text--top-right {
+  top: 60px;
+  right: 60px;
+  transform: rotate(0deg);
+  text-transform: uppercase;
+}
+
 .intro__decorative-text--bottom-right {
   bottom: 60px;
   right: 80px;
