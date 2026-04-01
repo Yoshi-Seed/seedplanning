@@ -383,21 +383,19 @@ main {
 }
 
 .topic-picker__note {
-  max-width: 900px !important;
-  margin: 50px auto 0 auto !important;
-  padding: 0 20px;
-  width: 100%;
+  max-width: 600px;
+  margin: 50px 0 0 auto;
+  padding: 20px;
 }
 
 .topic-picker__note-text {
-  margin: 0 auto 8px auto !important;
-  font-size: 12px;
-  line-height: 1.6;
+  margin: 0 0 6px 0;
+  font-size: 10px;
+  line-height: 1.5;
   color: #7d5d02;
-  text-align: center !important;
+  text-align: right;
   letter-spacing: 0.02em;
-  opacity: 0.9;
-  width: 100%;
+  opacity: 0.6;
 }
 
 .topic-picker__note-text:last-child {
