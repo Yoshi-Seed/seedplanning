@@ -871,6 +871,10 @@ main {
 .contact__note-text:last-child {
   margin-bottom: 0;
 }
+
+.contact__note-text--compact {
+  letter-spacing: -0.02em;
+}
 .social{
   width: 40px;
   height: 40px;
