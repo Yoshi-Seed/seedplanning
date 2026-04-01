@@ -374,6 +374,7 @@ main {
 .topic-picker{
   background: #fff8ed;
   padding: 100px 0;
+  position: relative;
 }
 .topic-picker__grid{
   display: flex;
@@ -383,8 +384,10 @@ main {
 }
 
 .topic-picker__note {
-  max-width: 600px;
-  margin: 50px 0 0 auto;
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  max-width: 400px;
   padding: 20px;
 }
 
