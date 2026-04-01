@@ -1038,6 +1038,9 @@ main {
   white-space: nowrap;
   display: inline-block;
 }
+.closing-message__text-line2 {
+  letter-spacing: -0.04em;
+}
 .closing-message__illustration{
   position: relative;
   z-index: 1;
