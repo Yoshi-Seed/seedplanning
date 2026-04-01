@@ -852,6 +852,7 @@ main {
   text-align: left;
   margin-left: auto;
   margin-right: 30px;
+  margin-top: 40px;
   flex-shrink: 0;
 }
 
