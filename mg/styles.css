@@ -390,10 +390,10 @@ main {
 
 .topic-picker__note-text {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.9;
   color: #7d5d02;
-  text-align: left;
+  text-align: center;
   letter-spacing: 0.02em;
   opacity: 0.9;
 }
