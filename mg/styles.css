@@ -389,13 +389,17 @@ main {
 }
 
 .topic-picker__note-text {
-  margin: 0;
+  margin: 0 0 12px 0;
   font-size: 12px;
   line-height: 1.9;
   color: #7d5d02;
   text-align: center;
   letter-spacing: 0.02em;
   opacity: 0.9;
+}
+
+.topic-picker__note-text:last-child {
+  margin-bottom: 0;
 }
 
 .topic-list{
