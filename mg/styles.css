@@ -775,6 +775,21 @@ main {
   font-size: 13px;
 }
 
+/* ===== Disclaimer ===== */
+.disclaimer {
+  background: var(--c-base-bg);
+  padding: 40px 0;
+}
+
+.disclaimer__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #5a4a3a;
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+
 /* ===== Contact / Footer ===== */
 .contact{
   margin-top: 0;
