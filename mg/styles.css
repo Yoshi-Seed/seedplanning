@@ -874,6 +874,16 @@ main {
   padding: 20px;
 }
 
+.contact__note-title {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: left;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
 .contact__note-text {
   margin: 0 0 8px 0;
   font-size: 0.75rem;
