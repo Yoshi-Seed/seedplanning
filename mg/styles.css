@@ -1041,6 +1041,9 @@ main {
 .closing-message__text-line2 {
   letter-spacing: -0.04em;
 }
+.closing-message__text-line3 {
+  letter-spacing: -0.04em;
+}
 .closing-message__illustration{
   position: relative;
   z-index: 1;
