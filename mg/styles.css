@@ -797,6 +797,10 @@ main {
   padding: 40px 0 40px 0;
 }
 
+.about-site .wrap {
+  max-width: 1200px;
+}
+
 .about-site__text {
   margin: 0 0 24px 0;
   font-size: 15px;
