@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Messages to Share | Voices of Myasthenia Gravis Patients</title>
+  <title>Messages to Share | Voices of People Living with Myasthenia Gravis</title>
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="english.css" />
   <script defer src="scripts.js"></script>
 </head>
 <body class="page page--message">
@@ -17,11 +18,11 @@
       <button class="menu-bar__toggle" type="button" aria-label="Menu" onclick="toggleMenu()">☰</button>
       <div class="menu-bar__nav" id="menuNav">
         <a href="index.html">HOME</a>
-        <a href="diagnosis.html">Path to Diagnosis</a>
-        <a href="daily.html">Daily Life Challenges</a>
+        <a href="diagnosis.html">Journey to Diagnosis</a>
+        <a href="daily.html">Challenges in Daily Life</a>
         <a href="medical.html">Navigating Medical Care</a>
         <a href="message.html" class="is-active">Messages to Share</a>
-        <a href="resources.html">Resources &amp; Support</a>
+        <a href="resources.html">Support &amp; Information</a>
       </div>
     </div>
   </nav>
@@ -29,11 +30,23 @@
   <main>
     <h1 class="sr-only">Messages to Share</h1>
 
+    <!-- Page Header -->
+    <section class="page-header page-header--message">
+      <div class="wrap">
+        <div class="page-header__title-row">
+          <h2 class="page-header__title">Messages to Share</h2>
+          <img class="page-header__icon" src="../green_icon.png" alt="" aria-hidden="true" />
+        </div>
+        <h3 class="page-header__subtitle">Insights and feelings that emerged through lived experience</h3>
+        <p class="page-header__text">
+          Diagnosis, treatment, and life itself have all left patients with thoughts they want to share.<br>
+          Here we introduce words born from experience—messages they hope others living with the same condition, and the people around them, will hear.
+        </p>
+      </div>
+    </section>
+
     <!-- Top summary -->
     <section class="section topic-top">
-      <img class="decor-arrow decor-arrow--left" src="../purple_arrow.png" alt="" aria-hidden="true" />
-      <img class="decor-arrow decor-arrow--right" src="../green_arrow.png" alt="" aria-hidden="true" />
-
       <div class="wrap">
         <div class="topic-top__grid">
           <div>
@@ -42,20 +55,19 @@
 
           <div class="topic-blocks">
             <div class="topic-row">
-              <div class="topic-row__title">The Power of Connection</div>
+              <div class="topic-row__title">The strength of connection</div>
               <p class="topic-row__text">
-                Many patients felt strong isolation and anxiety at the time of diagnosis.
-                They shared that connecting with others who have the same disease through social media helped them feel "I'm not alone."
-                While some felt hesitation or anxiety about direct interaction, spaces where they could share information and feelings while maintaining a comfortable distance served as emotional support for many.
+                Many patients described a strong sense of loneliness and anxiety when they were first diagnosed.
+                They said that connecting with others who live with the same condition through social media helped them feel that they were not alone.
+                Some also felt hesitant or anxious about meeting people directly, but many said that having a place where they could share information and emotions while keeping a comfortable distance became an important source of emotional support.
               </p>
             </div>
 
             <div class="topic-row">
-              <div class="topic-row__title">What We Want You to Know</div>
+              <div class="topic-row__title">What they want others to know</div>
               <p class="topic-row__text">
-                Messages based on personal experience were shared: "Don't give up even if antibodies aren't detected,"
-                "Always tell your doctor about any discomfort you feel," and "Find a healthcare facility and someone you can talk to that's right for you."
-                Many felt it is important to know about support systems and public resources, and to not push yourself — instead, lean on the help that's available — for living with the disease long-term.
+                Messages rooted in experience were shared again and again: “Please do not give up even if antibodies are not detected,” “Tell your doctor whenever something feels off,” and “I hope you can find a medical institution and a person you can talk to.”
+                Many patients felt that understanding support systems and public resources, and allowing themselves to rely on help instead of pushing through alone, is essential to living with the condition over time.
               </p>
             </div>
           </div>
@@ -72,111 +84,122 @@
         </div>
 
         <div class="voice-grid">
-          <article class="voice-card" style="--tape-filter: hue-rotate(0deg) saturate(1.15);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_a.png" alt="" /></div>
             <p class="voice-card__text">
-              At the time of diagnosis, she had no opportunity to connect with others with the same disease and felt isolated.
-              Now, through social media and patient groups, she has found support through these connections.
-              She wants to share the message: connect with others who have the same disease, don't carry the burden alone, and find someone you can rely on.
+              At the time of diagnosis, she felt lonely because she had no opportunity to connect with others living with the same condition.
+              She says that now, through social media and patient groups, she has found support through connection.
+              She wants to tell others that there will always be someone else living with the same illness, and that she hopes they will not carry everything alone but find someone they can rely on.
             </p>
-            <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
+            <div style="margin-top: 14px;"></div>
             <div class="voice-card__name">Patient A (Female, 20s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(105deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_b.png" alt="" /></div>
             <p class="voice-card__text">
-              He made the decision to live as a person with a disability and has planned his life while informing those around him about relevant systems and support.
-              Because social media contains much misinformation about support systems, he actively responds when asked, driven by a desire to share accurate information.
-              He wants people to find a place to consult rather than bearing everything on their own…
+              He made up his mind to live as a person with a disability and has built his life while researching the systems and support available to him.
+              Because social media contains a great deal of misinformation about public support, he has actively responded when others ask him questions, wanting to share accurate information.
+              He wants people to know that they do not have to give up in despair, that it is important to find someone to consult, and that life can be sustained by making use of available support systems.
             </p>
-            <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
+            <div style="margin-top: 14px;"></div>
             <div class="voice-card__name">Patient B (Male, 50s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(225deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_c.png" alt="" /></div>
             <p class="voice-card__text">
-              She feels that symptoms you might dismiss as "just being tired" could actually lead to a diagnosis when communicated to your doctor.
-              Because compatibility with healthcare providers greatly influences the course of treatment, she emphasizes the importance of finding the right doctor and medical facility.
-              Also, connecting with others who share the same disease through social media and having someone to share concerns with has been a great source of support…
+              She feels that even symptoms people dismiss as “just tiredness” can lead to diagnosis if they are shared with a doctor.
+              She also wants others to know how important it is to find a doctor and medical institution that suit them, because the fit between patient and healthcare professional can greatly influence the course of treatment.
+              Connecting with others who have the same illness through social media and being able to complain openly with them became a major source of support for her,<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> while at the same time she strongly felt the need for a place where information about support systems and assistive devices could be gathered in one accessible form.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient C (Female, 30s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(300deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_d.png" alt="" /></div>
             <p class="voice-card__text">
-              Seeing posts from others with the same disease on social media and feeling "I'm not the only one" has been a source of emotional support.
-              While she had some hesitation about direct interaction, she feels there should be spaces where people can participate comfortably according to their stage.
-              She also wishes she had known in advance that some tests and treatments are actually less burdensome than the "scary information" suggests…
+              She says that seeing social media posts from others with the same illness helped her feel that she was not alone, and that this became an important source of emotional support.
+              Although she still feels unsure about meeting people in person, she hopes there can be spaces where people can participate with a sense of safety at each stage.
+              She also looks back and says she wishes she had known in advance that examinations and treatment are not always as frightening as the most alarming information makes them seem,<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> and she hopes understanding of illnesses that cannot be seen will spread more widely through society.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient D (Female, 40s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(175deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_e.png" alt="" /></div>
             <p class="voice-card__text">
-              Although she felt very pessimistic at the time of diagnosis, she has come to realize that "things do settle down eventually."
-              Connecting with others who have the same disease through social media and being able to share information about treatment and surgery has been a tremendous source of emotional support.
-              She wants to tell others: don't carry it alone — build relationships where you can consult with people who share your condition…
+              Although she felt deeply pessimistic at the time of diagnosis, she says she eventually came to feel that calmer days do arrive.
+              Connecting with others who have the same illness on X and being able to share information about treatment and surgery became a major source of support for her.
+              She wants others to know that they do not have to carry everything alone, that it can help to talk with people who live with the same condition, and that even anonymous spaces online can matter.
             </p>
-            <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
+            <div style="margin-top: 14px;"></div>
             <div class="voice-card__name">Patient E (Female, 30s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(60deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_f.png" alt="" /></div>
             <p class="voice-card__text">
-              While it took time to accept the disease, she now values not pushing herself, relying on others she can trust, and not doing what she can't do.
-              She feels that resting — even with some guilt — when she exceeds her capacity is important for living with the disease long-term,
-              and she wants to convey that message to others with the same condition.
+              It took time for her to accept the illness, but she says that now she values not pushing herself, relying on people she can rely on, and allowing herself not to do what she cannot do.
+              She feels that not exceeding her own capacity, and allowing herself to rest without guilt, are essential to living with the condition over the long term—and she wants others with the same illness to know that too.
             </p>
-            <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
+            <div style="margin-top: 14px;"></div>
             <div class="voice-card__name">Patient F (Female, 30s)</div>
           </article>
 
-          <article class="voice-card" style="--tape-filter: hue-rotate(250deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_g.png" alt="" /></div>
             <p class="voice-card__text">
-              Because his period without a diagnosis was long, he wants to convey the importance of seeking other medical institutions and getting multiple opinions.
-              Having been helped by other patients' experiences and hospital information shared on social media, he strongly feels the importance of spaces where people with the same disease can connect.
+              Because he went so long without a diagnosis, he wants others to know the importance of looking for another medical institution and seeking more than one opinion.
+              Having been helped by other patients’ experiences and hospital information shared on X, he also feels strongly that spaces where people with the same illness can connect are very important.
             </p>
-            <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
+            <div style="margin-top: 14px;"></div>
             <div class="voice-card__name">Patient G (Male, 20s)</div>
           </article>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="section-nav">
+          <a href="medical.html" class="section-nav__link section-nav__link--left">
+            <img src="../arrow_nav_left.png" alt="" class="section-nav__arrow" />
+            <span class="section-nav__text">Navigating Medical Care</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing Message Section -->
+    <section class="closing-message">
+      <div class="wrap">
+        <div class="closing-message__grid">
+          <div class="closing-message__content">
+            <p class="closing-message__text">
+              <span class="closing-message__text-compact-span">Living with symptoms that are hard to see can place a far greater burden on a person than many imagine.</span><br><span class="closing-message__text-line2">Even when someone has been diagnosed with a designated intractable disease, it can still be difficult for others to understand</span><br><span class="closing-message__text-line3">because the condition is not outwardly visible and symptoms may vary even within a single day.</span>
+            </p>
+            <p class="closing-message__text closing-message__text--compact">
+              Patients also spoke about holding back or hesitating, and being unable to share how they truly felt.<span class="closing-message__text-wider-span">Today, more people are speaking about their illness, and opportunities to connect with others living with the same condition are growing.</span>
+            </p>
+            <p class="closing-message__text">
+              <span class="closing-message__text-line1">Even so, understanding across society as a whole has not yet spread far enough.</span><br>Because these symptoms are hard to see, patients still often struggle to be understood by those around them.<br>Taking a moment to notice the daily lives of people who may be near us.<br>That is the first step toward understanding.
+            </p>
+          </div>
+          <div class="closing-message__illustration">
+            <img src="../closing-illustration.png" alt="" aria-hidden="true" />
+          </div>
+        </div>
+        <div class="closing-message__nav">
+          <a href="resources.html" class="closing-message__nav-link">
+            <span class="closing-message__nav-text">Support &amp; Information</span>
+            <img src="../nav-arrow.png" alt="" class="closing-message__nav-arrow" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Contact + Footer -->
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <div class="contact__grid">
-        <div>
-          <h2 class="contact__title">Contact Us</h2>
-          <p class="contact__company">Seed Planning, Inc.</p>
-
-          <div class="contact__line"><span aria-hidden="true">✉</span><span>sf-info@seedplanning.co.jp</span></div>
-          <div class="contact__line"><span aria-hidden="true">☎</span><span>080-3454-8308</span></div>
-          <div class="contact__line"><span aria-hidden="true">⌂</span><span>Yushima First Bldg. 4F, 3-19-11 Yushima, Bunkyo-ku, Tokyo 113-0034, Japan</span></div>
-
-          <div class="contact__icons" aria-label="Social Media">
-            <a class="social" href="#" aria-label="X">X</a>
-            <a class="social" href="#" aria-label="Instagram">◎</a>
-          </div>
-        </div>
-
-        <div>
-          <img src="../seedplanning_logo.png" alt="SEED PLANNING" />
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Footer -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer__grid">
@@ -187,13 +210,13 @@
           <div class="footer__copy">© Seed Planning Co., Ltd.</div>
         </div>
 
-        <nav class="footer__nav" aria-label="Footer Navigation">
+        <nav class="footer__nav" aria-label="Footer navigation">
           <a href="index.html">HOME</a>
-          <a href="diagnosis.html">Path to Diagnosis</a>
-          <a href="daily.html">Daily Life Challenges</a>
+          <a href="diagnosis.html">Journey to Diagnosis</a>
+          <a href="daily.html">Challenges in Daily Life</a>
           <a href="medical.html">Navigating Medical Care</a>
-          <a href="resources.html">Resources &amp; Support</a>
-          <a href="#contact">Contact Us</a>
+          <a href="message.html">Messages to Share</a>
+          <a href="resources.html">Support &amp; Information</a>
         </nav>
       </div>
     </div>

@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Living with "Invisible Symptoms" — Voices of Myasthenia Gravis Patients</title>
+  <title>Living Each Day with “Invisible Symptoms” — Voices of People Living with Myasthenia Gravis</title>
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="english.css" />
   <script defer src="scripts.js"></script>
 </head>
 <body>
@@ -17,36 +18,42 @@
       <button class="menu-bar__toggle" type="button" aria-label="Menu" onclick="toggleMenu()">☰</button>
       <div class="menu-bar__nav" id="menuNav">
         <a href="index.html" class="is-active">HOME</a>
-        <a href="diagnosis.html">Path to Diagnosis</a>
-        <a href="daily.html">Daily Life Challenges</a>
+        <a href="diagnosis.html">Journey to Diagnosis</a>
+        <a href="daily.html">Challenges in Daily Life</a>
         <a href="medical.html">Navigating Medical Care</a>
         <a href="message.html">Messages to Share</a>
-        <a href="resources.html">Resources &amp; Support</a>
+        <a href="resources.html">Support &amp; Information</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO (HOME only) -->
-  <header class="hero">
-    <div class="wrap">
-      <h1 class="hero__title">Living with "Invisible Symptoms"</h1>
-      <p class="hero__subtitle">— Voices of Myasthenia Gravis Patients</p>
-    </div>
-  </header>
-
   <main>
-    <!-- Intro -->
+    <!-- Hero + Intro Combined -->
     <section class="intro">
-      <div class="wrap">
-        <div class="intro__grid">
-          <div class="intro__image-wrapper">
-            <img src="../flower%20and%20bird.png" alt="" aria-hidden="true" class="intro__image" />
+      <div class="intro__decorative-text intro__decorative-text--top-left">SEED PLANNING</div>
+      <div class="intro__decorative-text intro__decorative-text--top-right">MYASTHENIA GRAVIS</div>
+      <div class="intro__decorative-text intro__decorative-text--bottom-right">INITIATIVES</div>
+      <div class="intro__decorative-text intro__decorative-text--bottom-left">RARE DISEASE</div>
+
+      <div class="intro__container">
+        <div class="intro__content-group">
+          <div class="intro__header">
+            <h1 class="intro__title">Living Each Day with<br>“Invisible Symptoms”</h1>
+            <div class="intro__subtitle-box">
+              <p class="intro__subtitle">Voices of People Living with Myasthenia Gravis</p>
+            </div>
           </div>
-          <div>
-            <h2 class="intro__title">To You, Living with Invisible Symptoms</h2>
+
+          <div class="intro__body">
             <p class="intro__text">
-              Myasthenia gravis is a designated intractable disease with many symptoms that are<br>difficult to see from the outside, and it often takes time to reach a diagnosis.<br>Symptoms can also fluctuate depending on the time of day and physical condition,<br>making it difficult for those around you to fully understand. This "invisibility"<br>can lead to burdens not only in daily life but also emotionally.<br><br>
-              We interviewed seven myasthenia gravis patients and compiled their experiences<br>on the path to diagnosis, challenges in daily life, navigating medical care,<br>and the thoughts born from their experiences.
+              Myasthenia gravis is a designated intractable disease in Japan. Many of its symptoms are difficult to see from the outside, and for some people it can take time to reach a diagnosis.<br>
+              Symptoms also tend to change depending on the time of day and physical condition, and there are many moments when others may not fully understand.<br>
+              This “invisibility” can affect not only daily life,<br>
+              but emotional well-being as well.
+            </p>
+            <p class="intro__text">
+              For this website, we spoke with seven people living with myasthenia gravis and gathered their experiences—from the journey to diagnosis and the challenges of daily life,<br>
+              to their relationships with medical care and the reflections that have emerged through living with the condition.
             </p>
           </div>
         </div>
@@ -59,88 +66,116 @@
         <div class="topic-picker__grid">
           <!-- Left list -->
           <nav class="topic-list" aria-label="Topics">
-            <button class="topic-list__item is-active" type="button" data-topic-button="diagnosis">Path to Diagnosis</button>
-            <button class="topic-list__item" type="button" data-topic-button="daily">Daily Life Challenges</button>
+            <button class="topic-list__item is-active" type="button" data-topic-button="diagnosis">Journey to Diagnosis</button>
+            <button class="topic-list__item" type="button" data-topic-button="daily">Challenges in Daily Life</button>
             <button class="topic-list__item" type="button" data-topic-button="medical">Navigating Medical Care</button>
             <button class="topic-list__item" type="button" data-topic-button="message">Messages to Share</button>
           </nav>
 
-          <!-- Right detail (4 panels) -->
+          <!-- Right detail (4 panels; text is editable in HTML) -->
           <div>
             <!-- Diagnosis -->
             <article class="topic-detail" data-topic-panel="diagnosis">
-              <img class="topic-detail__icon" src="../yellow_icon.png" alt="" aria-hidden="true" />
-              <p class="topic-detail__kicker">The experience from hard-to-notice symptoms to reaching a diagnosis</p>
-              <h3 class="topic-detail__title">Path to Diagnosis</h3>
+              <div class="topic-detail__header">
+                <div class="topic-detail__header-left">
+                  <h3 class="topic-detail__title">Journey to Diagnosis</h3>
+                  <p class="topic-detail__kicker">From subtle early signs to finally receiving a diagnosis</p>
+                </div>
+                <img class="topic-detail__icon" src="../yellow_icon.png" alt="" aria-hidden="true" />
+              </div>
               <div class="rule" aria-hidden="true"></div>
               <p class="topic-detail__body">
-                Myasthenia gravis has early symptoms that are difficult to recognize, and it can take time to reach a diagnosis.
-                Here, we summarize patients' experiences of initial discomfort, confusion, and uncertainty on the way to diagnosis.
+                The early signs of myasthenia gravis can be difficult to recognize, and reaching a diagnosis may take time.<br>Here we share patients’ accounts of the first sense that something was wrong, and the uncertainty and hesitation they experienced before diagnosis.
               </p>
-              <ul class="topic-detail__bullets">
-                <li>I thought it was just fatigue</li>
-                <li>I visited multiple departments without getting a diagnosis</li>
-                <li>Antibodies were not detected, and a psychogenic cause was suspected</li>
-                <li>Learning it was a "designated intractable disease" through an internet search heightened my anxiety</li>
-              </ul>
-              <a class="pill-link" href="diagnosis.html">Explore this topic</a>
+              <div class="topic-detail__content">
+                <ul class="topic-detail__bullets">
+                  <li>I thought it was just fatigue</li>
+                  <li>Even after visiting several departments, I still had no diagnosis</li>
+                  <li>My antibodies were not detected, and a psychological cause was suspected</li>
+                  <li>Finding the words “designated intractable disease” online made my anxiety grow</li>
+                </ul>
+                <div class="topic-detail__button">
+                  <a class="pill-link" href="diagnosis.html">Explore this topic</a>
+                </div>
+              </div>
             </article>
 
             <!-- Daily -->
             <article class="topic-detail" data-topic-panel="daily" hidden>
-              <img class="topic-detail__icon" src="../red_icon.png" alt="" aria-hidden="true" />
-              <p class="topic-detail__kicker">Living with daily fluctuations while finding ways to cope</p>
-              <h3 class="topic-detail__title">Daily Life Challenges</h3>
+              <div class="topic-detail__header">
+                <div class="topic-detail__header-left">
+                  <h3 class="topic-detail__title">Challenges in Daily Life</h3>
+                  <p class="topic-detail__kicker">Living with symptom fluctuation while finding ways to cope</p>
+                </div>
+                <img class="topic-detail__icon" src="../red_icon.png" alt="" aria-hidden="true" />
+              </div>
               <div class="rule" aria-hidden="true"></div>
-              <p class="topic-detail__body">
-                Because the symptoms are "invisible," difficulties can arise that are hard for others to understand.
-                Here, we summarize the realities of living with symptom fluctuations, daily coping strategies, and emotional burden.
+              <p class="topic-detail__body topic-detail__body--daily">
+                Because the symptoms are difficult to see from the outside, daily challenges can be hard to explain to others.<br>Here we share the realities of symptom fluctuation, everyday coping strategies, and the emotional weight that can come with them.
               </p>
-              <ul class="topic-detail__bullets">
-                <li>Symptoms worsen in the evening / vary greatly day to day</li>
-                <li>Increased difficulty with walking, stairs, and fine motor tasks</li>
-                <li>The challenge of choosing not to push yourself</li>
-                <li>The emotional toll of not being understood</li>
-              </ul>
-              <a class="pill-link" href="daily.html">Explore this topic</a>
+              <div class="topic-detail__content">
+                <ul class="topic-detail__bullets">
+                  <li>Symptoms worsen in the evening, and can vary greatly from day to day</li>
+                  <li>Walking, stairs, and fine motor tasks have become more difficult</li>
+                  <li>It can be hard to choose not to push oneself</li>
+                  <li>Not being understood can become an emotional burden</li>
+                </ul>
+                <div class="topic-detail__button">
+                  <a class="pill-link" href="daily.html">Explore this topic</a>
+                </div>
+              </div>
             </article>
 
             <!-- Medical -->
             <article class="topic-detail" data-topic-panel="medical" hidden>
-              <img class="topic-detail__icon" src="../plum_icon.png" alt="" aria-hidden="true" />
-              <p class="topic-detail__kicker">Treatment choices and the relationship with healthcare providers</p>
-              <h3 class="topic-detail__title">Navigating Medical Care</h3>
+              <div class="topic-detail__header">
+                <div class="topic-detail__header-left">
+                  <h3 class="topic-detail__title">Navigating Medical Care</h3>
+                  <p class="topic-detail__kicker">Treatment decisions and relationships with healthcare professionals</p>
+                </div>
+                <img class="topic-detail__icon" src="../plum_icon.png" alt="" aria-hidden="true" />
+              </div>
               <div class="rule" aria-hidden="true"></div>
               <p class="topic-detail__body">
-                There is no single treatment, and choices must be made to fit one's lifestyle and values.
-                Here, we summarize voices about treatment decisions and relationships with healthcare providers.
+                There is no single treatment path, and people may need to make choices based on their lives and values.<br>Here we share voices about treatment decisions and relationships with healthcare professionals.
               </p>
-              <ul class="topic-detail__bullets">
-                <li>Choosing based on efficacy, side effects, cost, and impact on daily life</li>
-                <li>Building trust through explanation and ongoing dialogue</li>
-                <li>Organizing information during periods of high anxiety</li>
-                <li>Relationships with primary physicians and nurses</li>
-              </ul>
-              <a class="pill-link" href="medical.html">Explore this topic</a>
+              <div class="topic-detail__content">
+                <ul class="topic-detail__bullets">
+                  <li>Choosing while weighing effectiveness, side effects, cost, and the impact on daily life</li>
+                  <li>Clear explanations and ongoing dialogue can bring reassurance</li>
+                  <li>Organizing information during times of intense anxiety</li>
+                  <li>Relationships with primary physicians and nurses</li>
+                </ul>
+                <div class="topic-detail__button">
+                  <a class="pill-link" href="medical.html">Explore this topic</a>
+                </div>
+              </div>
             </article>
 
             <!-- Message -->
             <article class="topic-detail" data-topic-panel="message" hidden>
-              <img class="topic-detail__icon" src="../green_icon.png" alt="" aria-hidden="true" />
-              <p class="topic-detail__kicker">The power of connection, and what we want you to know</p>
-              <h3 class="topic-detail__title">Messages to Share</h3>
+              <div class="topic-detail__header">
+                <div class="topic-detail__header-left">
+                  <h3 class="topic-detail__title">Messages to Share</h3>
+                  <p class="topic-detail__kicker">The power of connection, and what patients hope others will know</p>
+                </div>
+                <img class="topic-detail__icon" src="../green_icon.png" alt="" aria-hidden="true" />
+              </div>
               <div class="rule" aria-hidden="true"></div>
               <p class="topic-detail__body">
-                Meeting others with the same disease and having a safe space to talk can be a source of emotional support.
-                Here, we summarize the messages patients want to share.
+                Meeting others who live with the same condition, and having a place where one can talk with peace of mind, can be a powerful source of support.<br>Here we share the messages patients most want others to hear.
               </p>
-              <ul class="topic-detail__bullets">
-                <li>Through social media and communities, I felt "I'm not alone"</li>
-                <li>Finding the right fit with healthcare providers and support contacts matters</li>
-                <li>Knowing about support systems and public resources</li>
-                <li>Don't push yourself — build a support network you can rely on</li>
-              </ul>
-              <a class="pill-link" href="message.html">Explore this topic</a>
+              <div class="topic-detail__content">
+                <ul class="topic-detail__bullets">
+                  <li>Social media and communities helped me feel I was not alone</li>
+                  <li>Finding the right medical institution and support contacts matters</li>
+                  <li>It helps to know about support systems and public resources</li>
+                  <li>Do not push yourself too hard—create places and relationships you can rely on</li>
+                </ul>
+                <div class="topic-detail__button">
+                  <a class="pill-link" href="message.html">Explore this topic</a>
+                </div>
+              </div>
             </article>
           </div>
         </div>
@@ -148,31 +183,43 @@
     </section>
   </main>
 
-  <!-- Contact + Footer -->
+  <!-- Contact + Footer (shared across pages) -->
   <section class="contact" id="contact">
     <div class="wrap">
       <div class="contact__grid">
         <div>
-          <h2 class="contact__title">Contact Us</h2>
-          <p class="contact__company">Seed Planning, Inc.</p>
+          <h2 class="contact__title">Contact</h2>
+          <p class="contact__company">Seed Planning Co., Ltd.</p>
 
           <div class="contact__line">
-            <img src="../icon_mail.png" alt="" aria-hidden="true" class="contact__icon" />
+            <img src="../icon_mail.png?v=4" alt="" aria-hidden="true" class="contact__icon" />
             <span>sf-info@seedplanning.co.jp</span>
           </div>
           <div class="contact__line">
-            <img src="../icon_phone.png" alt="" aria-hidden="true" class="contact__icon" />
+            <img src="../icon_phone.png?v=4" alt="" aria-hidden="true" class="contact__icon" />
             <span>080-3454-8308</span>
           </div>
           <div class="contact__line">
-            <img src="../icon_location.png" alt="" aria-hidden="true" class="contact__icon" />
-            <span>Yushima First Bldg. 4F, 3-19-11 Yushima, Bunkyo-ku, Tokyo 113-0034, Japan</span>
+            <img src="../icon_location.png?v=4" alt="" aria-hidden="true" class="contact__icon" />
+            <span>Yushima First Building 4F, 3-19-11 Yushima, Bunkyo-ku, Tokyo 113-0034, Japan</span>
           </div>
 
-          <div class="contact__icons" aria-label="Social Media">
-            <a class="social social--x" href="#" aria-label="X"></a>
-            <a class="social social--instagram" href="#" aria-label="Instagram"></a>
+          <div class="contact__icons" aria-label="Social media">
+            <a class="social social--x" href="https://x.com/seedplanning_m2" target="_blank" rel="noopener noreferrer" aria-label="X"></a>
           </div>
+        </div>
+
+        <div class="contact__note">
+          <h3 class="contact__note-title">About this website</h3>
+          <p class="contact__note-text">
+            This website was created and published by Seed Planning Co., Ltd., drawing on the voices of people living with myasthenia gravis in order to foster deeper understanding of the condition and the people affected by it.
+          </p>
+          <p class="contact__note-text contact__note-text--compact">
+            The content includes anonymized episodes that patients themselves agreed to have shared.
+          </p>
+          <p class="contact__note-text">
+            The descriptions are based on each individual’s personal experience and may not apply to everyone.
+          </p>
         </div>
       </div>
     </div>
@@ -188,13 +235,13 @@
           <div class="footer__copy">© Seed Planning Co., Ltd.</div>
         </div>
 
-        <nav class="footer__nav" aria-label="Footer Navigation">
-          <a href="diagnosis.html">Path to Diagnosis</a>
-          <a href="message.html">Messages to Share</a>
-          <a href="daily.html">Daily Life Challenges</a>
-          <a href="resources.html">Resources &amp; Support</a>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="index.html">HOME</a>
+          <a href="diagnosis.html">Journey to Diagnosis</a>
+          <a href="daily.html">Challenges in Daily Life</a>
           <a href="medical.html">Navigating Medical Care</a>
-          <a href="#contact">Contact Us</a>
+          <a href="message.html">Messages to Share</a>
+          <a href="resources.html">Support &amp; Information</a>
         </nav>
       </div>
     </div>

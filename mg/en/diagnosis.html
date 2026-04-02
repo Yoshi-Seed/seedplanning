@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Path to Diagnosis | Voices of Myasthenia Gravis Patients</title>
+  <title>Journey to Diagnosis | Voices of People Living with Myasthenia Gravis</title>
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="english.css" />
   <script defer src="scripts.js"></script>
 </head>
 <body class="page page--diagnosis">
@@ -17,22 +18,35 @@
       <button class="menu-bar__toggle" type="button" aria-label="Menu" onclick="toggleMenu()">☰</button>
       <div class="menu-bar__nav" id="menuNav">
         <a href="index.html">HOME</a>
-        <a href="diagnosis.html" class="is-active">Path to Diagnosis</a>
-        <a href="daily.html">Daily Life Challenges</a>
+        <a href="diagnosis.html" class="is-active">Journey to Diagnosis</a>
+        <a href="daily.html">Challenges in Daily Life</a>
         <a href="medical.html">Navigating Medical Care</a>
         <a href="message.html">Messages to Share</a>
-        <a href="resources.html">Resources &amp; Support</a>
+        <a href="resources.html">Support &amp; Information</a>
       </div>
     </div>
   </nav>
 
   <main>
-    <h1 class="sr-only">Path to Diagnosis</h1>
+    <h1 class="sr-only">Journey to Diagnosis</h1>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="wrap">
+        <div class="page-header__title-row">
+          <h2 class="page-header__title">Journey to Diagnosis</h2>
+          <img class="page-header__icon" src="../yellow_icon.png" alt="" aria-hidden="true" />
+        </div>
+        <h3 class="page-header__subtitle">From subtle early signs to the point of diagnosis</h3>
+        <p class="page-header__text">
+          The early signs of myasthenia gravis can be difficult to recognize, and reaching a diagnosis may take time.<br>
+          Here we share patients’ accounts of the first sense that something was wrong, and the uncertainty and hesitation they experienced before diagnosis.
+        </p>
+      </div>
+    </section>
 
     <!-- Top summary -->
     <section class="section topic-top">
-      <img class="decor-arrow decor-arrow--left" src="../purple_arrow.png" alt="" aria-hidden="true" />
-
       <div class="wrap">
         <div class="topic-top__grid">
           <div>
@@ -41,31 +55,28 @@
 
           <div class="topic-blocks">
             <div class="topic-row">
-              <div class="topic-row__title">Initial Signs</div>
+              <div class="topic-row__title">What first stood out</div>
               <p class="topic-row__text">
-                Many patients noticed symptoms such as easy fatigue, eye problems (drooping eyelids, double vision),
-                and difficulty exerting strength in their arms and legs.
-                However, quite a few attributed these to aging, general fatigue, work stress, or orthopedic issues,
-                and did not immediately suspect myasthenia gravis.
+                Many patients noticed fatigue, eye symptoms such as drooping eyelids or double vision,
+                or weakness in the arms and legs.
+                Even so, a considerable number did not initially suspect myasthenia gravis, instead attributing it to age,
+                general physical condition, work, or an orthopedic problem.
               </p>
             </div>
 
             <div class="topic-row">
-              <div class="topic-row__title">The Road to Diagnosis</div>
+              <div class="topic-row__title">Until diagnosis</div>
               <p class="topic-row__text">
-                The first departments visited varied — ophthalmology, orthopedics, internal medicine, and others —
-                and many cases involved visits to multiple medical institutions before being referred to neurology.
-                Some patients reported that periods of inconclusive test results, or being told their symptoms might be psychogenic,
-                led to significant anxiety and confusion.
+                The first department they visited varied—ophthalmology, orthopedics, internal medicine, and more—and many were eventually connected to neurology only after visiting multiple medical institutions.
+                Some said that inconclusive test results, or being told that the symptoms might be psychological, led to growing anxiety and confusion.
               </p>
             </div>
 
             <div class="topic-row">
-              <div class="topic-row__title">Receiving the Diagnosis</div>
+              <div class="topic-row__title">After diagnosis</div>
               <p class="topic-row__text">
-                The time to diagnosis varied widely, from a few weeks to over six months or nearly a year.
-                When the diagnosis was finally confirmed, many patients reported feeling both shock and anxiety,
-                along with relief that there was finally an explanation — that their symptoms finally made sense.
+                The time it took to receive a diagnosis varied widely, from only a few weeks for some people to more than six months or nearly a year for others.
+                When the diagnosis was finally made, many described not only surprise and fear, but also relief at last understanding what had been happening to them.
               </p>
             </div>
           </div>
@@ -83,119 +94,96 @@
 
         <div class="voice-grid">
           <!-- A -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(0deg) saturate(1.1);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_a.png" alt="" /></div>
             <p class="voice-card__text">
-              Starting around 2022, she experienced persistent severe fatigue and increasingly needed naps to recover.
-              While she considered it might be due to age or general health, the same condition continued even on days off,
-              leading her to realize it was different from normal tiredness.
-              She recalled hearing about myasthenia gravis testing during a previous visit for thyroid disease…
+              Starting around 2022, she experienced persistent severe fatigue and found that more and more days passed when she could not recover without an afternoon nap.
+              She initially wondered whether it was simply related to age or her physical condition, but because the same pattern continued even on days off, she began to feel it was different from ordinary tiredness.
+              She remembered having once heard about testing for myasthenia gravis when she was being treated for a thyroid disorder,<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> and decided on her own to visit a neurology department. After multiple tests, she received a definitive diagnosis about one month later. Looking back, she says it came as a major shock to be told after the diagnosis that she would need inpatient treatment.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient A (Female, 20s)</div>
           </article>
 
           <!-- B -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(90deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_b.png" alt="" /></div>
             <p class="voice-card__text">
-              Starting around 2018, severe fatigue persisted, and he increasingly needed to rest while out, choosing foods he could eat with his hands.
-              He initially suspected diabetes, but after noticing changes in his symptoms and undergoing multiple tests,
-              he received a definitive diagnosis of myasthenia gravis about one month later.
+              From around 2018, he began to feel intense fatigue, needed to rest more often when he went out, and started choosing foods he could eat with his hands. At first he suspected diabetes, but something did not feel right, and at his wife’s recommendation he visited a neurology department.
+              After undergoing multiple tests, including electromyography and antibody testing, he was definitively diagnosed with myasthenia gravis about one month later. At first he could not accept the diagnosis,<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> but over the course of several years—helped by advice from a junior colleague and by reading academic papers—he gradually came to accept that this was a disease he would live with.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient B (Male, 50s)</div>
           </article>
 
           <!-- C -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(210deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_c.png" alt="" /></div>
             <p class="voice-card__text">
-              Starting around 2018, she developed eye symptoms such as double vision and drooping eyelids during the day.
-              Because she already had poor eyesight, she initially thought the cause was contact lens fatigue and visited an ophthalmologist.
-              However, after visiting multiple ophthalmologists without receiving a diagnosis, she went through neurosurgery and internal medicine before a general hospital first raised the possibility of myasthenia gravis…
+              From around 2018, she began to experience eye symptoms such as double vision and drooping eyelids during the daytime. Because she had poor eyesight to begin with, she initially thought contact lenses or eye strain were to blame and sought care from ophthalmology.
+              Over roughly ten months she visited several eye clinics without receiving a diagnosis, and after later going to neurosurgery and internal medicine, a general hospital first raised the possibility of myasthenia gravis.<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> Following tests in neurology, she received a definitive diagnosis about 11 months after symptoms began. At the time she did not know much about the disease name and did not immediately grasp how serious it was; she remembers feeling more relieved that treatment could finally begin.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient C (Female, 30s)</div>
           </article>
 
           <!-- D -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(30deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_d.png" alt="" /></div>
             <p class="voice-card__text">
-              She first noticed something was wrong when she experienced sudden dizziness and double vision.
-              While each eye was fine on its own, seeing double when using both eyes rapidly worsened, and she visited an ophthalmologist.
-              She came across the term "myasthenia gravis" through an internet search and underwent testing with growing anxiety, but no diagnosis was reached…
+              She first felt that something was wrong after suddenly experiencing unsteadiness and double vision. There was no problem when using one eye, but when she used both eyes, images doubled and the symptom worsened quickly. At first she suspected eye strain and waited to see what would happen. After finding the term “myasthenia gravis” through an internet search, she went to an eye clinic with growing anxiety, but no diagnosis was made; later, after testing at an ophthalmology clinic with the necessary equipment, she was referred to a university hospital.<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> After undergoing multiple tests during hospitalization, she received a definitive diagnosis about three weeks after symptoms began.
+              She recalls that her feelings shifted from hoping it would be some other illness to wanting a diagnosis as soon as possible, and that when the diagnosis finally came, relief was stronger than anything else.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient D (Female, 40s)</div>
           </article>
 
           <!-- E -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(160deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_e.png" alt="" /></div>
             <p class="voice-card__text">
-              In January 2022, after contracting COVID-19, she continued to experience throat discomfort and muscle heaviness.
-              After waiting to see if it would improve, situations where she felt "something is different from usual" increased in daily life, and her anxiety grew.
-              This is placeholder text. Please replace with actual patient comments.
+              After contracting COVID-19 in January 2022, she began to notice unusual symptoms such as difficulty chewing and twitching in the muscles of her legs. At first she thought they were lingering aftereffects and waited to see whether they would pass, but when symptoms worsened in October and blurred vision was added, her anxiety increased and she visited a neurology department.
+              After multiple tests, she was diagnosed with myasthenia gravis about ten months after symptoms began.<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> At the time of diagnosis, it was hard for her to fully take it in, but because she had already heard other patients’ stories, she also felt some relief, sensing that the condition had been identified relatively early.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient E (Female, 30s)</div>
           </article>
 
           <!-- F -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(55deg) saturate(1.2);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_f.png" alt="" /></div>
             <p class="voice-card__text">
-              The trigger came around the summer of 2019, when friends and family pointed out that her "eyes looked sleepy."
-              She initially didn't pay much attention, but upon others' recommendation visited an ophthalmologist, who then referred her to neurology.
-              After blood tests and imaging at multiple medical institutions, she was diagnosed with myasthenia gravis about six months after her first visit.
+              Around the summer of 2019, friends and family started remarking that her eyes looked sleepy. She did not think much of it at first, but at their urging she visited an eye clinic, where she was advised to see a neurology department.
+              After receiving blood tests, imaging, electromyography, antibody tests, and other examinations at several medical institutions, she was diagnosed with myasthenia gravis about six months after that first visit.<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> Rather than feeling only shock at the diagnosis, she remembers a strong sense that all of her symptoms finally made sense together.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient F (Female, 30s)</div>
           </article>
 
           <!-- G -->
-          <article class="voice-card" style="--tape-filter: hue-rotate(250deg) saturate(1.25);">
-            <div class="voice-card__tape" aria-hidden="true"><img src="../taped_box.png" alt="" /></div>
+          <article class="voice-card">
+            <div class="voice-card__tape" aria-hidden="true"><img src="../tape_patient_g.png" alt="" /></div>
             <p class="voice-card__text">
-              Symptoms began around June 2024, with severe fatigue during commutes and difficulty moving his legs on station stairs.
-              He was fine in the morning but symptoms appeared in the evening.
-              He initially suspected heat stroke and waited it out, but even after visiting an orthopedic clinic, no abnormalities were found…
+              His symptoms began around June 2024. During his commute and on station stairs, he started feeling intense fatigue and found it difficult to move his legs. Mornings were relatively fine, while symptoms appeared in the evening, but at first he assumed it was heat exhaustion and waited to see if it would pass.
+              He visited orthopedics, where no abnormality was found, and after a possible psychological cause was suggested, he continued rehabilitation without improvement,<span class="voice-card__ellipsis">…</span><span class="voice-card__more"> and his anxiety persisted. He was later encouraged to visit a neurology department. Although blood tests and electromyography showed no clear abnormality, the Tensilon test was positive, and he was diagnosed with myasthenia gravis about three months after symptoms began. He recalls that while receiving a diagnosis brought relief, his anxiety did not disappear completely because antibodies were not detected.</span>
             </p>
             <button class="voice-card__toggle" type="button" data-voice-toggle>Read more</button>
             <div class="voice-card__name">Patient G (Male, 20s)</div>
           </article>
         </div>
+
+        <!-- Next Section Link -->
+        <div class="section-nav">
+          <a href="daily.html" class="section-nav__link section-nav__link--right">
+            <span class="section-nav__text">Challenges in Daily Life</span>
+            <img src="../arrow_nav.png" alt="" class="section-nav__arrow" />
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Contact + Footer -->
-  <section class="contact" id="contact">
-    <div class="wrap">
-      <div class="contact__grid">
-        <div>
-          <h2 class="contact__title">Contact Us</h2>
-          <p class="contact__company">Seed Planning, Inc.</p>
-
-          <div class="contact__line"><span aria-hidden="true">✉</span><span>sf-info@seedplanning.co.jp</span></div>
-          <div class="contact__line"><span aria-hidden="true">☎</span><span>080-3454-8308</span></div>
-          <div class="contact__line"><span aria-hidden="true">⌂</span><span>Yushima First Bldg. 4F, 3-19-11 Yushima, Bunkyo-ku, Tokyo 113-0034, Japan</span></div>
-
-          <div class="contact__icons" aria-label="Social Media">
-            <a class="social" href="#" aria-label="X">X</a>
-            <a class="social" href="#" aria-label="Instagram">◎</a>
-          </div>
-        </div>
-
-        <div>
-          <img src="../seedplanning_logo.png" alt="SEED PLANNING" />
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Footer -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer__grid">
@@ -206,13 +194,13 @@
           <div class="footer__copy">© Seed Planning Co., Ltd.</div>
         </div>
 
-        <nav class="footer__nav" aria-label="Footer Navigation">
+        <nav class="footer__nav" aria-label="Footer navigation">
           <a href="index.html">HOME</a>
-          <a href="message.html">Messages to Share</a>
-          <a href="daily.html">Daily Life Challenges</a>
-          <a href="resources.html">Resources &amp; Support</a>
+          <a href="diagnosis.html">Journey to Diagnosis</a>
+          <a href="daily.html">Challenges in Daily Life</a>
           <a href="medical.html">Navigating Medical Care</a>
-          <a href="#contact">Contact Us</a>
+          <a href="message.html">Messages to Share</a>
+          <a href="resources.html">Support &amp; Information</a>
         </nav>
       </div>
     </div>

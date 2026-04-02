@@ -1,0 +1,83 @@
+body {
+  letter-spacing: 0.01em;
+}
+
+.menu-bar__nav a {
+  letter-spacing: 0.03em;
+  padding: 10px 12px;
+}
+
+.page-header__title {
+  font-size: 30px;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+}
+
+.page-header__subtitle {
+  letter-spacing: 0.02em;
+}
+
+.intro__title {
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.intro__subtitle {
+  letter-spacing: 0.06em;
+}
+
+.topic-list {
+  gap: 44px;
+  flex-wrap: wrap;
+}
+
+.topic-list__item {
+  letter-spacing: 0.03em;
+}
+
+.topic-detail__title,
+.topic-row__title,
+.voice-header__title,
+.section-nav__text,
+.resource-hero__title,
+.closing-message__nav-text {
+  letter-spacing: 0.04em;
+}
+
+.topic-row__title {
+  line-height: 1.5;
+}
+
+.voice-card__name {
+  letter-spacing: 0.03em;
+}
+
+.section-nav__text {
+  font-size: 18px;
+}
+
+.footer__nav {
+  font-size: 12px;
+}
+
+.contact__note-text--compact {
+  letter-spacing: 0;
+}
+
+@media (max-width: 640px) {
+  .intro__title {
+    font-size: 30px;
+  }
+
+  .page-header__title {
+    font-size: 26px;
+  }
+
+  .topic-list {
+    gap: 18px;
+  }
+
+  .section-nav__text {
+    font-size: 16px;
+  }
+}

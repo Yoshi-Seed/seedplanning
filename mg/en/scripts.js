@@ -1,11 +1,10 @@
 /*
   Interactions (English version)
-  - Home: left list toggles right detail panel
+  - Home: topic buttons toggle the detail panel
   - Voice cards: "Read more" expands / collapses
   - Menu bar: mobile toggle
 */
 
-// ===== Menu bar toggle (mobile) =====
 function toggleMenu() {
   const nav = document.getElementById('menuNav');
   if (nav) {
@@ -14,7 +13,6 @@ function toggleMenu() {
 }
 
 (function(){
-  // ===== Home topic switcher =====
   const topicButtons = document.querySelectorAll('[data-topic-button]');
   const topicPanels = document.querySelectorAll('[data-topic-panel]');
 
@@ -28,7 +26,6 @@ function toggleMenu() {
       });
     };
 
-    // initial
     const initial = document.querySelector('[data-topic-button].is-active')?.getAttribute('data-topic-button')
       || topicButtons[0].getAttribute('data-topic-button');
     show(initial);
@@ -38,14 +35,13 @@ function toggleMenu() {
     });
   }
 
-  // ===== "Read more" toggles =====
   const toggles = document.querySelectorAll('[data-voice-toggle]');
   toggles.forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.voice-card');
       if(!card) return;
       const expanded = card.classList.toggle('is-expanded');
-      btn.textContent = expanded ? 'Close' : 'Read more';
+      btn.textContent = expanded ? 'Show less' : 'Read more';
     });
   });
 })();
