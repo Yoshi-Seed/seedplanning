@@ -810,6 +810,10 @@ main {
   margin-bottom: 0;
 }
 
+.about-site__line1 {
+  letter-spacing: -0.03em;
+}
+
 /* ===== Disclaimer ===== */
 .disclaimer {
   background: var(--c-base-bg);
