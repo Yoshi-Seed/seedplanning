@@ -794,7 +794,7 @@ main {
 /* ===== About Site ===== */
 .about-site {
   background: var(--c-base-bg);
-  padding: 20px 0 60px 0;
+  padding: 20px 0 100px 0;
 }
 
 .about-site .wrap {
