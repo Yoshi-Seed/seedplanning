@@ -884,6 +884,15 @@ main {
   align-items:flex-start;
   font-size: 16px;
 }
+.contact__line a{
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.contact__line a:hover{
+  opacity: 0.7;
+  text-decoration: underline;
+}
 .contact__icon{
   width: 28px;
   height: 28px;
