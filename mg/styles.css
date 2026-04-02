@@ -816,6 +816,10 @@ main {
 
 .about-site__line1 {
   letter-spacing: -0.05em;
+  white-space: nowrap;
+  display: inline-block;
+  transform: scale(0.98);
+  transform-origin: left center;
 }
 
 /* ===== Disclaimer ===== */
