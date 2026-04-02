@@ -801,6 +801,15 @@ main {
   max-width: 1300px;
 }
 
+.about-site__title {
+  margin: 0 0 30px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #7d5d02;
+  text-align: left;
+  letter-spacing: 0.05em;
+}
+
 .about-site__line1,
 .about-site__line {
   font-size: 15px;
