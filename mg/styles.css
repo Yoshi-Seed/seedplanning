@@ -798,7 +798,7 @@ main {
 }
 
 .about-site .wrap {
-  max-width: 1200px;
+  max-width: 1300px;
 }
 
 .about-site__text {
@@ -815,7 +815,8 @@ main {
 }
 
 .about-site__line1 {
-  letter-spacing: -0.05em;
+  font-size: 14.5px;
+  letter-spacing: -0.06em;
   white-space: nowrap;
   display: inline-block;
   transform: scale(0.98);
