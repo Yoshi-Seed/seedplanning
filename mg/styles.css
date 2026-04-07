@@ -1325,7 +1325,7 @@ main {
     padding-left: 0;
   }
 
-  /* 4. フッター（最下部）の整理 */
+  /* 4. フッター（最下部）の整理 - 縦並び化 */
   .footer {
     padding-left: 20px;
     padding-right: 20px;
@@ -1337,10 +1337,9 @@ main {
   }
 
   .footer__grid {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 40px;
   }
 
   .footer__brand {
@@ -1351,24 +1350,29 @@ main {
   .footer__copy {
     order: 2;
     margin-bottom: 0;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .footer__nav {
     order: 3;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 8px;
-    width: auto;
-    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
   }
 
   .footer__nav a {
-    padding: 6px 0;
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    text-align: left;
+  }
+
+  .footer__nav a:last-child {
+    margin-bottom: 0;
   }
 
   /* テーブルの調整 */
