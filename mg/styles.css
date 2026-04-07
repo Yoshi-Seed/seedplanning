@@ -1402,6 +1402,52 @@ main {
     margin-bottom: 20px;
   }
 
+  /* トピックナビゲーションの2列グリッド化 */
+  .topic-picker {
+    padding: 40px 0;
+  }
+
+  .topic-picker .wrap {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .topic-picker__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .topic-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    writing-mode: horizontal-tb !important;
+    padding: 0;
+  }
+
+  .topic-list__item {
+    writing-mode: horizontal-tb !important;
+    text-align: center !important;
+    padding: 20px 10px !important;
+    font-size: 15px !important;
+    background: rgba(125, 93, 2, 0.05) !important;
+    border: 1px solid rgba(125, 93, 2, 0.2) !important;
+    border-radius: 8px;
+    display: block !important;
+    position: relative;
+  }
+
+  .topic-list__item.is-active {
+    background: rgba(164, 166, 94, 0.15) !important;
+    border-color: rgba(164, 166, 94, 0.5) !important;
+  }
+
+  .topic-list__item.is-active::after {
+    display: none;
+  }
+
   /* 3. お問い合わせセクションの幅を広げる */
   .contact {
     padding-left: 20px;
