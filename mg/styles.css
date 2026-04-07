@@ -1548,8 +1548,8 @@ main {
 
   /* 4. フッター（最下部）の整理 - 縦並び化 */
   .footer {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 40px 20px;
+    text-align: center;
   }
 
   .footer .wrap {
@@ -1559,41 +1559,56 @@ main {
 
   .footer__grid {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 40px;
-  }
-
-  .footer__brand {
-    order: 1;
-    margin-bottom: 8px;
-  }
-
-  .footer__copy {
-    order: 2;
-    margin-bottom: 0;
-    font-size: 12px;
+    align-items: center;
+    gap: 30px;
   }
 
   .footer__nav {
-    order: 3;
+    order: 1;
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 12px;
     width: 100%;
+    margin-bottom: 20px;
   }
 
   .footer__nav a {
-    padding: 10px 0;
-    margin-bottom: 15px;
-    font-size: 14px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    text-align: left;
+    display: inline-block;
+    padding: 5px 0;
+    font-size: 13px;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
   }
 
-  .footer__nav a:last-child {
-    margin-bottom: 0;
+  .footer__nav a:not(:last-child)::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    color: rgba(125, 93, 2, 0.3);
+  }
+
+  .footer__nav a:hover {
+    text-decoration: underline;
+  }
+
+  .footer__brand {
+    order: 2;
+    margin-bottom: 15px;
+  }
+
+  .footer__brand img {
+    width: 120px !important;
+    max-width: 120px;
+  }
+
+  .footer__copy {
+    order: 3;
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
   }
 
   /* テーブルの調整 */
