@@ -1227,13 +1227,24 @@ main {
 
   .intro__content-group {
     max-width: 100%;
+    padding: 0;
   }
 
+  /* 1. タイトルを1行に収める */
   .intro__title {
-    font-size: 26px;
-    line-height: 1.6;
+    font-size: 24px;
+    line-height: 1.5;
     word-break: keep-all;
     overflow-wrap: break-word;
+    white-space: nowrap;
+  }
+
+  /* 2. 本文コンテナの拡張 */
+  .intro__body {
+    max-width: 100% !important;
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
   }
 
   .intro__text {
@@ -1242,11 +1253,9 @@ main {
     word-break: keep-all;
     overflow-wrap: anywhere;
     max-width: 100%;
+    width: 100%;
     text-align: center;
-  }
-
-  .intro__body {
-    max-width: 100%;
+    padding: 0;
   }
 
   /* HTMLの<br>タグをスマホで無効化 */
@@ -1258,17 +1267,20 @@ main {
     display: none;
   }
 
-  /* 「患者さんの声」ボタンの調整 */
+  /* 3. 「患者さんの声」ボタンの修正（最優先） */
   .intro__subtitle-box {
     padding: 10px 24px;
     max-width: 90%;
+    width: auto;
     margin: 0 auto;
+    display: inline-block;
   }
 
   .intro__subtitle {
     font-size: 14px;
     white-space: nowrap;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
+    word-break: keep-all;
   }
 
   /* 4. カードデザインの調整 */
