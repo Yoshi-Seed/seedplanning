@@ -1219,12 +1219,56 @@ main {
     font-size: 16px;
   }
 
+  /* イントロセクションの最適化 */
+  .intro__container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .intro__content-group {
+    max-width: 100%;
+  }
+
   .intro__title {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .intro__text {
     font-size: 14px;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .intro__body {
+    max-width: 100%;
+  }
+
+  /* HTMLの<br>タグをスマホで無効化 */
+  .intro__title br {
+    display: none;
+  }
+
+  .intro__text br {
+    display: none;
+  }
+
+  /* 「患者さんの声」ボタンの調整 */
+  .intro__subtitle-box {
+    padding: 10px 24px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .intro__subtitle {
+    font-size: 14px;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
   }
 
   /* 4. カードデザインの調整 */
