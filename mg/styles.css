@@ -1223,9 +1223,10 @@ main {
   .intro {
     max-width: none !important;
     width: 100% !important;
-    padding: 80px 0 0 0 !important;
+    padding: 80px 0 120px 0 !important;
     margin: 0 !important;
     position: relative !important;
+    min-height: 100vh !important;
   }
 
   .intro__container {
@@ -1380,12 +1381,12 @@ main {
   }
 
   .intro__decorative-text--bottom-right {
-    bottom: 15px;
+    bottom: 40px;
     right: 5px;
   }
 
   .intro__decorative-text--bottom-left {
-    bottom: 15px;
+    bottom: 40px;
     left: 5px;
     font-size: 11px;
   }
