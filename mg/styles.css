@@ -1278,9 +1278,9 @@ main {
   }
 
   .intro__subtitle {
-    font-size: 14px;
+    font-size: 13px;
     white-space: nowrap;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.02em;
     word-break: keep-all;
   }
 
