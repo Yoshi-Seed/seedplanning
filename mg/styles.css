@@ -1230,13 +1230,13 @@ main {
     padding: 0;
   }
 
-  /* 1. タイトルを1行に収める */
+  /* 1. タイトルを2行表示 */
   .intro__title {
     font-size: 24px;
-    line-height: 1.5;
+    line-height: 1.7;
     word-break: keep-all;
     overflow-wrap: break-word;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   /* 2. 本文コンテナの拡張 */
@@ -1258,9 +1258,9 @@ main {
     padding: 0;
   }
 
-  /* HTMLの<br>タグをスマホで無効化 */
+  /* HTMLの<br>タグの制御 */
   .intro__title br {
-    display: none;
+    display: block;
   }
 
   .intro__text br {
