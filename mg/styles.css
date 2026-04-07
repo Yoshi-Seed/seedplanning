@@ -1225,17 +1225,20 @@ main {
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
+    position: relative !important;
   }
 
   .intro__container {
-    max-width: none !important;
-    width: 100% !important;
+    max-width: 450px !important;
+    width: 85% !important;
     padding: 0 !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 10 !important;
   }
 
   .intro__content-group {
-    max-width: none !important;
+    max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -1249,17 +1252,16 @@ main {
     word-break: keep-all;
     overflow-wrap: break-word;
     white-space: normal;
-    padding: 0 15px !important;
+    padding: 0 !important;
+    margin: 0 0 20px 0 !important;
   }
 
   /* 2. 本文コンテナの拡張 */
   .intro__body {
-    max-width: none !important;
+    max-width: 100% !important;
     width: 100% !important;
-    padding: 0 15px !important;
+    padding: 0 !important;
     margin: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
     box-sizing: border-box !important;
     display: block !important;
   }
@@ -1269,14 +1271,16 @@ main {
     line-height: 1.8;
     word-break: keep-all;
     overflow-wrap: break-word;
-    max-width: none !important;
+    max-width: 100% !important;
     width: 100% !important;
     text-align: left;
-    margin: 0 0 20px 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 0 24px 0 !important;
     padding: 0 !important;
     display: block !important;
+  }
+
+  .intro__text:last-child {
+    margin-bottom: 0 !important;
   }
 
   /* HTMLの<br>タグの制御 */
@@ -1350,29 +1354,30 @@ main {
 
   /* イントロセクションの装飾テキスト調整 */
   .intro__decorative-text {
-    font-size: 12px;
-    opacity: 0.5;
+    font-size: 11px;
+    opacity: 0.4;
+    z-index: 1 !important;
   }
 
   .intro__decorative-text--top-left {
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 5px;
   }
 
   .intro__decorative-text--top-right {
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 5px;
   }
 
   .intro__decorative-text--bottom-right {
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 5px;
   }
 
   .intro__decorative-text--bottom-left {
-    bottom: 20px;
-    left: 20px;
-    font-size: 12px;
+    bottom: 15px;
+    left: 5px;
+    font-size: 11px;
   }
 
   /* インタビューカードの調整 */
