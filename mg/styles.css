@@ -1287,6 +1287,11 @@ main {
     margin-bottom: 0 !important;
   }
 
+  .intro__text-tight {
+    letter-spacing: -0.05em !important;
+    white-space: nowrap !important;
+  }
+
   /* HTMLの<br>タグの完全無効化 */
   .intro__title br {
     display: block;
