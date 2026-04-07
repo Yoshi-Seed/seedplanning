@@ -1430,13 +1430,14 @@ main {
   .topic-list__item {
     writing-mode: horizontal-tb !important;
     text-align: center !important;
-    padding: 20px 10px !important;
-    font-size: 15px !important;
+    padding: 12px 8px !important;
+    font-size: 13px !important;
     background: rgba(125, 93, 2, 0.05) !important;
     border: 1px solid rgba(125, 93, 2, 0.2) !important;
-    border-radius: 8px;
+    border-radius: 6px;
     display: block !important;
     position: relative;
+    line-height: 1.4;
   }
 
   .topic-list__item.is-active {
