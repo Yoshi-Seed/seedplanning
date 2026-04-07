@@ -1249,13 +1249,13 @@ main {
     max-width: 100%;
   }
 
-  /* HTMLの<br>タグをスマホで無効化 */
+  /* HTMLの<br>タグをスマホでも有効に */
   .intro__title br {
-    display: none;
+    display: block;
   }
 
   .intro__text br {
-    display: none;
+    display: block;
   }
 
   /* 「患者さんの声」ボタンの調整 */
