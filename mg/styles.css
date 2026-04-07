@@ -1568,14 +1568,15 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px 12px;
+    gap: 10px 6px;
     width: 100%;
     margin-bottom: 20px;
+    line-height: 1.8;
   }
 
   .footer__nav a {
     display: inline-block;
-    padding: 5px 0;
+    padding: 0 8px;
     font-size: 13px;
     white-space: nowrap;
     text-align: center;
@@ -1586,7 +1587,9 @@ main {
   .footer__nav a:not(:last-child)::after {
     content: '|';
     position: absolute;
-    right: -8px;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
     color: rgba(125, 93, 2, 0.3);
   }
 
