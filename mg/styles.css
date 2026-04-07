@@ -1151,3 +1151,148 @@ main {
   height: auto;
   display: block;
 }
+
+/* ===== Responsive Design - Mobile Optimization ===== */
+@media (max-width: 768px) {
+  /* 1. 全体のレイアウト調整 */
+  :root {
+    --pad-x: 20px;
+    --pad-y: 30px;
+    --fs-xxl: 32px;
+    --fs-xl: 24px;
+    --fs-lg: 18px;
+  }
+
+  .wrap {
+    padding: 0 20px;
+  }
+
+  /* 2. フッター（お問い合わせセクション）の調整 */
+  .contact__grid {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .contact__note {
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* 3. テキストの最適化 */
+  .about-site__line1 {
+    white-space: normal;
+    font-size: 14px;
+  }
+
+  .about-site__title {
+    font-size: 24px;
+  }
+
+  .about-site {
+    padding: 60px 0 40px 0;
+  }
+
+  .disclaimer__title {
+    font-size: 16px;
+  }
+
+  .intro__title {
+    font-size: 28px;
+  }
+
+  .intro__text {
+    font-size: 14px;
+  }
+
+  /* 4. カードデザインの調整 */
+  .card {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+
+  .card__inner {
+    padding: 20px;
+  }
+
+  /* メニューバーの調整 */
+  .menu-bar__nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-bar__nav a {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* イントロセクションの装飾テキスト調整 */
+  .intro__decorative-text {
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  .intro__decorative-text--top-left {
+    top: 20px;
+    left: 20px;
+  }
+
+  .intro__decorative-text--top-right {
+    top: 20px;
+    right: 20px;
+  }
+
+  .intro__decorative-text--bottom-right {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .intro__decorative-text--bottom-left {
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+  }
+
+  /* インタビューカードの調整 */
+  .interview-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* セクションタイトルの調整 */
+  .section-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  /* フッターの調整 */
+  .footer__grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer__nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* テーブルの調整 */
+  .resource-table {
+    font-size: 13px;
+  }
+
+  .resource-table th,
+  .resource-table td {
+    padding: 8px;
+  }
+
+  /* クロージングメッセージの調整 */
+  .closing-message__text {
+    font-size: 14px;
+  }
+
+  /* ホバーエフェクトをタッチデバイス用に調整 */
+  .card:hover {
+    transform: none;
+  }
+}
