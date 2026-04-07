@@ -1270,8 +1270,8 @@ main {
 
   /* 3. 「患者さんの声」ボタンの修正（最優先） */
   .intro__subtitle-box {
-    padding: 10px 24px;
-    max-width: 90%;
+    padding: 10px 30px;
+    max-width: 95%;
     width: auto;
     margin: 0 auto;
     display: inline-block;
@@ -1282,6 +1282,7 @@ main {
     white-space: nowrap;
     letter-spacing: -0.02em;
     word-break: keep-all;
+    text-align: center;
   }
 
   /* 4. カードデザインの調整 */
