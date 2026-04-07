@@ -1449,6 +1449,87 @@ main {
     display: none;
   }
 
+  /* カードセクションのモバイル最適化 */
+  .topic-detail {
+    writing-mode: horizontal-tb !important;
+    padding: 25px !important;
+    min-height: auto;
+  }
+
+  .topic-detail__header {
+    writing-mode: horizontal-tb !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .topic-detail__header-left {
+    writing-mode: horizontal-tb !important;
+    flex: 1;
+  }
+
+  .topic-detail__title {
+    writing-mode: horizontal-tb !important;
+    font-size: 18px !important;
+    margin: 0 0 6px 0;
+    line-height: 1.5;
+  }
+
+  .topic-detail__kicker {
+    writing-mode: horizontal-tb !important;
+    font-size: 12px !important;
+    line-height: 1.6;
+  }
+
+  .topic-detail__icon {
+    width: 60px !important;
+    height: 60px !important;
+    flex-shrink: 0;
+  }
+
+  .topic-detail > .rule {
+    writing-mode: horizontal-tb !important;
+    width: 100%;
+    margin: 15px 0;
+  }
+
+  .topic-detail__body {
+    writing-mode: horizontal-tb !important;
+    width: 100% !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin: 0 0 20px 0;
+  }
+
+  .topic-detail__content {
+    writing-mode: horizontal-tb !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .topic-detail__bullets {
+    writing-mode: horizontal-tb !important;
+    width: 100% !important;
+    padding-left: 1.2em;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .topic-detail__bullets li {
+    writing-mode: horizontal-tb !important;
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+
+  .topic-detail__button {
+    writing-mode: horizontal-tb !important;
+    width: 100%;
+    text-align: center;
+  }
+
   /* 3. お問い合わせセクションの幅を広げる */
   .contact {
     padding-left: 20px;
