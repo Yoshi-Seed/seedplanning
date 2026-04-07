@@ -1269,27 +1269,32 @@ main {
   .intro__text {
     font-size: 14px;
     line-height: 1.8;
-    word-break: keep-all;
-    overflow-wrap: break-word;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    line-break: strict !important;
+    word-wrap: break-word !important;
     max-width: 100% !important;
     width: 100% !important;
     text-align: center !important;
+    text-justify: inter-character !important;
     margin: 0 0 24px 0 !important;
     padding: 0 !important;
     display: block !important;
+    hanging-punctuation: first last !important;
   }
 
   .intro__text:last-child {
     margin-bottom: 0 !important;
   }
 
-  /* HTMLの<br>タグの制御 */
+  /* HTMLの<br>タグの完全無効化 */
   .intro__title br {
     display: block;
   }
 
   .intro__text br {
     display: none !important;
+    content: '' !important;
   }
 
   /* 3. 「患者さんの声」ボタンの修正（最優先） */
