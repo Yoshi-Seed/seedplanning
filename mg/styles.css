@@ -1229,8 +1229,8 @@ main {
   }
 
   .intro__container {
-    max-width: 450px !important;
-    width: 80% !important;
+    max-width: 420px !important;
+    width: 75% !important;
     padding: 0 !important;
     margin: 0 auto !important;
     position: relative !important;
