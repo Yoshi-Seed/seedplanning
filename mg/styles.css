@@ -1558,24 +1558,39 @@ main {
     margin-top: 20px !important;
     margin-bottom: 20px !important;
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 15px !important;
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    flex-wrap: wrap !important;
   }
 
   .section-nav__link {
-    display: inline-flex !important;
+    display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
+  .section-nav__link--left {
+    justify-content: flex-start !important;
+  }
+
+  .section-nav__link--right {
+    justify-content: flex-end !important;
+    margin-left: 0 !important;
   }
 
   .section-nav__text {
     font-size: 14px !important;
     font-weight: 500 !important;
-    letter-spacing: 0.03em !important;
-    max-width: 40% !important;
+    letter-spacing: 0.02em !important;
     word-break: keep-all !important;
     line-height: 1.4 !important;
+    white-space: nowrap !important;
   }
 
   .section-nav__arrow {
