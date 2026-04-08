@@ -1782,7 +1782,16 @@ main {
 
   /* クロージングメッセージの調整 */
   .closing-message {
-    padding: 40px 20px !important;
+    padding: 40px 15px !important;
+    box-sizing: border-box !important;
+  }
+
+  .closing-message .wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .closing-message__grid {
@@ -1791,16 +1800,21 @@ main {
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .closing-message__content {
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 !important;
+    padding: 0 15px !important;
     margin: 0 auto !important;
+    box-sizing: border-box !important;
   }
 
   .closing-message__text {
+    display: block !important;
     font-size: 15px !important;
     line-height: 1.8 !important;
     margin-bottom: 18px !important;
@@ -1811,6 +1825,29 @@ main {
     text-align: left !important;
     width: 100% !important;
     max-width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* すべてのspan要素を強制的に通常表示に */
+  .closing-message__text span,
+  .closing-message__text-compact-span,
+  .closing-message__text-wider-span,
+  .closing-message__text-line1,
+  .closing-message__text-line2,
+  .closing-message__text-line3 {
+    display: inline !important;
+    width: auto !important;
+    max-width: none !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+    letter-spacing: inherit !important;
+  }
+
+  /* モバイルでは強制改行を無効化 */
+  .closing-message__text br {
+    display: none !important;
   }
 
   .closing-message__illustration {
