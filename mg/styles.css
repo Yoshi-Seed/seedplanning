@@ -1550,6 +1550,12 @@ main {
     font-size: 26px !important;
   }
 
+  .page-header__title--message {
+    letter-spacing: 0.01em !important;
+    font-size: 26px !important;
+    white-space: nowrap !important;
+  }
+
   .mobile-br {
     display: block !important;
   }
