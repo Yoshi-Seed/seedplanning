@@ -1546,6 +1546,36 @@ main {
     padding: 28px 0 34px !important;
   }
 
+  /* 花瓶イラストを非表示 - モバイル専用 */
+  .topic-image {
+    display: none !important;
+  }
+
+  /* フッターをモバイル専用レイアウトに変更 */
+  .footer__brand {
+    display: none !important;
+  }
+
+  .footer__grid > div:first-child {
+    display: none !important;
+  }
+
+  .footer__grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 25px !important;
+    grid-template-columns: none !important;
+  }
+
+  .footer__nav {
+    order: 1 !important;
+  }
+
+  .footer__copy {
+    order: 2 !important;
+  }
+
   /* 連絡先セクション */
   .contact {
     padding: 40px 20px !important;
