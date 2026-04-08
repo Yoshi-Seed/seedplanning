@@ -1565,11 +1565,13 @@ main {
 
   .footer__nav {
     order: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px 6px;
-    width: 100%;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    grid-template-columns: none !important;
+    gap: 10px 6px !important;
+    width: 100% !important;
+    justify-self: center !important;
     margin-bottom: 20px;
     line-height: 1.8;
   }
