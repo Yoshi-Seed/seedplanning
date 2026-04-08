@@ -208,12 +208,7 @@ main {
   font-size: 32px;
   font-weight: 700;
   color: #7d5d02;
-  letter-spacing: 0.08em;
-}
-
-.page-header__title--compact {
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  letter-spacing: 0.12em;
 }
 
 .page-header__icon {
@@ -570,7 +565,7 @@ main {
 
 /* ===== Topic pages: top summary ===== */
 .topic-top{
-  padding: 28px 0 34px;
+  padding: 56px 0 34px;
 }
 .topic-top__grid{
   display:grid;
@@ -1536,6 +1531,21 @@ main {
   }
 
   /* 3. お問い合わせセクションの幅を広げる */
+  /* ページヘッダー - モバイル専用 */
+  .page-header__title {
+    letter-spacing: 0.08em !important;
+  }
+
+  .page-header__title--compact {
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+  }
+
+  /* トップサマリーセクション - モバイル専用 */
+  .topic-top {
+    padding: 28px 0 34px !important;
+  }
+
   /* 連絡先セクション */
   .contact {
     padding: 40px 20px !important;
