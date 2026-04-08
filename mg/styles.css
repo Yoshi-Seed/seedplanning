@@ -211,6 +211,10 @@ main {
   letter-spacing: 0.12em;
 }
 
+.mobile-br {
+  display: none;
+}
+
 .page-header__icon {
   width: 60px;
   height: 60px;
@@ -1539,6 +1543,10 @@ main {
   .page-header__title--compact {
     letter-spacing: 0.02em !important;
     white-space: nowrap !important;
+  }
+
+  .mobile-br {
+    display: block !important;
   }
 
   /* トップサマリーセクション - モバイル専用 */
