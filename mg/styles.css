@@ -565,7 +565,7 @@ main {
 
 /* ===== Topic pages: top summary ===== */
 .topic-top{
-  padding: 56px 0 34px;
+  padding: 28px 0 34px;
 }
 .topic-top__grid{
   display:grid;
