@@ -176,7 +176,7 @@ main {
 /* ===== Page Header (detail pages) ===== */
 .page-header {
   background: #fcf3dd;
-  padding: 32px 0 28px;
+  padding: 20px 0 20px;
 }
 
 .page-header--daily {
@@ -195,10 +195,10 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 24px;
-  margin-bottom: 18px;
-  padding-top: 18px;
-  padding-bottom: 18px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   border-top: 1px solid var(--c-line);
   border-bottom: 1px solid var(--c-line);
 }
