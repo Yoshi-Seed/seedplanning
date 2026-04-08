@@ -211,6 +211,11 @@ main {
   letter-spacing: 0.08em;
 }
 
+.page-header__title--compact {
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 .page-header__icon {
   width: 60px;
   height: 60px;
