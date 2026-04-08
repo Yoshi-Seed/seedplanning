@@ -1781,8 +1781,43 @@ main {
   }
 
   /* クロージングメッセージの調整 */
+  .closing-message {
+    padding: 60px 20px !important;
+  }
+
+  .closing-message__grid {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+
   .closing-message__text {
-    font-size: 14px;
+    font-size: 14px !important;
+    line-height: 1.8 !important;
+    margin-bottom: 20px !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+
+  .closing-message__illustration {
+    display: none !important;
+  }
+
+  .closing-message__nav {
+    margin-top: 40px !important;
+    text-align: center !important;
+  }
+
+  .closing-message__nav-link {
+    justify-content: center !important;
+  }
+
+  .closing-message__nav-text {
+    font-size: 16px !important;
+  }
+
+  .closing-message__nav-arrow {
+    width: 30px !important;
   }
 
   /* ホバーエフェクトをタッチデバイス用に調整 */
