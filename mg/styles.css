@@ -1613,26 +1613,10 @@ main {
     text-decoration: underline !important;
   }
 
-  /* ロゴ */
-  .footer__brand {
-    order: 2 !important;
-    margin: 5px 0 !important;
-    display: block !important;
-    text-align: center !important;
-  }
-
-  .footer__brand img {
-    width: 120px !important;
-    max-width: 120px !important;
-    height: auto !important;
-    display: block !important;
-    margin: 0 auto !important;
-  }
-
   /* コピーライト */
   .footer__copy {
-    order: 3 !important;
-    margin: 8px 0 0 0 !important;
+    order: 2 !important;
+    margin: 15px 0 0 0 !important;
     font-size: 12px !important;
     text-align: center !important;
     opacity: 0.85 !important;
