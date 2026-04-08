@@ -1531,19 +1531,57 @@ main {
   }
 
   /* 3. お問い合わせセクションの幅を広げる */
+  /* 連絡先セクション */
   .contact {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 40px 20px !important;
   }
 
   .contact .wrap {
-    max-width: 100%;
-    padding: 0;
+    max-width: 100% !important;
+    padding: 0 !important;
   }
 
-  .contact__company,
+  .contact__title {
+    font-size: 22px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .contact__company {
+    padding-left: 0 !important;
+    margin-bottom: 20px !important;
+    font-size: 16px !important;
+  }
+
+  /* 連絡先リスト項目（最重要） */
   .contact__line {
-    padding-left: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin-bottom: 15px !important;
+    padding-left: 0 !important;
+    font-size: 14px !important;
+  }
+
+  /* アイコンのサイズ統一 */
+  .contact__icon {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+    object-fit: contain !important;
+  }
+
+  /* SNSアイコン（X） */
+  .contact__icons {
+    display: flex !important;
+    gap: 15px !important;
+    margin-top: 20px !important;
+    align-items: center !important;
+  }
+
+  .social {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0 !important;
   }
 
   /* 4. フッター（最下部）の整理 - 縦並び化 */
