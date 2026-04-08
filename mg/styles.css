@@ -1545,6 +1545,10 @@ main {
     white-space: nowrap !important;
   }
 
+  .page-header__title--medical {
+    letter-spacing: 0.02em !important;
+  }
+
   .mobile-br {
     display: block !important;
   }
