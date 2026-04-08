@@ -1553,6 +1553,37 @@ main {
     display: block !important;
   }
 
+  /* ナビゲーションセクション - モバイル専用 */
+  .section-nav {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .section-nav__link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .section-nav__text {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.03em !important;
+    max-width: 40% !important;
+    word-break: keep-all !important;
+    line-height: 1.4 !important;
+  }
+
+  .section-nav__arrow {
+    width: 22px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+  }
+
   /* トップサマリーセクション - モバイル専用 */
   .topic-top {
     padding: 28px 0 34px !important;
