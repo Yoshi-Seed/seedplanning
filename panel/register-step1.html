@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登録手続き – 規約確認 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-area video {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Heading */
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Step indicator */
+    .steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--border);
+      color: var(--text-sub);
+      flex-shrink: 0;
+    }
+    .step.active .step-num {
+      background: var(--navy);
+      color: #fff;
+    }
+    .step-label {
+      font-size: 12px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+    .step.active .step-label {
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .step-line {
+      height: 1px;
+      background: var(--border);
+      width: 40px;
+      flex-shrink: 0;
+      margin: 0 4px;
+    }
+
+    /* Section heading */
+    .section-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Terms box */
+    .terms-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      background: var(--bg);
+    }
+    .terms-box h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .terms-box p { margin-bottom: 12px; }
+
+    /* Checkbox */
+    .checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .checkbox-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--green);
+      flex-shrink: 0;
+    }
+    .checkbox-wrap span {
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+      margin-bottom: 12px;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .steps { gap: 0; }
+      .step-line { width: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <video autoplay loop muted playsinline>
+          <source src="Entry_HCP_Panel_web.mp4" type="video/mp4">
+          <source src="edited_loop.webm" type="video/webm">
+        </video>
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <h1 class="page-title">登録手続きを続ける</h1>
+      <p class="page-desc">まず規約をご確認のうえ、基本情報の入力へお進みください。</p>
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="step active">
+          <div class="step-num">1</div>
+          <div class="step-label">規約確認</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-label">基本情報入力</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">登録完了</div>
+        </div>
+      </div>
+
+      <!-- Section -->
+      <div class="section-heading">
+        <span class="section-num">1</span>規約確認
+      </div>
+
+      <!-- Terms box -->
+      <div class="terms-box">
+        <h4>利用規約</h4>
+        <p>本規約は、株式会社シード・プランニング（以下「当社」）が運営するシードメディカルパネル（以下「本サービス」）の利用条件を定めるものです。</p>
+        <p>本サービスは、医療従事者を対象とした調査・研究の協力者登録サービスです。登録者は、当社が実施する医療に関する調査・研究に任意でご協力いただきます。</p>
+        <h4>個人情報の取り扱い</h4>
+        <p>ご登録いただいた個人情報は、調査・研究の実施および謝礼の送付に限定して使用し、第三者への提供は行いません。詳細は個人情報保護方針をご参照ください。</p>
+        <h4>謝礼について</h4>
+        <p>調査へのご協力に対し、内容に応じたポイントを付与いたします。ポイントは所定の方法で換金・交換可能です。</p>
+        <h4>退会について</h4>
+        <p>いつでも退会のお申し出が可能です。退会後は個人情報を削除いたします（法令等による保管義務がある場合を除く）。</p>
+      </div>
+
+      <!-- Consent checkbox -->
+      <div class="checkbox-wrap">
+        <input type="checkbox" id="agree" name="agree" required>
+        <span>利用規約・個人情報保護方針を確認し、同意します</span>
+      </div>
+
+      <!-- CTA -->
+      <button class="btn-primary" onclick="proceed()">基本情報入力へ進む</button>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+  <script>
+    function proceed() {
+      const cb = document.getElementById('agree');
+      if (!cb.checked) {
+        cb.closest('.checkbox-wrap').style.borderColor = '#D9534F';
+        cb.closest('.checkbox-wrap').style.background = '#FFF8F8';
+        return;
+      }
+      window.location.href = 'register-step2.html';
+    }
+  </script>
+</body>
+</html>

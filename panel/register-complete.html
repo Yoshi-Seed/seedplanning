@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メール送信完了 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+      --success:     #4F7A6D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 56px 44px;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .logo-area video {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* Success icon */
+    .icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #EDF3F1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .icon-wrap svg {
+      width: 32px;
+      height: 32px;
+      color: var(--success);
+    }
+
+    /* Text */
+    .complete-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .complete-body {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .complete-note {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* Button */
+    .btn-ghost {
+      display: inline-block;
+      padding: 0 32px;
+      height: 44px;
+      line-height: 42px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 480px) {
+      .card { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <video autoplay loop muted playsinline>
+          <source src="Entry_HCP_Panel_web.mp4" type="video/mp4">
+          <source src="edited_loop.webm" type="video/webm">
+        </video>
+        <div class="logo-text-ja">シードメディカルパネル</div>
+      </div>
+
+      <!-- Check icon -->
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+
+      <h1 class="complete-title">登録案内メールを送信しました</h1>
+      <p class="complete-body">ご入力いただいたメールアドレス宛にご案内をお送りしました。<br>メールに記載のURLより、登録手続きを進めてください。</p>
+      <p class="complete-note">届かない場合は迷惑メールフォルダをご確認ください。</p>
+
+      <a href="index.html" class="btn-ghost">ログイン画面へ戻る</a>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+</body>
+</html>

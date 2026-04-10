@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登録手続き – 基本情報入力 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-area video {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Heading */
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--border);
+      color: var(--text-sub);
+      flex-shrink: 0;
+    }
+    .step.active .step-num { background: var(--navy); color: #fff; }
+    .step.done .step-num { background: var(--green); color: #fff; }
+    .step-label { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .step.active .step-label { color: var(--navy); font-weight: 700; }
+    .step.done .step-label { color: var(--green); }
+    .step-line { height: 1px; background: var(--border); width: 40px; flex-shrink: 0; margin: 0 4px; }
+
+    /* Section heading */
+    .section-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .required-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .optional-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--border);
+      color: var(--text-sub);
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    input[type="text"],
+    input[type="date"],
+    select {
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+      width: 100%;
+      background: #fff;
+      transition: border-color .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--navy); }
+    input::placeholder { color: #b5bac4; }
+
+    /* DOB row */
+    .dob-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+    }
+    .dob-row select { padding-right: 32px; }
+    .select-wrap {
+      position: relative;
+    }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--text-sub);
+      pointer-events: none;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .btn-back {
+      height: 48px;
+      padding: 0 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+    .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+    .btn-primary {
+      flex: 1;
+      height: 48px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .dob-row { grid-template-columns: 1fr 1fr 1fr; }
+      .step-line { width: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <video autoplay loop muted playsinline>
+          <source src="Entry_HCP_Panel_web.mp4" type="video/mp4">
+          <source src="edited_loop.webm" type="video/webm">
+        </video>
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <h1 class="page-title">基本情報を入力してください</h1>
+      <p class="page-desc">登録に必要な情報を入力し、内容を確認して次へ進みます。</p>
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="step done">
+          <div class="step-num">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-label">規約確認</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step active">
+          <div class="step-num">2</div>
+          <div class="step-label">基本情報入力</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">登録完了</div>
+        </div>
+      </div>
+
+      <!-- Section -->
+      <div class="section-heading">
+        <span class="section-num">2</span>基本情報入力
+      </div>
+
+      <form onsubmit="handleNext(event)">
+        <!-- 氏名 -->
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label>氏名（姓）<span class="required-badge">必須</span></label>
+            <input type="text" placeholder="例）山田" required>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>氏名（名）<span class="required-badge">必須</span></label>
+            <input type="text" placeholder="例）太郎" required>
+          </div>
+        </div>
+
+        <!-- フリガナ -->
+        <div class="form-row" style="margin-top:20px">
+          <div class="form-group" style="margin-bottom:0">
+            <label>フリガナ（セイ）<span class="required-badge">必須</span></label>
+            <input type="text" placeholder="例）ヤマダ" required>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>フリガナ（メイ）<span class="required-badge">必須</span></label>
+            <input type="text" placeholder="例）タロウ" required>
+          </div>
+        </div>
+
+        <!-- 生年月日 -->
+        <div class="form-group" style="margin-top:20px">
+          <label>生年月日<span class="required-badge">必須</span></label>
+          <div class="dob-row">
+            <div class="select-wrap">
+              <select required>
+                <option value="">年</option>
+                <script>
+                  for (let y = 1940; y <= 2005; y++) {
+                    document.write(`<option value="${y}">${y}年</option>`);
+                  }
+                </script>
+              </select>
+            </div>
+            <div class="select-wrap">
+              <select required>
+                <option value="">月</option>
+                <script>
+                  for (let m = 1; m <= 12; m++) {
+                    document.write(`<option value="${m}">${m}月</option>`);
+                  }
+                </script>
+              </select>
+            </div>
+            <div class="select-wrap">
+              <select required>
+                <option value="">日</option>
+                <script>
+                  for (let d = 1; d <= 31; d++) {
+                    document.write(`<option value="${d}">${d}日</option>`);
+                  }
+                </script>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="history.back()">戻る</button>
+          <button type="submit" class="btn-primary">確認へ進む</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+  <script>
+    function handleNext(e) {
+      e.preventDefault();
+      window.location.href = 'register-step2b.html';
+    }
+  </script>
+</body>
+</html>
