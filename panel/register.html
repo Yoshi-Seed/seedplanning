@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規登録 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --navy-side:   #334B60;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+      --success:     #4F7A6D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .logo-area img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en {
+      font-size: 12px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Heading */
+    .card-heading {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    input[type="email"] {
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+      width: 100%;
+      transition: border-color .2s;
+    }
+    input[type="email"]:focus { outline: none; border-color: var(--navy); }
+    input::placeholder { color: #b5bac4; }
+
+    /* Checkbox */
+    .checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .checkbox-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--green);
+      flex-shrink: 0;
+    }
+    .checkbox-wrap span {
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
+
+    /* Trust markers */
+    .trust-markers {
+      display: flex;
+      gap: 0;
+      margin-top: 20px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      justify-content: space-around;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+    .trust-item svg {
+      width: 16px;
+      height: 16px;
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    /* Login link */
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .login-link a {
+      font-size: 13px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .login-link a:hover { text-decoration: underline; color: var(--navy); }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .logo-area img { width: 46px; height: 46px; }
+      .trust-markers { flex-direction: column; gap: 10px; align-items: flex-start; padding-left: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <img src="logo.png" alt="シードメディカルパネル ロゴ">
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="card-heading">シードメディカルパネルへのご登録をご検討いただき、ありがとうございます。</h1>
+      <p class="card-desc">メールアドレスをご入力いただくと、登録手続きのご案内メールをお送りします。</p>
+
+      <!-- Form -->
+      <form onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label for="reg-email">メールアドレス</label>
+          <input type="email" id="reg-email" name="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="checkbox-wrap">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span id="consent-label">私は医療従事者として、シードメディカルパネルへの登録を希望します。</span>
+        </div>
+
+        <button type="submit" class="btn-primary">登録案内メールを送信する</button>
+      </form>
+
+      <!-- Trust markers -->
+      <div class="trust-markers">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          調査運営目的のみ使用
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          広告・営業配信なし
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          協力内容に応じた謝礼
+        </div>
+      </div>
+
+      <!-- Login link -->
+      <div class="login-link">
+        <a href="index.html">すでにご登録済みの方はこちら</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+  <script>
+    function handleRegister(e) {
+      e.preventDefault();
+      window.location.href = 'register-complete.html';
+    }
+  </script>
+</body>
+</html>

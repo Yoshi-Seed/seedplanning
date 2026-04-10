@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登録手続き – 勤務先情報 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-area img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--border);
+      color: var(--text-sub);
+      flex-shrink: 0;
+    }
+    .step.active .step-num { background: var(--navy); color: #fff; }
+    .step.done .step-num { background: var(--green); color: #fff; }
+    .step-label { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .step.active .step-label { color: var(--navy); font-weight: 700; }
+    .step.done .step-label { color: var(--green); }
+    .step-line { height: 1px; background: var(--border); width: 40px; flex-shrink: 0; margin: 0 4px; }
+
+    /* Section heading */
+    .section-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .required-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .optional-badge {
+      display: inline-block;
+      font-size: 10px;
+      background: var(--border);
+      color: var(--text-sub);
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    input[type="text"],
+    select {
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+      width: 100%;
+      background: #fff;
+      transition: border-color .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--navy); }
+    input::placeholder { color: #b5bac4; }
+
+    .select-wrap {
+      position: relative;
+    }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--text-sub);
+      pointer-events: none;
+    }
+
+    /* Postal code */
+    .postal-row {
+      display: grid;
+      grid-template-columns: 160px auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .btn-lookup {
+      height: 44px;
+      padding: 0 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-sub);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-lookup:hover { border-color: var(--navy); color: var(--navy); }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .btn-back {
+      height: 48px;
+      padding: 0 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+    .btn-primary {
+      flex: 1;
+      height: 48px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .postal-row { grid-template-columns: 1fr; }
+      .step-line { width: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <img src="logo.png" alt="シードメディカルパネル ロゴ">
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <h1 class="page-title">勤務先情報を入力してください</h1>
+      <p class="page-desc">職業と勤務先施設の情報を入力し、内容を確認して次へ進みます。</p>
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="step done">
+          <div class="step-num">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-label">規約確認</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step active">
+          <div class="step-num">2</div>
+          <div class="step-label">基本情報入力</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">登録完了</div>
+        </div>
+      </div>
+
+      <!-- Section -->
+      <div class="section-heading">
+        <span class="section-num">2</span>勤務先情報入力
+      </div>
+
+      <form onsubmit="handleNext(event)">
+
+        <!-- 職業 -->
+        <div class="form-group">
+          <label>職業<span class="required-badge">必須</span></label>
+          <div class="select-wrap">
+            <select id="profession" required onchange="checkDoctorProfession()">
+              <option value="">選択してください</option>
+              <option value="doctor">医師</option>
+              <option value="dentist">歯科医師</option>
+              <option value="pharmacist">薬剤師</option>
+              <option value="nurse">看護師・准看護師</option>
+              <option value="other_medical">その他医療従事者</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 勤務先施設名 -->
+        <div class="form-group">
+          <label>勤務先の施設名<span class="required-badge">必須</span></label>
+          <input type="text" placeholder="例）○○病院" required>
+        </div>
+
+        <!-- 郵便番号 -->
+        <div class="form-group">
+          <label>施設住所（郵便番号）<span class="required-badge">必須</span></label>
+          <div class="postal-row">
+            <input type="text" placeholder="例）123-4567" maxlength="8" required>
+            <button type="button" class="btn-lookup">住所を検索</button>
+          </div>
+        </div>
+
+        <!-- 都道府県 -->
+        <div class="form-group">
+          <label>施設住所（都道府県）<span class="required-badge">必須</span></label>
+          <div class="select-wrap">
+            <select required>
+              <option value="">選択してください</option>
+              <option>北海道</option><option>青森県</option><option>岩手県</option>
+              <option>宮城県</option><option>秋田県</option><option>山形県</option>
+              <option>福島県</option><option>茨城県</option><option>栃木県</option>
+              <option>群馬県</option><option>埼玉県</option><option>千葉県</option>
+              <option>東京都</option><option>神奈川県</option><option>新潟県</option>
+              <option>富山県</option><option>石川県</option><option>福井県</option>
+              <option>山梨県</option><option>長野県</option><option>岐阜県</option>
+              <option>静岡県</option><option>愛知県</option><option>三重県</option>
+              <option>滋賀県</option><option>京都府</option><option>大阪府</option>
+              <option>兵庫県</option><option>奈良県</option><option>和歌山県</option>
+              <option>鳥取県</option><option>島根県</option><option>岡山県</option>
+              <option>広島県</option><option>山口県</option><option>徳島県</option>
+              <option>香川県</option><option>愛媛県</option><option>高知県</option>
+              <option>福岡県</option><option>佐賀県</option><option>長崎県</option>
+              <option>熊本県</option><option>大分県</option><option>宮崎県</option>
+              <option>鹿児島県</option><option>沖縄県</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 都道府県以下 -->
+        <div class="form-group">
+          <label>施設住所（都道府県以下）<span class="required-badge">必須</span></label>
+          <input type="text" placeholder="例）千代田区1-2-3" required>
+        </div>
+
+        <!-- 電話番号 -->
+        <div class="form-group">
+          <label>施設電話番号<span class="optional-badge">任意</span></label>
+          <input type="text" placeholder="例）03-1234-5678">
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="history.back()">戻る</button>
+          <button type="submit" class="btn-primary">確認へ進む</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+  <script>
+    function checkDoctorProfession() {
+      const v = document.getElementById('profession').value;
+      if (v === 'doctor' || v === 'dentist') {
+        window._isDoctor = true;
+      } else {
+        window._isDoctor = false;
+      }
+    }
+    function handleNext(e) {
+      e.preventDefault();
+      const v = document.getElementById('profession').value;
+      if (v === 'doctor' || v === 'dentist') {
+        window.location.href = 'register-specialty.html';
+      } else {
+        window.location.href = 'register-done.html';
+      }
+    }
+  </script>
+</body>
+</html>

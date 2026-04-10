@@ -1,233 +1,268 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seed Planning Medical Panel - ドクターパネル ログイン</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    :root {
+      --navy:        #243A52;
+      --navy-side:   #334B60;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+      --success:     #4F7A6D;
+      --danger:      #D9534F;
+    }
 
-        .login-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 420px;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
+    /* ─── Main wrap ─── */
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
 
-        .logo-video {
-            width: 113px;
-            height: 113px;
-            object-fit: contain;
-        }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 440px;
+    }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
+    /* ─── Logo ─── */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .logo-area img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en {
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .logo-text-ja {
+      font-size: 16px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
 
-        .logo-text-en {
-            font-size: 18px;
-            color: #666;
-            font-weight: 500;
-            line-height: 1.3;
-        }
+    /* ─── Sub heading ─── */
+    .sub-heading {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
 
-        .logo-text-ja {
-            font-size: 16px;
-            color: #2c5282;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+    /* ─── Form ─── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+      background: #fff;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+    input::placeholder { color: #b5bac4; }
 
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .forgot {
+      text-align: right;
+      margin-top: -12px;
+      margin-bottom: 8px;
+    }
+    .forgot a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .forgot a:hover { text-decoration: underline; }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    /* ─── Buttons ─── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
 
-        label {
-            font-size: 14px;
-            color: #333;
-            font-weight: 500;
-        }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+      color: var(--text-sub);
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
 
-        input[type="email"],
-        input[type="password"] {
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      height: 44px;
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--navy);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      text-align: center;
+      line-height: 42px;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      background: var(--navy);
+      color: #fff;
+    }
 
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #4a7ba7;
-        }
+    /* ─── Footer ─── */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy {
+      font-size: 11px;
+      color: #a0aab4;
+    }
 
-        .login-button {
-            background-color: #2c5282;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        .login-button:hover {
-            background-color: #1e3a5f;
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .forgot-password a {
-            color: #4a7ba7;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .forgot-password a:hover {
-            color: #2c5282;
-            text-decoration: underline;
-        }
-
-        /* レスポンシブ対応 */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
-            }
-
-            .logo-video {
-                width: 95px;
-                height: 95px;
-            }
-
-            .logo-text-en {
-                font-size: 16px;
-            }
-
-            .logo-text-ja {
-                font-size: 14px;
-            }
-
-            .login-button {
-                padding: 12px;
-                font-size: 15px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .login-container {
-                padding: 25px 15px;
-            }
-
-            .logo-video {
-                width: 85px;
-                height: 85px;
-            }
-
-            .logo-text-en {
-                font-size: 15px;
-            }
-
-            .logo-text-ja {
-                font-size: 12px;
-            }
-        }
-    </style>
+    /* ─── Responsive ─── */
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px; }
+      .logo-area img { width: 54px; height: 54px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo-container">
-            <video autoplay loop muted playsinline width="108">
-                <source src="edited_loop.webm" type="video/webm">
-            </video>
-            <div class="logo-text">
-                <span class="logo-text-en">Seed Planning Medical Panel</span>
-                <span class="logo-text-ja">HCPパネル</span>
-            </div>
+
+  <div class="page-wrap">
+    <div class="card">
+      <div class="logo-area">
+        <img src="logo.png" alt="シードメディカルパネル ロゴ">
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <p class="sub-heading">医療従事者の皆さまに調査へのご協力をお願いする<br>シードメディカルパネルのメンバー向けサイトです。</p>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required placeholder="name@example.com">
         </div>
 
-        <form class="login-form" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label for="email">メールアドレス</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    required
-                    placeholder=""
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="password">パスワード</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    required
-                    placeholder=""
-                >
-            </div>
-
-            <button type="submit" class="login-button">ログイン</button>
-        </form>
-
-        <div class="forgot-password">
-            <a href="#" onclick="handleForgotPassword(event)">パスワードをお忘れですか？</a>
+        <div class="form-group">
+          <label for="password">パスワード</label>
+          <input type="password" id="password" name="password" required>
         </div>
+
+        <div class="forgot">
+          <a href="#">パスワードをお忘れですか？</a>
+        </div>
+
+        <button type="submit" class="btn-primary">ログイン</button>
+      </form>
+
+      <div class="divider">または</div>
+
+      <a href="register.html" class="btn-secondary">新規登録</a>
     </div>
+  </div>
 
-    <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            // ダッシュボードへ遷移
-            window.location.href = 'dashboard.html';
-        }
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
 
-        function handleForgotPassword(event) {
-            event.preventDefault();
-            alert('パスワードリセット機能は実装されていません（モックページ）');
-        }
-    </script>
+  <script>
+    function handleLogin(e) {
+      e.preventDefault();
+      window.location.href = 'dashboard.html';
+    }
+  </script>
 </body>
 </html>

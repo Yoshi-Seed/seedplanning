@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>専門領域の設定 | シードメディカルパネル</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #243A52;
+      --navy-side:   #334B60;
+      --green:       #5F8475;
+      --green-hover: #567A6C;
+      --bg:          #F5F6F7;
+      --border:      #E6E8EB;
+      --text-main:   #2B2F33;
+      --text-sub:    #6B7280;
+      --success:     #4F7A6D;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+                   "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 64px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .logo-area img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .logo-text-en { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .logo-text-ja {
+      font-size: 15px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    /* Page heading */
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* Info banner */
+    .info-banner {
+      background: #EDF3F1;
+      border-left: 3px solid var(--success);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .info-banner svg {
+      width: 16px;
+      height: 16px;
+      color: var(--success);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .info-banner p {
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ─── Section ─── */
+    .section-block {
+      margin-bottom: 36px;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .badge-required {
+      background: var(--navy);
+      color: #fff;
+    }
+    .badge-optional {
+      background: var(--border);
+      color: var(--text-sub);
+    }
+    .section-note {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* ─── Category Tabs ─── */
+    .cat-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+      background: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .cat-tab:hover { color: var(--navy); }
+    .cat-tab.active {
+      color: var(--navy);
+      border-bottom-color: var(--navy);
+    }
+
+    /* ─── Chips ─── */
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all .15s;
+      user-select: none;
+      background: #fff;
+      min-height: 44px;
+    }
+    .chip:hover:not(.disabled):not(.selected) {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+    .chip.selected {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+    .chip.selected-sub {
+      background: #EDF3F1;
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .chip.disabled {
+      background: var(--bg);
+      border-color: var(--border);
+      color: #c0c5cc;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    .chip-code {
+      font-size: 10px;
+      opacity: 0.65;
+      font-weight: 500;
+    }
+    .chip svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ─── Selected display ─── */
+    .selected-display {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 48px;
+    }
+    .selected-display .selected-val {
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .reset-btn {
+      font-size: 12px;
+      color: var(--text-sub);
+      cursor: pointer;
+      text-decoration: underline;
+      white-space: nowrap;
+      background: none;
+      border: none;
+    }
+    .reset-btn:hover { color: var(--navy); }
+
+    /* Selected sub chips */
+    .sub-selected-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .sub-chip-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: #EDF3F1;
+      border: 1px solid var(--success);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--success);
+    }
+    .sub-chip-tag button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--success);
+      line-height: 1;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .section-footer-note {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 12px;
+    }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* CTA */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      height: 52px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.03em;
+      margin-top: 8px;
+    }
+    .btn-primary:hover { background: var(--green-hover); }
+    .btn-primary:disabled {
+      background: var(--border);
+      color: var(--text-sub);
+      cursor: not-allowed;
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-copy { font-size: 11px; color: #a0aab4; }
+
+    @media (max-width: 640px) {
+      .card { padding: 32px 20px; }
+      .cat-tab { padding: 10px 12px; font-size: 12px; }
+      .chip { font-size: 12px; padding: 7px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <img src="logo.png" alt="シードメディカルパネル ロゴ">
+        <div>
+          <div class="logo-text-en">Seed Planning Medical Panel</div>
+          <div class="logo-text-ja">シードメディカルパネル</div>
+        </div>
+      </div>
+
+      <h1 class="page-title">専門領域の設定</h1>
+      <p class="page-desc">よりマッチしたアンケートをお届けするため、現在の専門領域をご確認ください。</p>
+
+      <!-- Info banner -->
+      <div class="info-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p>推奨設定のご案内 — 過去の参加履歴に基づき、システムが専門領域を仮設定しています。内容をご確認ください。</p>
+      </div>
+
+      <!-- ─── MAIN SPECIALTY ─── -->
+      <div class="section-block">
+        <div class="section-header">
+          <span class="section-title">主たる専門領域</span>
+          <span class="badge badge-required">必須（1つ）</span>
+        </div>
+
+        <!-- Category tabs for main -->
+        <div class="cat-tabs" id="main-tabs">
+          <button class="cat-tab active" onclick="switchMainCat(this, 'internal')">内科系</button>
+          <button class="cat-tab" onclick="switchMainCat(this, 'surgical')">外科系</button>
+          <button class="cat-tab" onclick="switchMainCat(this, 'derma')">皮膚・泌尿器</button>
+          <button class="cat-tab" onclick="switchMainCat(this, 'pediatric')">小児系</button>
+          <button class="cat-tab" onclick="switchMainCat(this, 'mental')">精神・神経</button>
+          <button class="cat-tab" onclick="switchMainCat(this, 'other')">その他</button>
+        </div>
+
+        <!-- Chips per category -->
+        <div id="main-chips">
+          <div class="chips-grid" id="main-chips-internal">
+            <div class="chip" onclick="selectMain('IM01', '一般内科', this)"><span class="chip-code">IM01</span>一般内科</div>
+            <div class="chip" onclick="selectMain('IM03', '総合診療科', this)"><span class="chip-code">IM03</span>総合診療科</div>
+            <div class="chip" onclick="selectMain('IM04', '呼吸器内科', this)"><span class="chip-code">IM04</span>呼吸器内科</div>
+            <div class="chip selected" onclick="selectMain('IM05', '消化器内科', this)"><span class="chip-code">IM05</span>消化器内科</div>
+            <div class="chip" onclick="selectMain('IM07', '循環器内科', this)"><span class="chip-code">IM07</span>循環器内科</div>
+            <div class="chip" onclick="selectMain('IM09', '糖尿病・内分泌', this)"><span class="chip-code">IM09</span>糖尿病・内分泌</div>
+            <div class="chip" onclick="selectMain('IM11', '腎臓内科', this)"><span class="chip-code">IM11</span>腎臓内科</div>
+            <div class="chip" onclick="selectMain('IM12', '血液内科', this)"><span class="chip-code">IM12</span>血液内科</div>
+            <div class="chip" onclick="selectMain('IM13', 'リウマチ科', this)"><span class="chip-code">IM13</span>リウマチ科</div>
+            <div class="chip" onclick="selectMain('IM14', '感染症内科', this)"><span class="chip-code">IM14</span>感染症内科</div>
+          </div>
+          <div class="chips-grid" id="main-chips-surgical" style="display:none">
+            <div class="chip" onclick="selectMain('SU01', '一般外科', this)"><span class="chip-code">SU01</span>一般外科</div>
+            <div class="chip" onclick="selectMain('SU02', '消化器外科', this)"><span class="chip-code">SU02</span>消化器外科</div>
+            <div class="chip" onclick="selectMain('SU03', '心臓血管外科', this)"><span class="chip-code">SU03</span>心臓血管外科</div>
+            <div class="chip" onclick="selectMain('SU04', '整形外科', this)"><span class="chip-code">SU04</span>整形外科</div>
+            <div class="chip" onclick="selectMain('SU05', '脳神経外科', this)"><span class="chip-code">SU05</span>脳神経外科</div>
+            <div class="chip" onclick="selectMain('SU06', '形成外科', this)"><span class="chip-code">SU06</span>形成外科</div>
+            <div class="chip" onclick="selectMain('SU07', '乳腺外科', this)"><span class="chip-code">SU07</span>乳腺外科</div>
+          </div>
+          <div class="chips-grid" id="main-chips-derma" style="display:none">
+            <div class="chip" onclick="selectMain('SK01', '皮膚科', this)"><span class="chip-code">SK01</span>皮膚科</div>
+            <div class="chip" onclick="selectMain('UR01', '泌尿器科', this)"><span class="chip-code">UR01</span>泌尿器科</div>
+          </div>
+          <div class="chips-grid" id="main-chips-pediatric" style="display:none">
+            <div class="chip" onclick="selectMain('PE01', '小児科', this)"><span class="chip-code">PE01</span>小児科</div>
+            <div class="chip" onclick="selectMain('PE02', '小児外科', this)"><span class="chip-code">PE02</span>小児外科</div>
+          </div>
+          <div class="chips-grid" id="main-chips-mental" style="display:none">
+            <div class="chip" onclick="selectMain('PS01', '精神科・心療内科', this)"><span class="chip-code">PS01</span>精神科・心療内科</div>
+            <div class="chip" onclick="selectMain('NE01', '神経内科', this)"><span class="chip-code">NE01</span>神経内科</div>
+          </div>
+          <div class="chips-grid" id="main-chips-other" style="display:none">
+            <div class="chip" onclick="selectMain('OT01', '産科・婦人科', this)"><span class="chip-code">OT01</span>産科・婦人科</div>
+            <div class="chip" onclick="selectMain('OT02', '眼科', this)"><span class="chip-code">OT02</span>眼科</div>
+            <div class="chip" onclick="selectMain('OT03', '耳鼻咽喉科', this)"><span class="chip-code">OT03</span>耳鼻咽喉科</div>
+            <div class="chip" onclick="selectMain('OT04', '放射線科', this)"><span class="chip-code">OT04</span>放射線科</div>
+            <div class="chip" onclick="selectMain('OT05', '麻酔科', this)"><span class="chip-code">OT05</span>麻酔科</div>
+            <div class="chip" onclick="selectMain('OT06', '救急科', this)"><span class="chip-code">OT06</span>救急科</div>
+            <div class="chip" onclick="selectMain('OT07', '病理診断科', this)"><span class="chip-code">OT07</span>病理診断科</div>
+            <div class="chip" onclick="selectMain('OT08', '腫瘍内科', this)"><span class="chip-code">OT08</span>腫瘍内科</div>
+          </div>
+        </div>
+
+        <!-- Selected main display -->
+        <div class="selected-display" id="main-selected-display">
+          <span id="main-selected-label">選択中：<span class="selected-val">消化器内科</span></span>
+          <button class="reset-btn" onclick="resetMain()">やり直す</button>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- ─── SUB SPECIALTY ─── -->
+      <div class="section-block">
+        <div class="section-header">
+          <span class="section-title">副次的な専門・関心領域</span>
+          <span class="badge badge-optional">任意（複数可）</span>
+        </div>
+
+        <!-- Category tabs for sub -->
+        <div class="cat-tabs" id="sub-tabs">
+          <button class="cat-tab active" onclick="switchSubCat(this, 'internal')">内科系</button>
+          <button class="cat-tab" onclick="switchSubCat(this, 'surgical')">外科系</button>
+          <button class="cat-tab" onclick="switchSubCat(this, 'derma')">皮膚・泌尿器</button>
+          <button class="cat-tab" onclick="switchSubCat(this, 'pediatric')">小児系</button>
+          <button class="cat-tab" onclick="switchSubCat(this, 'mental')">精神・神経</button>
+          <button class="cat-tab" onclick="switchSubCat(this, 'other')">その他</button>
+        </div>
+
+        <!-- Sub chips (internal default) -->
+        <div id="sub-chips">
+          <div class="chips-grid" id="sub-chips-internal">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="chips-grid" id="sub-chips-surgical" style="display:none">
+          </div>
+          <div class="chips-grid" id="sub-chips-derma" style="display:none">
+          </div>
+          <div class="chips-grid" id="sub-chips-pediatric" style="display:none">
+          </div>
+          <div class="chips-grid" id="sub-chips-mental" style="display:none">
+          </div>
+          <div class="chips-grid" id="sub-chips-other" style="display:none">
+          </div>
+        </div>
+
+        <!-- Selected sub tags -->
+        <div id="sub-selected-area" style="display:none; margin-top:16px;">
+          <div class="sub-selected-chips" id="sub-selected-chips"></div>
+        </div>
+
+        <p class="section-footer-note">※続きはスクロールして選択</p>
+      </div>
+
+      <!-- CTA -->
+      <button class="btn-primary" id="save-btn" onclick="saveSettings()">設定を保存する</button>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.seedplanning.co.jp/" target="_blank" rel="noopener">会社概要</a>
+      <a href="https://www.seedplanning.co.jp/contact/" target="_blank" rel="noopener">お問い合わせ</a>
+      <a href="https://www.seedplanning.co.jp/corporatepolicy/privacypolicy/" target="_blank" rel="noopener">個人情報保護方針</a>
+    </div>
+    <p class="footer-copy">Copyright &copy; Seed Planning, Inc. All rights reserved</p>
+  </footer>
+
+  <script>
+    // ─── Data ───────────────────────────────
+    const specialties = {
+      internal: [
+        {code:'IM01', name:'一般内科'},
+        {code:'IM03', name:'総合診療科'},
+        {code:'IM04', name:'呼吸器内科'},
+        {code:'IM05', name:'消化器内科'},
+        {code:'IM07', name:'循環器内科'},
+        {code:'IM09', name:'糖尿病・内分泌'},
+        {code:'IM11', name:'腎臓内科'},
+        {code:'IM12', name:'血液内科'},
+        {code:'IM13', name:'リウマチ科'},
+        {code:'IM14', name:'感染症内科'},
+      ],
+      surgical: [
+        {code:'SU01', name:'一般外科'},
+        {code:'SU02', name:'消化器外科'},
+        {code:'SU03', name:'心臓血管外科'},
+        {code:'SU04', name:'整形外科'},
+        {code:'SU05', name:'脳神経外科'},
+        {code:'SU06', name:'形成外科'},
+        {code:'SU07', name:'乳腺外科'},
+      ],
+      derma: [
+        {code:'SK01', name:'皮膚科'},
+        {code:'UR01', name:'泌尿器科'},
+      ],
+      pediatric: [
+        {code:'PE01', name:'小児科'},
+        {code:'PE02', name:'小児外科'},
+      ],
+      mental: [
+        {code:'PS01', name:'精神科・心療内科'},
+        {code:'NE01', name:'神経内科'},
+      ],
+      other: [
+        {code:'OT01', name:'産科・婦人科'},
+        {code:'OT02', name:'眼科'},
+        {code:'OT03', name:'耳鼻咽喉科'},
+        {code:'OT04', name:'放射線科'},
+        {code:'OT05', name:'麻酔科'},
+        {code:'OT06', name:'救急科'},
+        {code:'OT07', name:'病理診断科'},
+        {code:'OT08', name:'腫瘍内科'},
+      ],
+    };
+
+    // State
+    let mainSelected = {code: 'IM05', name: '消化器内科'};
+    let subSelected = new Map(); // code -> name
+
+    // ─── Init ─────────────────────────────
+    (function init() {
+      // Build sub chips
+      Object.keys(specialties).forEach(cat => {
+        const container = document.getElementById(`sub-chips-${cat}`);
+        specialties[cat].forEach(sp => {
+          const chip = createSubChip(sp.code, sp.name);
+          container.appendChild(chip);
+        });
+      });
+      updateSubChipStates();
+    })();
+
+    function createSubChip(code, name) {
+      const div = document.createElement('div');
+      div.className = 'chip';
+      div.dataset.code = code;
+      div.dataset.name = name;
+      div.innerHTML = `<span class="chip-code">${code}</span>${name}`;
+      div.onclick = () => toggleSub(code, name, div);
+      return div;
+    }
+
+    // ─── Main tabs ────────────────────────
+    function switchMainCat(btn, cat) {
+      document.querySelectorAll('#main-tabs .cat-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#main-chips > .chips-grid').forEach(g => g.style.display = 'none');
+      document.getElementById(`main-chips-${cat}`).style.display = 'flex';
+    }
+
+    function selectMain(code, name, el) {
+      // Clear all main chips selected state
+      document.querySelectorAll('#main-chips .chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      mainSelected = {code, name};
+
+      // Update display
+      document.getElementById('main-selected-label').innerHTML =
+        `選択中：<span class="selected-val">${name}</span>`;
+
+      // Update sub chips: disable the newly selected main in sub
+      updateSubChipStates();
+    }
+
+    function resetMain() {
+      document.querySelectorAll('#main-chips .chip').forEach(c => c.classList.remove('selected'));
+      mainSelected = null;
+      document.getElementById('main-selected-label').innerHTML =
+        `<span style="color:var(--text-sub)">未選択</span>`;
+      updateSubChipStates();
+    }
+
+    // ─── Sub tabs ─────────────────────────
+    function switchSubCat(btn, cat) {
+      document.querySelectorAll('#sub-tabs .cat-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#sub-chips > .chips-grid').forEach(g => g.style.display = 'none');
+      document.getElementById(`sub-chips-${cat}`).style.display = 'flex';
+    }
+
+    function toggleSub(code, name, el) {
+      if (el.classList.contains('disabled')) return;
+      if (subSelected.has(code)) {
+        subSelected.delete(code);
+        el.classList.remove('selected-sub');
+      } else {
+        subSelected.set(code, name);
+        el.classList.add('selected-sub');
+      }
+      renderSubTags();
+    }
+
+    function removeSubTag(code) {
+      subSelected.delete(code);
+      // Update chip state
+      document.querySelectorAll(`#sub-chips .chip[data-code="${code}"]`).forEach(c => {
+        c.classList.remove('selected-sub');
+      });
+      renderSubTags();
+    }
+
+    function renderSubTags() {
+      const area = document.getElementById('sub-selected-area');
+      const container = document.getElementById('sub-selected-chips');
+      if (subSelected.size === 0) {
+        area.style.display = 'none';
+        return;
+      }
+      area.style.display = 'block';
+      container.innerHTML = '';
+      subSelected.forEach((name, code) => {
+        const tag = document.createElement('div');
+        tag.className = 'sub-chip-tag';
+        tag.innerHTML = `${name}<button onclick="removeSubTag('${code}')">&#215;</button>`;
+        container.appendChild(tag);
+      });
+    }
+
+    function updateSubChipStates() {
+      const mainCode = mainSelected ? mainSelected.code : null;
+      document.querySelectorAll('#sub-chips .chip').forEach(chip => {
+        const code = chip.dataset.code;
+        if (code === mainCode) {
+          chip.classList.add('disabled');
+          chip.classList.remove('selected-sub');
+          if (subSelected.has(code)) {
+            subSelected.delete(code);
+            renderSubTags();
+          }
+          chip.innerHTML = `<span class="chip-code">${code}</span>${chip.dataset.name}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`;
+          chip.onclick = null;
+        } else {
+          chip.classList.remove('disabled');
+          chip.innerHTML = `<span class="chip-code">${code}</span>${chip.dataset.name}`;
+          const c = code, n = chip.dataset.name, el = chip;
+          chip.onclick = () => toggleSub(c, n, el);
+          if (subSelected.has(code)) {
+            chip.classList.add('selected-sub');
+          }
+        }
+      });
+    }
+
+    // ─── Save ────────────────────────────
+    function saveSettings() {
+      if (!mainSelected) {
+        alert('主たる専門領域を1つ選択してください。');
+        return;
+      }
+      window.location.href = 'register-done.html';
+    }
+  </script>
+</body>
+</html>
