@@ -179,3 +179,49 @@ body {
     padding: 4px 8px !important;
   }
 }
+
+/* English voice-card overflow guard
+   Prevents a card from ending with a browser-generated ellipsis unless a Read more button is available.
+   By default, English voice text is shown in full. JavaScript marks only overflowing cards as collapsible. */
+.voice-card__text {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.voice-card__more {
+  display: inline;
+}
+
+.voice-card__ellipsis {
+  display: none;
+}
+
+.voice-card.is-collapsible:not(.is-expanded) .voice-card__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+  overflow: hidden;
+}
+
+.voice-card.is-collapsible:not(.is-expanded) .voice-card__more {
+  display: none;
+}
+
+.voice-card.is-collapsible:not(.is-expanded) .voice-card__ellipsis {
+  display: inline;
+}
+
+.voice-card.is-collapsible.is-expanded .voice-card__text {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.voice-card.is-collapsible.is-expanded .voice-card__ellipsis {
+  display: none;
+}
+
+.voice-card__toggle[hidden] {
+  display: none !important;
+}
