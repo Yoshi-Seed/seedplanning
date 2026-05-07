@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>専門領域の設定 | シードメディカルパネル</title>
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="member.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="member">
+<header class="mb-header">
+  <div class="mb-logo"><div class="logo-box">S</div>シードメディカルパネル</div>
+  <a href="index.html" style="font-size:12px;color:var(--g500);text-decoration:none">← モック一覧</a>
+</header>
+
+<div class="mb-wrap wide">
+  <div class="mb-title">専門領域の設定</div>
+  <div class="mb-lead">現在の専門領域をご確認ください。<br><span style="font-size:11px;color:var(--g400)">※職業が「医師」「歯科医師」の場合の画面</span></div>
+
+  <div class="stepper">
+    <div class="stp done"><div class="stp-n"><i data-lucide="check" style="width:14px;height:14px"></i></div><div class="stp-lb">規約確認</div></div>
+    <div class="stp-line done"></div>
+    <div class="stp on"><div class="stp-n">2</div><div class="stp-lb">基本情報入力</div></div>
+    <div class="stp-line"></div>
+    <div class="stp"><div class="stp-n">3</div><div class="stp-lb">登録完了</div></div>
+  </div>
+
+  <div class="alt a-info">
+    <i data-lucide="info"></i>
+    <div><b>推奨設定のご案内</b><br>過去の参加履歴に基づき、システムが専門領域を仮設定しています。内容をご確認ください。</div>
+  </div>
+
+  <div class="card">
+    <div class="sec-sub">主たる専門領域<span class="req-badge">必須 1つ</span></div>
+
+    <div class="spec-tabs">
+      <div class="spec-tab on">内科系</div>
+      <div class="spec-tab">外科系</div>
+      <div class="spec-tab">皮膚・泌尿器</div>
+      <div class="spec-tab">小児系</div>
+      <div class="spec-tab">その他</div>
+    </div>
+
+    <div class="spec-chips">
+      <span class="spec-chip"><span class="code">IM01</span>一般内科</span>
+      <span class="spec-chip"><span class="code">IM03</span>総合診療科</span>
+      <span class="spec-chip"><span class="code">IM04</span>呼吸器内科</span>
+      <span class="spec-chip on-main"><span class="code">IM05</span>消化器内科<i data-lucide="check" style="width:12px;height:12px"></i></span>
+      <span class="spec-chip"><span class="code">IM07</span>循環器内科</span>
+      <span class="spec-chip"><span class="code">IM09</span>糖尿病・内分泌</span>
+    </div>
+
+    <div class="spec-selected" style="margin-top:18px">
+      <span>選択中： <b>消化器内科</b>（IM05）</span>
+      <button class="btn btn-out btn-sm"><i data-lucide="rotate-ccw"></i>やり直す</button>
+    </div>
+
+    <hr class="div">
+
+    <div class="sec-sub">副次的な専門・関心領域<span class="opt-badge">任意 複数可</span></div>
+    <p style="font-size:11px;color:var(--g500);margin-bottom:10px">※主たる専門領域で選択したものは、副次では選択できません。</p>
+
+    <div class="spec-tabs">
+      <div class="spec-tab on">内科系</div>
+      <div class="spec-tab">外科系</div>
+      <div class="spec-tab">皮膚・泌尿器</div>
+      <div class="spec-tab">小児系</div>
+    </div>
+
+    <div class="spec-chips">
+      <span class="spec-chip on-sub"><span class="code">IM01</span>一般内科<i data-lucide="check" style="width:12px;height:12px"></i></span>
+      <span class="spec-chip"><span class="code">IM03</span>総合診療科</span>
+      <span class="spec-chip"><span class="code">IM04</span>呼吸器内科</span>
+      <span class="spec-chip disabled"><span class="code">IM05</span>消化器内科<i data-lucide="ban" style="width:12px;height:12px"></i></span>
+      <span class="spec-chip"><span class="code">IM07</span>循環器内科</span>
+      <span class="spec-chip"><span class="code">IM09</span>糖尿病・内分泌</span>
+    </div>
+    <p style="font-size:11px;color:var(--g400);margin-top:10px">※続きはスクロールして選択</p>
+
+    <div class="btn-grp" style="justify-content:space-between;margin-top:24px">
+      <a href="step2-basic.html" class="btn btn-out" style="text-decoration:none"><i data-lucide="arrow-left"></i>戻る</a>
+      <a href="step3-password.html" class="btn btn-pr" style="text-decoration:none">設定を保存する<i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<footer class="mb-footer">
+  <a href="#">会社概要</a>|<a href="#">お問い合わせ</a>|<a href="#">個人情報保護方針</a>
+  <div style="margin-top:10px;font-size:11px;color:var(--g400)">Seed Medical Panel | Phase 1</div>
+</footer>
+<script>lucide.createIcons();</script>
+</body></html>

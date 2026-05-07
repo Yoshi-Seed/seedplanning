@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>基本情報入力 | シードメディカルパネル</title>
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="member.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="member">
+<header class="mb-header">
+  <div class="mb-logo"><div class="logo-box">S</div>シードメディカルパネル</div>
+  <a href="index.html" style="font-size:12px;color:var(--g500);text-decoration:none">← モック一覧</a>
+</header>
+
+<div class="mb-wrap wide">
+  <div class="mb-title">基本情報を入力してください</div>
+  <div class="mb-lead">基本情報と勤務先情報を入力し、内容を確認して次へ進みます。</div>
+
+  <div class="stepper">
+    <div class="stp done"><div class="stp-n"><i data-lucide="check" style="width:14px;height:14px"></i></div><div class="stp-lb">規約確認</div></div>
+    <div class="stp-line done"></div>
+    <div class="stp on"><div class="stp-n">2</div><div class="stp-lb">基本情報入力</div></div>
+    <div class="stp-line"></div>
+    <div class="stp"><div class="stp-n">3</div><div class="stp-lb">登録完了</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-t" style="margin-bottom:18px"><i data-lucide="user"></i>2. 基本情報入力</div>
+
+    <div class="sec-sub" style="margin-top:0"><i data-lucide="user" style="width:16px;height:16px"></i>基本情報</div>
+
+    <div class="row2">
+      <div class="fg">
+        <label class="fl">氏名 <span class="req">*</span></label>
+        <input type="text" class="fi" placeholder="例）山田 太郎">
+      </div>
+      <div class="fg">
+        <label class="fl">フリガナ <span class="req">*</span></label>
+        <input type="text" class="fi" placeholder="例）ヤマダ タロウ">
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">生年月日 <span class="req">*</span></label>
+      <div class="row3">
+        <select class="fs"><option>年</option><option>1980</option><option>1990</option></select>
+        <select class="fs"><option>月</option><option>1</option><option>2</option></select>
+        <select class="fs"><option>日</option><option>1</option><option>2</option></select>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">性別 <span class="req">*</span></label>
+      <div class="radio-grp">
+        <label><input type="radio" name="g"> 男</label>
+        <label><input type="radio" name="g"> 女</label>
+        <label><input type="radio" name="g"> その他</label>
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <div class="sec-sub" style="margin-top:8px"><i data-lucide="building-2" style="width:16px;height:16px"></i>勤務先情報</div>
+
+    <div class="fg">
+      <label class="fl">職業 <span class="req">*</span></label>
+      <select class="fs"><option>選択してください</option><option>医師</option><option>歯科医師</option><option>薬剤師</option><option>看護師</option></select>
+    </div>
+
+    <div class="fg">
+      <label class="fl">勤務先の施設名 <span class="req">*</span></label>
+      <input type="text" class="fi" placeholder="例）○○病院">
+    </div>
+
+    <div class="fg">
+      <label class="fl">施設住所(郵便番号) <span class="req">*</span></label>
+      <div style="display:flex;gap:8px">
+        <input type="text" class="fi" placeholder="例）123-4567" style="flex:1">
+        <button type="button" class="btn btn-out"><i data-lucide="search"></i>住所検索</button>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">施設住所(都道府県) <span class="req">*</span></label>
+      <select class="fs"><option>選択してください</option><option>東京都</option><option>神奈川県</option></select>
+    </div>
+
+    <div class="fg">
+      <label class="fl">施設住所(都道府県以下) <span class="req">*</span></label>
+      <input type="text" class="fi" placeholder="例）千代田区1-2-3">
+    </div>
+
+    <div class="fg">
+      <label class="fl">施設電話番号</label>
+      <input type="tel" class="fi" placeholder="例）03-1234-5678">
+    </div>
+
+    <hr class="div">
+
+    <div class="sec-sub" style="margin-top:8px"><i data-lucide="briefcase" style="width:16px;height:16px"></i>所属部署・役職</div>
+
+    <div class="row2">
+      <div class="fg">
+        <label class="fl">お勤め施設のタイプ</label>
+        <select class="fs"><option>選択してください</option><option>大学病院</option><option>一般病院</option><option>診療所／クリニック</option></select>
+      </div>
+      <div class="fg">
+        <label class="fl">病床数</label>
+        <select class="fs"><option>選択してください</option><option>0（無床）</option><option>1-19床</option><option>20-99床</option><option>100-499床</option><option>500床以上</option></select>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">所属部署または診療科</label>
+      <input type="text" class="fi" placeholder="例）循環器内科">
+    </div>
+
+    <div class="fg">
+      <label class="fl">お役職</label>
+      <input type="text" class="fi" placeholder="例）部長／医長／スタッフ">
+    </div>
+
+    <div class="fg">
+      <label class="fl">所属されている学会等 <span style="color:var(--g400);font-weight:400">（任意）</span></label>
+      <input type="text" class="fi" placeholder="例）日本内科学会">
+    </div>
+
+    <div class="btn-grp" style="justify-content:space-between;margin-top:24px">
+      <a href="wf3-terms.html" class="btn btn-out" style="text-decoration:none"><i data-lucide="arrow-left"></i>戻る</a>
+      <a href="step2-specialty.html" class="btn btn-pr" style="text-decoration:none">確認へ進む<i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<footer class="mb-footer">
+  <a href="#">会社概要</a>|<a href="#">お問い合わせ</a>|<a href="#">個人情報保護方針</a>
+  <div style="margin-top:10px;font-size:11px;color:var(--g400)">Seed Medical Panel | Phase 1</div>
+</footer>
+<script>lucide.createIcons();</script>
+</body></html>

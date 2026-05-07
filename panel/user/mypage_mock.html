@@ -1,0 +1,2539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dパネル Member マイページ モック画面</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #243A52;
+    --primary-dark: #1C2E42;
+    --primary-light: rgba(36,58,82,0.03);
+    --action: #5F8475;
+    --action-dark: #567A6C;
+    --action-light: #E8F0ED;
+    --bg: #F5F6F7;
+    --sidebar-bg: #334B60;
+    --sidebar-hover: #3D5A72;
+    --sidebar-active: #243A52;
+    --card-bg: #FFFFFF;
+    --text: #2B2F33;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --border: #E6E8EB;
+    --neutral-bg: #F1F3F5;
+    --status-complete-bg: #E8F5E9;
+    --status-complete-text: #4F7A6D;
+    --status-pending-bg: #E3F2FD;
+    --status-pending-text: #2B2F33;
+    --status-adjusted-bg: #FFFDE7;
+    --status-adjusted-text: #2B2F33;
+    --status-muted-bg: #F1F3F5;
+    --status-muted-text: #64748B;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; height: 72px;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; z-index: 100;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .header-logo {
+    display: flex; align-items: center; gap: 12px; color: #fff;
+  }
+  .header-logo .logo-icon {
+    width: 36px; height: 36px; background: rgba(255,255,255,0.15);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+  }
+  .header-logo .logo-text { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+  .header-logo .logo-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: -2px; }
+  .header-user {
+    display: flex; align-items: center; gap: 16px; color: #fff;
+  }
+  .header-user .user-info {
+    display: flex; align-items: center; gap: 8px; font-size: 13px;
+  }
+  .header-user .user-avatar {
+    width: 34px; height: 34px; background: rgba(255,255,255,0.2);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+  }
+  .header-user .user-name { font-weight: 500; }
+  .header-user .user-dept { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .logout-btn {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 6px 14px; border-radius: 6px;
+    font-size: 12px; cursor: pointer; transition: all 0.2s;
+  }
+  .logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    position: fixed; top: 72px; left: 0; bottom: 0; width: 260px;
+    background: var(--sidebar-bg); padding: 24px 0 0; z-index: 90;
+    overflow-y: auto;
+    display: flex; flex-direction: column;
+  }
+  .sidebar-nav { list-style: none; flex: 1 0 auto; }
+  .sidebar-logo {
+    flex-shrink: 0;
+    padding: 18px 20px 20px;
+    display: flex; align-items: center; justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 16px;
+  }
+  .sidebar-logo img {
+    max-width: 160px; max-height: 48px; width: auto; height: auto;
+    object-fit: contain; display: block;
+    opacity: 0.95;
+  }
+  .sidebar-nav li { margin: 2px 8px; }
+  .sidebar-nav a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 18px; border-radius: 8px;
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 13.5px; font-weight: 400;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    cursor: pointer; min-height: 44px;
+  }
+  .sidebar-nav a:hover { background: var(--sidebar-hover); color: #fff; }
+  .sidebar-nav a.active {
+    background: var(--sidebar-active); color: #fff; font-weight: 500;
+  }
+  .sidebar-nav a .nav-icon {
+    width: 18px; height: 18px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    stroke-width: 1.8;
+  }
+  .sidebar-nav a .badge {
+    margin-left: auto; background: rgba(255,255,255,0.2);
+    color: #fff; font-size: 11px; font-weight: 600;
+    padding: 1px 7px; border-radius: 10px; min-width: 20px; text-align: center;
+  }
+
+  /* ===== Main Content ===== */
+  .main {
+    margin-left: 260px; margin-top: 72px;
+    padding: 40px; min-height: calc(100vh - 72px);
+    display: flex; flex-direction: column;
+  }
+  .main > .page { flex: 0 0 auto; }
+  .main > .mp-footer { margin-top: auto; }
+
+  /* ===== Page Content ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .page-title {
+    font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--text);
+  }
+  .page-subtitle {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;
+  }
+
+  /* ===== Cards ===== */
+  .card {
+    background: var(--card-bg); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 24px; margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 15px; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .icon {
+    width: 16px; height: 16px; color: var(--primary); stroke-width: 1.8;
+  }
+
+  /* ===== KPI Cards ===== */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--primary);
+  }
+  .kpi-label { font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 700; color: var(--text); }
+  .kpi-value .unit { font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-left: 2px; }
+  .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .kpi-sub .positive { color: var(--action); font-weight: 600; }
+
+  /* ===== Survey Cards ===== */
+  .survey-list { display: flex; flex-direction: column; gap: 12px; }
+  .survey-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; background: var(--bg); border-radius: 8px;
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .survey-item:hover { border-color: var(--primary); background: #fff; }
+  .survey-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .survey-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-secondary); }
+  .survey-meta span { display: flex; align-items: center; gap: 4px; }
+  .survey-meta .pts { color: var(--action); font-weight: 600; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    text-decoration: none; min-height: 40px;
+  }
+  .btn-primary { background: var(--action); color: #fff; }
+  .btn-primary:hover { background: var(--action-dark); }
+  .btn-secondary {
+    background: var(--neutral-bg); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: #E6E8EB; }
+  .btn-outline {
+    background: transparent; color: var(--primary);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { background: var(--neutral-bg); border-color: var(--primary); }
+  .btn-sm { padding: 8px 16px; font-size: 12px; min-height: 36px; }
+  .btn-accent { background: var(--action); color: #fff; }
+  .btn-accent:hover { background: var(--action-dark); }
+
+  /* ===== Grid Layout ===== */
+  .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  .grid-2-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* ===== Notice Mini ===== */
+  .notice-mini { display: flex; flex-direction: column; gap: 10px; }
+  .notice-mini-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px; border-radius: 6px; background: var(--bg);
+    font-size: 12.5px; color: var(--text); border-left: 3px solid transparent;
+  }
+  .notice-mini-item.important { border-left-color: var(--primary); }
+  .notice-mini-item .notice-tag {
+    font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px;
+    white-space: nowrap;
+  }
+  .notice-tag.tag-important { background: var(--status-adjusted-bg); color: var(--text); }
+  .notice-tag.tag-info { background: var(--status-pending-bg); color: var(--text); }
+  .notice-tag.tag-survey { background: var(--status-complete-bg); color: var(--status-complete-text); }
+  .notice-mini-item .notice-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ===== Registration Form ===== */
+  .form-section { margin-bottom: 28px; }
+  .form-section-title {
+    font-size: 14px; font-weight: 600; color: var(--primary);
+    padding-bottom: 8px; border-bottom: 2px solid var(--primary-light);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 12px; font-weight: 600; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .form-label .readonly-badge {
+    font-size: 10px; background: #F1F5F9; color: var(--text-muted);
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .form-input {
+    padding: 11px 14px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; color: var(--text); background: #fff;
+    font-family: inherit; min-height: 44px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(36,58,82,0.08); }
+  .form-input.readonly {
+    background: #F8FAFC; color: var(--text-secondary); cursor: not-allowed;
+    border-color: #E8ECF0;
+  }
+  .form-toggle {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .toggle-switch {
+    width: 44px; height: 24px; background: var(--action);
+    border-radius: 12px; position: relative; cursor: pointer;
+    transition: background 0.3s;
+  }
+  .toggle-switch::after {
+    content: ''; position: absolute; top: 2px; left: 22px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: left 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .toggle-label { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  /* ===== Tables ===== */
+  .table-wrapper { overflow-x: auto; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  thead th {
+    background: #F8FAFC; padding: 10px 14px; text-align: left;
+    font-weight: 600; color: var(--text-secondary); font-size: 12px;
+    border-bottom: 2px solid var(--border); white-space: nowrap;
+  }
+  tbody td {
+    padding: 12px 14px; border-bottom: 1px solid #F1F5F9;
+    color: var(--text);
+  }
+  tbody tr:hover { background: #FAFBFD; }
+  .status-badge {
+    display: inline-flex; align-items: center; padding: 3px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-granted { background: var(--status-complete-bg); color: var(--status-complete-text); }
+  .status-exchanged { background: var(--status-pending-bg); color: var(--status-pending-text); }
+  .status-adjusted { background: var(--status-adjusted-bg); color: var(--status-adjusted-text); }
+  .status-sent { background: var(--status-complete-bg); color: var(--status-complete-text); }
+  .status-approved { background: var(--status-pending-bg); color: var(--status-pending-text); }
+  .status-rejected { background: var(--status-muted-bg); color: var(--status-muted-text); }
+
+  .amount-plus { color: var(--text); font-weight: 600; }
+  .amount-minus { color: var(--text-secondary); font-weight: 600; }
+
+  /* ===== Points Balance ===== */
+  .points-balance-card {
+    background: var(--primary);
+    color: #fff; border-radius: var(--radius); padding: 28px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; box-shadow: var(--shadow);
+  }
+  .points-balance-label { font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 6px; }
+  .points-balance-value { font-size: 32px; font-weight: 700; letter-spacing: 0.01em; }
+  .points-balance-value .pts { font-size: 15px; font-weight: 500; margin-left: 4px; color: rgba(255,255,255,0.85); }
+  .points-balance-card .btn-accent {
+    background: #fff; color: var(--primary);
+  }
+  .points-balance-card .btn-accent:hover { background: var(--neutral-bg); color: var(--primary); }
+
+  /* ===== Exchange Cards ===== */
+  .exchange-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .exchange-card {
+    background: var(--card-bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 24px; text-align: center;
+    transition: all 0.2s; position: relative;
+  }
+  .exchange-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+  .exchange-card.disabled { opacity: 0.5; pointer-events: none; }
+  .exchange-icon {
+    width: 48px; height: 48px; background: var(--primary-light);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+  }
+  .exchange-icon i { width: 22px; height: 22px; color: var(--primary); stroke-width: 1.8; }
+  .exchange-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .exchange-req { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+  .exchange-time { font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+  .exchange-card .coming-soon {
+    position: absolute; top: 12px; right: 12px;
+    background: #F1F5F9; color: var(--text-muted);
+    font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* ===== Notice List ===== */
+  .notice-list { display: flex; flex-direction: column; gap: 8px; }
+  .notice-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 20px; background: var(--card-bg); border-radius: 8px;
+    border: 1px solid var(--border); cursor: pointer; transition: all 0.2s;
+  }
+  .notice-item:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+  .notice-item.unread { background: var(--neutral-bg); border-left: 3px solid var(--primary); }
+  .notice-item .pin { color: var(--primary); width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; stroke-width: 1.8; }
+  .notice-item-content { flex: 1; }
+  .notice-item-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .notice-item.unread .notice-item-title { color: var(--primary); }
+  .notice-item-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; }
+
+  .notice-detail {
+    background: var(--card-bg); border-radius: var(--radius);
+    padding: 28px; border: 1px solid var(--border);
+  }
+  .notice-detail-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .notice-detail-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .notice-detail-body { font-size: 14px; line-height: 1.8; color: var(--text); }
+  .notice-detail-body p { margin-bottom: 12px; }
+  .notice-back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); font-size: 13px; font-weight: 500;
+    padding: 7px 14px; border-radius: 6px; cursor: pointer;
+    margin-bottom: 16px; transition: all 0.15s;
+  }
+  .notice-back-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .notice-back-btn .icon { width: 14px; height: 14px; }
+  .notice-view { display: none; }
+  .notice-view.active { display: block; }
+
+  /* ===== Modal ===== */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); z-index: 200;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(2px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card-bg); border-radius: 12px;
+    padding: 32px; width: 440px; max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .modal-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .modal-row:last-of-type { border-bottom: none; }
+  .modal-label { font-size: 13px; color: var(--text-secondary); }
+  .modal-value { font-size: 14px; font-weight: 600; }
+  .modal-qty {
+    display: flex; align-items: center; gap: 12px; margin: 16px 0;
+  }
+  .qty-btn {
+    width: 32px; height: 32px; border: 1.5px solid var(--border);
+    border-radius: 6px; background: #fff; cursor: pointer;
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .qty-value { font-size: 18px; font-weight: 700; min-width: 40px; text-align: center; }
+  .modal-check {
+    display: flex; align-items: center; gap: 8px; margin: 16px 0;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .modal-check input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary); }
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .modal-actions .btn { flex: 1; justify-content: center; padding: 10px; }
+
+  /* ===== Welcome Banner ===== */
+  .welcome-banner {
+    background: #fff;
+    border-radius: var(--radius); padding: 24px 28px;
+    margin-bottom: 24px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: var(--shadow);
+  }
+  .welcome-text h2 { font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
+  .welcome-text p { font-size: 13px; color: var(--text-secondary); }
+
+  /* ===== Responsive ===== */
+  .link-btn {
+    color: var(--primary); font-size: 13px; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: flex;
+    align-items: center; gap: 4px;
+  }
+  .link-btn:hover { text-decoration: underline; }
+
+  .form-actions {
+    display: flex; gap: 12px; margin-top: 24px;
+    padding-top: 20px; border-top: 1px solid var(--border);
+  }
+
+  /* ===== Notice Info Box ===== */
+  .info-box {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; font-size: 13px; color: var(--text); margin-bottom: 20px;
+    display: flex; align-items: flex-start; gap: 8px;
+    border-left: 3px solid var(--primary);
+  }
+  .info-box .info-icon { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; stroke-width: 1.8; color: var(--primary); }
+
+  /* ===== Pagination ===== */
+  .pagination {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-top: 20px;
+  }
+  .pagination button {
+    width: 34px; height: 34px; border: 1px solid var(--border);
+    background: #fff; border-radius: 6px; cursor: pointer;
+    font-size: 13px; color: var(--text-secondary); transition: all 0.2s;
+  }
+  .pagination button:hover { border-color: var(--primary); color: var(--primary); }
+  .pagination button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .see-all { text-align: center; margin-top: 16px; }
+
+  /* ===== Tabs ===== */
+  .tab-nav {
+    display: flex; gap: 4px; border-bottom: 2px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .tab-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; background: transparent; border: none;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    font-size: 13.5px; font-weight: 500; color: var(--text-secondary);
+    cursor: pointer; transition: all 0.2s; font-family: inherit;
+  }
+  .tab-btn:hover { color: var(--primary); }
+  .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+  .tab-btn .tab-count {
+    background: var(--border); color: var(--text-secondary);
+    font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 10px;
+  }
+  .tab-btn.active .tab-count { background: var(--primary-light); color: var(--primary); }
+  .survey-tab { display: none; }
+  .survey-tab.active { display: block; }
+
+  /* ===== Survey Preview Modal ===== */
+  .sp-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); z-index: 200;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(2px);
+  }
+  .sp-overlay.show { display: flex; }
+  .sp-modal {
+    background: var(--card-bg); border-radius: 10px;
+    width: 600px; max-width: 92vw; max-height: 88vh;
+    overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .sp-modal-header {
+    padding: 28px 28px 0;
+  }
+  .sp-modal-header h2 {
+    font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+  }
+  .sp-modal-header p {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin: 0;
+  }
+  .sp-modal-body { padding: 20px 28px; }
+  .sp-info-box {
+    background: rgba(36,58,82,0.03); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
+    font-size: 14px; line-height: 1.9; color: var(--text);
+  }
+  .sp-info-row { display: flex; gap: 8px; }
+  .sp-info-label { font-weight: 700; white-space: nowrap; min-width: 120px; }
+  .sp-info-value { font-weight: 700; }
+  .sp-notes-title {
+    font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px;
+  }
+  .sp-notes-list {
+    padding-left: 20px; font-size: 13px; line-height: 1.85;
+    color: var(--text); margin-bottom: 20px;
+  }
+  .sp-notes-list li + li { margin-top: 6px; }
+  .sp-confirm {
+    display: flex; align-items: center; gap: 10px;
+    padding: 16px 0; font-size: 13px; color: var(--text);
+  }
+  .sp-confirm input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0;
+  }
+  .sp-confirm a { color: var(--primary); text-decoration: underline; }
+  .sp-modal-footer {
+    display: flex; justify-content: flex-end; gap: 12px;
+    padding: 16px 28px 24px; border-top: 1px solid var(--border);
+  }
+  .sp-modal-footer .btn { min-width: 120px; justify-content: center; padding: 10px 24px; }
+  .sp-btn-proceed {
+    background: var(--action); color: #fff;
+    opacity: 0.45; pointer-events: none; transition: opacity 0.2s, background 0.2s;
+  }
+  .sp-btn-proceed.enabled { opacity: 1; pointer-events: auto; cursor: pointer; }
+  .sp-btn-proceed.enabled:hover { background: var(--action-dark); }
+
+  /* ===== Exchange Page (新レイアウト) ===== */
+  .ex-page-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 20px; gap: 16px;
+  }
+  .ex-head-points { text-align: right; }
+  .ex-head-points-label { font-size: 12px; color: var(--text-secondary); }
+  .ex-head-points-value {
+    font-size: 20px; font-weight: 700; color: var(--text);
+  }
+
+  .ex-top-row {
+    display: grid; grid-template-columns: minmax(240px, 1fr) 2fr;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .ex-points-card, .ex-note-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px; box-shadow: var(--shadow);
+  }
+  .ex-points-card .ex-points-label {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;
+  }
+  .ex-points-card .ex-points-value {
+    font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: 0.01em;
+  }
+  .ex-note-card .ex-note-title {
+    font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 6px;
+  }
+  .ex-note-list {
+    padding-left: 0; list-style: none;
+    font-size: 12.5px; color: var(--text); line-height: 1.9;
+  }
+  .ex-note-list li { padding-left: 14px; position: relative; }
+  .ex-note-list li::before {
+    content: '・'; position: absolute; left: 0; color: var(--text);
+  }
+
+  .ex-section-title {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin: 8px 0 12px;
+  }
+
+  .ex-gift-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-bottom: 28px;
+  }
+  .ex-gift-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px 18px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  .ex-gift-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+  .ex-gift-name {
+    font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+  }
+  .ex-gift-amounts {
+    font-size: 12.5px; color: var(--text); line-height: 1.7; margin-bottom: 10px;
+  }
+  .ex-gift-delivery {
+    font-size: 11.5px; color: var(--text-secondary); margin-bottom: 14px;
+  }
+  .ex-gift-btn { width: 100%; justify-content: center; margin-top: auto; }
+
+  .ex-footer-note {
+    font-size: 12.5px; color: var(--text-secondary);
+    margin-top: 12px; padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* ===== Support Page ===== */
+  .support-card { max-width: 680px; padding: 26px 28px; }
+  .support-title {
+    font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 14px;
+  }
+  .support-info {
+    background: var(--status-pending-bg);
+    padding: 12px 16px; border-radius: 6px;
+    font-size: 13px; color: var(--text); line-height: 1.7;
+    margin-bottom: 22px;
+  }
+  .support-fg { margin-bottom: 16px; }
+  .support-label {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    margin-bottom: 6px;
+  }
+  .support-textarea {
+    min-height: 120px; resize: vertical; line-height: 1.7;
+  }
+  .support-actions {
+    display: flex; justify-content: flex-end; margin-top: 8px;
+  }
+  .support-submit { padding: 11px 40px; }
+  .support-note {
+    font-size: 12.5px; color: var(--text-secondary);
+    margin-top: 12px; padding-left: 4px;
+  }
+  .support-sub {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;
+  }
+  .support-radio-group {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .support-radio-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 14px; border: 1px solid transparent; border-radius: 6px;
+    cursor: pointer; font-size: 14px; color: var(--text);
+    transition: background 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    min-height: 40px;
+  }
+  .support-radio-item:hover { background: var(--neutral-bg); }
+  .support-radio-item.on {
+    background: var(--neutral-bg); border-color: var(--primary);
+    font-weight: 700;
+  }
+  .support-radio-item input[type="radio"] {
+    width: 16px; height: 16px; accent-color: var(--primary); flex-shrink: 0;
+  }
+  .support-radio-note {
+    display: none;
+    margin: 4px 14px 8px 38px;
+    padding: 12px 14px;
+    background: var(--neutral-bg); border-radius: 6px;
+    font-size: 13px; color: var(--text); line-height: 1.85;
+  }
+  .support-radio-note.show { display: block; }
+
+  /* ===== Exchange Bank (専用画面) ===== */
+  .ex-bank-top {
+    display: grid; grid-template-columns: 1.1fr 1fr 2.4fr; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .ex-bank-card-sm, .ex-bank-card-wide {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px; box-shadow: var(--shadow);
+  }
+  .ex-bank-val-lg {
+    font-size: 22px; font-weight: 700; color: var(--text);
+    margin-top: 4px;
+  }
+  .ex-bank-val-md {
+    font-size: 17px; font-weight: 700; color: var(--text);
+    margin-top: 4px;
+  }
+  .ex-bank-amount-row {
+    display: flex; gap: 10px; margin-top: 8px;
+  }
+  .ex-amount-option {
+    flex: 1; display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px;
+    cursor: pointer; font-size: 14px; color: var(--text);
+    background: #fff;
+    transition: background 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  }
+  .ex-amount-option:hover { background: var(--neutral-bg); }
+  .ex-amount-option.on {
+    border-color: var(--primary); background: var(--neutral-bg); font-weight: 700;
+  }
+  .ex-amount-option input[type="radio"] {
+    width: 15px; height: 15px; accent-color: var(--primary); flex-shrink: 0;
+  }
+
+  .ex-bank-mid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .ex-bank-info-card, .ex-bank-saved-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px; box-shadow: var(--shadow);
+  }
+  .ex-bank-info-title {
+    font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 8px;
+  }
+  .ex-bank-info-body {
+    font-size: 12.5px; color: var(--text); line-height: 1.9;
+  }
+  .ex-bank-mid-split {
+    display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center;
+  }
+  .ex-bank-saved-info {
+    font-size: 13px; color: var(--text); line-height: 1.8;
+  }
+  .ex-bank-saved-btns {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .ex-bank-saved-btns .btn { white-space: nowrap; }
+
+  .ex-bank-form-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px; box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .ex-bank-form-title {
+    font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px;
+  }
+  .ex-bank-form-note {
+    font-size: 12px; color: var(--action-dark);
+    background: var(--action-light); border-left: 3px solid var(--action);
+    padding: 8px 12px; border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .ex-bank-form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px;
+  }
+
+  .ex-bank-footer-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px; box-shadow: var(--shadow);
+    margin-bottom: 12px; gap: 16px;
+  }
+  .ex-bank-checks {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .ex-bank-checks .sp-confirm { padding: 4px 0; font-size: 13px; }
+
+  /* ===== Exchange Apply Modal ===== */
+  .ex-apply-modal { width: 460px; max-width: 94vw; }
+  .ex-apply-points-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 16px; background: var(--neutral-bg);
+    border-radius: 8px; font-size: 13px; margin-bottom: 16px;
+    color: var(--text-secondary);
+  }
+  .ex-apply-points {
+    font-size: 18px; font-weight: 700; color: var(--text);
+  }
+  .ex-apply-block { margin-bottom: 14px; }
+  .ex-apply-label {
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;
+  }
+  .ex-apply-value {
+    font-size: 15px; font-weight: 700; color: var(--text);
+  }
+  .ex-radio-box {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px; background: #fff;
+  }
+  .ex-radio-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 6px; cursor: pointer;
+    font-size: 14px; color: var(--text);
+    transition: background 0.15s ease-in-out;
+  }
+  .ex-radio-row:hover { background: var(--neutral-bg); }
+  .ex-radio-row.on { background: var(--neutral-bg); font-weight: 700; }
+  .ex-radio-row input[type="radio"] {
+    width: 15px; height: 15px; accent-color: var(--primary);
+    flex-shrink: 0;
+  }
+  .ex-notes-box {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px; color: var(--text); line-height: 1.85;
+  }
+  .ex-note-item { padding: 1px 0; }
+
+  .ex-apply-submit {
+    flex: 1; justify-content: center;
+    background: var(--action); color: #fff;
+    opacity: 0.45; pointer-events: none;
+    transition: opacity 0.2s ease-in-out, background 0.2s ease-in-out;
+  }
+  .ex-apply-submit.enabled { opacity: 1; pointer-events: auto; cursor: pointer; }
+  .ex-apply-submit.enabled:hover { background: var(--action-dark); }
+
+  /* ===== Survey Result (モーダル内) ===== */
+  .sp-result-header { padding: 28px 32px 4px; }
+  .sp-result-icon {
+    width: 28px; height: 28px; display: inline-flex;
+    align-items: center; justify-content: center;
+    margin-bottom: 6px;
+  }
+  .sp-result-icon i { width: 24px; height: 24px; stroke-width: 1.8; }
+  .sp-result-kicker {
+    display: inline-block; margin-left: 6px;
+    font-size: 12px; color: var(--text-secondary);
+    vertical-align: 7px;
+  }
+  .sp-result-title {
+    font-size: 22px; font-weight: 700; color: var(--text);
+    margin-top: 6px;
+  }
+  .sp-result-lead {
+    font-size: 13.5px; line-height: 1.85; color: var(--text);
+    margin-bottom: 20px;
+  }
+  .sp-result-info {
+    background: var(--neutral-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 18px 20px;
+    font-size: 13px; line-height: 1.85; color: var(--text);
+  }
+
+  /* ===== Quick Link Buttons ===== */
+  .quick-link-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px; background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s;
+    text-decoration: none; color: var(--text); flex: 1;
+  }
+  .quick-link-btn:hover {
+    border-color: var(--primary); box-shadow: var(--shadow-md);
+    background: #F8F9FA;
+  }
+  .quick-link-btn > i:first-child {
+    width: 22px; height: 22px; color: var(--primary);
+    stroke-width: 1.8; flex-shrink: 0;
+  }
+  .quick-link-btn > div { flex: 1; }
+  .qlb-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .qlb-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .quick-link-btn .qlb-chev {
+    width: 18px; height: 18px; color: var(--text-muted); stroke-width: 1.8;
+  }
+
+  /* ===== Menu Toggle (Hamburger) ===== */
+  .menu-toggle {
+    display: none;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    align-items: center; justify-content: center;
+    margin-right: 6px; flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .menu-toggle:hover { background: rgba(255,255,255,0.25); }
+  .menu-toggle i { width: 20px; height: 20px; stroke-width: 2; }
+
+  /* ===== Sidebar Overlay (mobile) ===== */
+  .sidebar-overlay {
+    display: none;
+    position: fixed; inset: 72px 0 0 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 85;
+  }
+  .sidebar-overlay.show { display: block; }
+
+  /* ===== Responsive: Tablet (<=1024px) ===== */
+  @media (max-width: 1024px) {
+    .sidebar { width: 220px; }
+    .main { margin-left: 220px; padding: 32px 24px; }
+    .header { padding: 0 24px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .exchange-grid { grid-template-columns: repeat(2, 1fr); }
+    .ex-gift-grid { grid-template-columns: repeat(2, 1fr); }
+    .ex-top-row { grid-template-columns: 1fr 1fr; }
+    .ex-bank-top { grid-template-columns: 1fr 1fr; }
+    .ex-bank-top .ex-bank-card-wide { grid-column: 1/-1; }
+    .ex-bank-mid { grid-template-columns: 1fr; }
+    .header-logo .logo-sub { display: none; }
+    .header-user .user-dept { display: none; }
+  }
+
+  /* ===== Responsive: Mobile (<=768px) ===== */
+  @media (max-width: 768px) {
+    body { font-size: 13.5px; }
+
+    /* Header */
+    .header { padding: 0 14px; height: 64px; }
+    .sidebar-overlay { inset: 64px 0 0 0; }
+    .header-logo { gap: 8px; min-width: 0; }
+    .header-logo .logo-icon { width: 32px; height: 32px; font-size: 15px; }
+    .header-logo .logo-text {
+      font-size: 13px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 140px;
+    }
+    .header-logo .logo-sub { display: none; }
+    .header-user { gap: 8px; }
+    .header-user .user-info { gap: 6px; }
+    .header-user .user-info > div:last-child { display: none; }
+    .header-user .user-avatar { width: 32px; height: 32px; font-size: 13px; }
+    .logout-btn { padding: 5px 10px; font-size: 11px; }
+    .menu-toggle { display: inline-flex; }
+
+    /* Sidebar */
+    .sidebar {
+      top: 64px; width: 260px;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease-in-out;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    /* Main */
+    .main {
+      margin-left: 0; margin-top: 64px;
+      padding: 24px 16px; min-height: calc(100vh - 64px);
+    }
+
+    /* Page headings */
+    .page-title { font-size: 19px; }
+    .page-subtitle { font-size: 12.5px; margin-bottom: 18px; }
+
+    /* Cards */
+    .card { padding: 18px 16px; margin-bottom: 16px; }
+
+    /* KPI */
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
+    .kpi-card { padding: 16px; }
+    .kpi-value { font-size: 22px; }
+
+    /* Welcome Banner */
+    .welcome-banner {
+      flex-direction: column; align-items: flex-start;
+      gap: 10px; padding: 16px 18px;
+    }
+    .welcome-text h2 { font-size: 16px; }
+    .welcome-text p { font-size: 12px; }
+
+    /* Grids -> stack */
+    .grid-2 { grid-template-columns: 1fr; gap: 16px; }
+    .grid-2-equal { grid-template-columns: 1fr; gap: 16px; }
+    .exchange-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ex-gift-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ex-top-row { grid-template-columns: 1fr; gap: 12px; }
+    .ex-page-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .ex-head-points { text-align: left; }
+    .ex-bank-top { grid-template-columns: 1fr; gap: 10px; }
+    .ex-bank-top .ex-bank-card-wide { grid-column: auto; }
+    .ex-bank-mid { grid-template-columns: 1fr; gap: 10px; }
+    .ex-bank-mid-split { grid-template-columns: 1fr; }
+    .ex-bank-saved-btns { flex-direction: row; flex-wrap: wrap; }
+    .ex-bank-form-grid { grid-template-columns: 1fr; gap: 10px; }
+    .ex-bank-footer-bar { flex-direction: column; align-items: stretch; gap: 12px; }
+    .ex-bank-footer-bar .btn { width: 100%; justify-content: center; }
+    .ex-amount-option { padding: 12px 14px; min-height: 44px; }
+    .support-card { padding: 20px 16px; }
+    .support-submit { width: 100%; }
+    .form-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Survey items stack */
+    .survey-item {
+      flex-direction: column; align-items: stretch;
+      gap: 12px; padding: 14px 16px;
+    }
+    .survey-meta { flex-wrap: wrap; gap: 10px 14px; }
+    .survey-item .btn { justify-content: center; width: 100%; }
+
+    /* Card header */
+    .card-header { flex-wrap: wrap; gap: 8px; }
+
+    /* Points balance card */
+    .points-balance-card {
+      flex-direction: column; align-items: flex-start;
+      gap: 16px; padding: 22px 20px;
+    }
+    .points-balance-value { font-size: 32px; }
+    .points-balance-card .btn { width: 100%; justify-content: center; }
+
+    /* Exchange cards */
+    .exchange-card { padding: 18px; }
+
+    /* Form actions stack */
+    .form-actions { flex-direction: column; }
+    .form-actions .btn { width: 100%; justify-content: center; }
+
+    /* Tables: tighter padding; wrapper already scrolls */
+    thead th { padding: 8px 10px; font-size: 11.5px; }
+    tbody td { padding: 10px; font-size: 12.5px; }
+    table { font-size: 12.5px; }
+
+    /* Tabs: allow horizontal scroll if cramped */
+    .tab-nav { overflow-x: auto; flex-wrap: nowrap; }
+    .tab-btn { padding: 10px 14px; white-space: nowrap; flex-shrink: 0; }
+
+    /* Dashboard: activity card header stack */
+    .card .card-header > div:last-child { flex-shrink: 0; }
+
+    /* Dashboard activity table: hide 増減 / 残高 columns on mobile */
+    .activity-table thead th:nth-child(4),
+    .activity-table thead th:nth-child(5),
+    .activity-table tbody td:nth-child(4),
+    .activity-table tbody td:nth-child(5) { display: none; }
+
+    /* Notice detail padding */
+    .notice-detail { padding: 20px 18px; }
+    .notice-detail-title { font-size: 16px; }
+
+    /* Modal */
+    .modal { padding: 22px 20px; width: 100%; max-width: 94vw; }
+    .modal-qty { flex-wrap: wrap; }
+    .modal-actions { flex-direction: column-reverse; }
+
+    /* Survey preview modal */
+    .sp-modal-header { padding: 22px 20px 0; }
+    .sp-modal-header h2 { font-size: 17px; }
+    .sp-modal-body { padding: 16px 20px; }
+    .sp-info-box { padding: 14px 16px; font-size: 13px; }
+    .sp-info-row { flex-direction: column; gap: 2px; }
+    .sp-info-label { min-width: 0; }
+    .sp-modal-footer {
+      flex-direction: column-reverse; gap: 10px; padding: 14px 20px 20px;
+    }
+    .sp-modal-footer .btn { width: 100%; }
+
+    /* Pagination */
+    .pagination button { width: 32px; height: 32px; font-size: 12px; }
+  }
+
+  /* ===== Very small screens (<=400px) ===== */
+  @media (max-width: 400px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .header-logo .logo-text { max-width: 110px; font-size: 12px; }
+    .logout-btn { padding: 5px 8px; }
+  }
+
+  /* ===== Footer ===== */
+  .mp-footer {
+    margin-top: 48px;
+    padding: 20px 0 8px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .mp-footer-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .mp-footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mp-footer-links a:hover { color: var(--primary); text-decoration: underline; }
+  .mp-footer-sep { color: var(--border); }
+  .mp-footer-copy { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
+
+  @media (max-width: 768px) {
+    .mp-footer { margin-top: 32px; padding: 16px 0 4px; }
+    .mp-footer-links { gap: 10px; font-size: 11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div style="display:flex;align-items:center;min-width:0;flex:1;">
+    <button class="menu-toggle" id="menuToggle" aria-label="メニュー" onclick="toggleSidebar()">
+      <i data-lucide="menu"></i>
+    </button>
+    <div class="header-logo">
+      <div style="min-width:0;">
+        <div class="logo-text">シード・プランニング　メディカルパネル</div>
+        <div class="logo-sub">マイページ</div>
+      </div>
+    </div>
+  </div>
+  <div class="header-user">
+    <div class="user-info">
+      <div class="user-avatar">山</div>
+      <div>
+        <div class="user-name">山田 太郎</div>
+        <div class="user-dept">○○病院 / 循環器内科</div>
+      </div>
+    </div>
+    <button class="logout-btn">ログアウト</button>
+  </div>
+</header>
+
+<!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar" id="sidebar">
+  <ul class="sidebar-nav">
+    <li><a class="active" onclick="showPage('dashboard')" id="nav-dashboard">
+      <i data-lucide="house" class="nav-icon"></i> ダッシュボード
+    </a></li>
+    <li><a onclick="showPage('profile')" id="nav-profile">
+      <i data-lucide="user" class="nav-icon"></i> 登録情報
+    </a></li>
+    <li><a onclick="showPage('surveys')" id="nav-surveys">
+      <i data-lucide="clipboard-list" class="nav-icon"></i> アンケート一覧
+    </a></li>
+    <li><a onclick="showPage('points')" id="nav-points">
+      <i data-lucide="wallet" class="nav-icon"></i> ポイント（残高・履歴）
+    </a></li>
+    <li><a onclick="showPage('exchange')" id="nav-exchange">
+      <i data-lucide="refresh-cw" class="nav-icon"></i> ポイント交換
+    </a></li>
+    <li><a onclick="showPage('notices')" id="nav-notices">
+      <i data-lucide="megaphone" class="nav-icon"></i> お知らせ
+      <span class="badge">3</span>
+    </a></li>
+    <li><a onclick="showPage('support')" id="nav-support">
+      <i data-lucide="life-buoy" class="nav-icon"></i> サポート
+    </a></li>
+  </ul>
+  <div class="sidebar-logo">
+    <img src="ロゴ.png" alt="シード・プランニング ロゴ">
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- ========== DASHBOARD ========== -->
+  <div class="page active" id="page-dashboard">
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2>ようこそ、山田先生</h2>
+        <p>シード・プランニング医療従事者パネルダッシュボード</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i data-lucide="clipboard-list" class="icon"></i> 新着調査・アンケート</div>
+          <span style="background:var(--primary);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:12px;">3件</span>
+        </div>
+        <div class="survey-list">
+          <div class="survey-item">
+            <div>
+              <div class="survey-title">循環器領域の処方実態調査</div>
+              <div class="survey-meta">
+                <span class="pts">ポイント：800pt</span>
+                <span>締切：2/20</span>
+                <span>所要時間：10分</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="showSurveyPreview('循環器領域の処方実態調査')">回答する →</button>
+          </div>
+          <div class="survey-item">
+            <div>
+              <div class="survey-title">診療報酬改定に関する意識調査</div>
+              <div class="survey-meta">
+                <span class="pts">ポイント：600pt</span>
+                <span>締切：2/18</span>
+                <span>所要時間：8分</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="showSurveyPreview('診療報酬改定に関する意識調査')">確認する →</button>
+          </div>
+          <div class="survey-item">
+            <div>
+              <div class="survey-title">医療機器の採用状況アンケート</div>
+              <div class="survey-meta">
+                <span class="pts">ポイント：500pt</span>
+                <span>締切：2/15</span>
+                <span>所要時間：5分</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="showSurveyPreview('医療機器の採用状況アンケート')">確認する →</button>
+          </div>
+        </div>
+        <div class="see-all"><a class="link-btn" style="justify-content:center;">すべてのアンケートを見る →</a></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i data-lucide="bell" class="icon"></i> お知らせ（最新3件）</div>
+          <a class="link-btn" onclick="showPage('notices')">すべて見る →</a>
+        </div>
+        <div class="notice-mini">
+          <div class="notice-mini-item">
+            <div>
+              <div style="margin-bottom:3px;"><span style="font-weight:500;">メンテナンスのお知らせ</span></div>
+              <div class="notice-date">2026-02-10</div>
+            </div>
+          </div>
+          <div class="notice-mini-item">
+            <div>
+              <div style="margin-bottom:3px;"><span style="font-weight:500;">ポイント付与ルールの一部変更</span></div>
+              <div class="notice-date">2026-02-05</div>
+            </div>
+          </div>
+          <div class="notice-mini-item">
+            <div>
+              <div style="margin-bottom:3px;"><span style="font-weight:500;">新規アンケート公開予定のご案内</span></div>
+              <div class="notice-date">2026-02-03</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="padding:16px 20px;">
+        <div class="card-header" style="margin-bottom:10px;">
+          <div class="card-title" style="font-size:14px;"><i data-lucide="gem" class="icon"></i> アクティビティ</div>
+          <div style="display:flex;align-items:baseline;gap:6px;">
+            <span style="font-size:11px;color:var(--text-secondary);">現在のポイント</span>
+            <span style="font-size:18px;font-weight:700;color:var(--primary);">12,500<span style="font-size:12px;font-weight:500;margin-left:2px;">pt</span></span>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="activity-table" style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">日付</th>
+                <th style="padding:6px 10px;">区分</th>
+                <th style="padding:6px 10px;">内容</th>
+                <th style="padding:6px 10px;text-align:right;">増減</th>
+                <th style="padding:6px 10px;text-align:right;">残高</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:6px 10px;">2026-04-10</td>
+                <td style="padding:6px 10px;"><span class="status-badge status-granted">付与</span></td>
+                <td style="padding:6px 10px;">循環器領域の処方実態調査</td>
+                <td style="padding:6px 10px;text-align:right;" class="amount-plus">+800pt</td>
+                <td style="padding:6px 10px;text-align:right;">12,500pt</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px;">2026-04-03</td>
+                <td style="padding:6px 10px;"><span class="status-badge status-exchanged">交換</span></td>
+                <td style="padding:6px 10px;">Amazonギフト券 3,000円分</td>
+                <td style="padding:6px 10px;text-align:right;" class="amount-minus">-3,000pt</td>
+                <td style="padding:6px 10px;text-align:right;">11,700pt</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px;">2026-03-28</td>
+                <td style="padding:6px 10px;"><span class="status-badge status-granted">付与</span></td>
+                <td style="padding:6px 10px;">診療報酬改定に関する意識調査</td>
+                <td style="padding:6px 10px;text-align:right;" class="amount-plus">+600pt</td>
+                <td style="padding:6px 10px;text-align:right;">14,700pt</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px;">2026-03-20</td>
+                <td style="padding:6px 10px;"><span class="status-badge status-granted">付与</span></td>
+                <td style="padding:6px 10px;">医療機器の採用状況アンケート</td>
+                <td style="padding:6px 10px;text-align:right;" class="amount-plus">+500pt</td>
+                <td style="padding:6px 10px;text-align:right;">14,100pt</td>
+              </tr>
+              <tr>
+                <td style="padding:6px 10px;">2026-03-12</td>
+                <td style="padding:6px 10px;"><span class="status-badge status-adjusted">調整</span></td>
+                <td style="padding:6px 10px;">キャンペーンボーナス</td>
+                <td style="padding:6px 10px;text-align:right;" class="amount-plus">+200pt</td>
+                <td style="padding:6px 10px;text-align:right;">13,600pt</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="see-all" style="margin-top:10px;"><a class="link-btn" style="justify-content:center;font-size:12px;" onclick="showPage('history')">すべての履歴を見る →</a></div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px;justify-content:center;align-self:stretch;height:100%;margin-bottom:0;padding:16px 20px;box-sizing:border-box;">
+        <a class="quick-link-btn" style="padding:10px 12px;gap:10px;border:none;box-shadow:none;background:transparent;border-radius:6px;" onmouseover="this.style.background='#F1F5F9'" onmouseout="this.style.background='transparent'" onclick="showPage('profile')">
+          <i data-lucide="user-cog" style="width:18px;height:18px;"></i>
+          <div>
+            <div class="qlb-title" style="font-size:13px;">登録情報</div>
+            <div class="qlb-sub">会員情報の確認・変更</div>
+          </div>
+          <i data-lucide="chevron-right" class="qlb-chev" style="width:16px;height:16px;"></i>
+        </a>
+        <div style="height:1px;background:var(--border);margin:0 4px;"></div>
+        <a class="quick-link-btn" style="padding:10px 12px;gap:10px;border:none;box-shadow:none;background:transparent;border-radius:6px;" onmouseover="this.style.background='#F1F5F9'" onmouseout="this.style.background='transparent'" onclick="showPage('points')">
+          <i data-lucide="history" style="width:18px;height:18px;"></i>
+          <div>
+            <div class="qlb-title" style="font-size:13px;">回答履歴</div>
+            <div class="qlb-sub">過去のアンケート回答を確認</div>
+          </div>
+          <i data-lucide="chevron-right" class="qlb-chev" style="width:16px;height:16px;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== REGISTRATION INFO ========== -->
+  <div class="page" id="page-profile">
+    <h1 class="page-title">登録情報</h1>
+    <p class="page-subtitle">会員登録時にご入力いただいた情報を確認・変更できます。グレー背景の項目は閲覧のみです。</p>
+
+    <div class="card">
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="user" class="icon"></i> 基本情報</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">氏名 <span class="readonly-badge">変更不可</span></label>
+            <input class="form-input readonly" value="山田 太郎" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">フリガナ <span class="readonly-badge">変更不可</span></label>
+            <input class="form-input readonly" value="ヤマダ タロウ" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">生年月日 <span class="readonly-badge">変更不可</span></label>
+            <input class="form-input readonly" value="1980年4月1日" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">性別 <span class="readonly-badge">変更不可</span></label>
+            <input class="form-input readonly" value="男" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">職業 <span class="readonly-badge">変更不可</span></label>
+            <input class="form-input readonly" value="医師" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">メールアドレス</label>
+            <input class="form-input" value="taro.yamada@example.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="building-2" class="icon"></i> 勤務先情報</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label">勤務先の施設名</label>
+            <input class="form-input" value="○○病院">
+          </div>
+          <div class="form-group">
+            <label class="form-label">施設住所（郵便番号）</label>
+            <input class="form-input" value="123-4567">
+          </div>
+          <div class="form-group">
+            <label class="form-label">施設住所（都道府県）</label>
+            <input class="form-input" value="東京都">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">施設住所（都道府県以下）</label>
+            <input class="form-input" value="千代田区1-2-3">
+          </div>
+          <div class="form-group">
+            <label class="form-label">施設電話番号</label>
+            <input class="form-input" value="03-1234-5678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">施設のタイプ</label>
+            <input class="form-input" value="一般病院">
+          </div>
+          <div class="form-group">
+            <label class="form-label">病床数</label>
+            <input class="form-input" value="100-499床">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="briefcase" class="icon"></i> 所属部署・役職</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">所属部署または診療科</label>
+            <input class="form-input" value="循環器内科">
+          </div>
+          <div class="form-group">
+            <label class="form-label">お役職</label>
+            <input class="form-input" value="医長">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">所属されている学会等 <span class="readonly-badge">任意</span></label>
+            <input class="form-input" value="日本内科学会／日本循環器学会">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="stethoscope" class="icon"></i> 専門領域</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">主たる専門領域</label>
+            <input class="form-input" value="消化器内科（IM05）">
+          </div>
+          <div class="form-group">
+            <label class="form-label">副次的な専門・関心領域 <span class="readonly-badge">任意</span></label>
+            <input class="form-input" value="一般内科（IM01）">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="settings" class="icon"></i> 連絡設定</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">メール配信</label>
+            <div class="form-toggle">
+              <div class="toggle-switch"></div>
+              <span class="toggle-label">ON（配信を受け取る）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="home" class="icon"></i> 個人情報（ご自宅・ご連絡先）</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">ご自宅住所（郵便番号）</label>
+            <input class="form-input" value="150-0001">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ご自宅住所（都道府県）</label>
+            <input class="form-input" value="東京都">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">ご自宅住所（都道府県以下）</label>
+            <input class="form-input" value="渋谷区神宮前4-5-6 パレス神宮前301">
+          </div>
+          <div class="form-group">
+            <label class="form-label">自宅電話番号 <span class="readonly-badge">任意</span></label>
+            <input class="form-input" value="03-9876-5432">
+          </div>
+          <div class="form-group">
+            <label class="form-label">携帯電話番号</label>
+            <input class="form-input" value="090-1234-5678">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">連絡先メールアドレス <span class="readonly-badge">任意</span></label>
+            <input class="form-input" value="taro.yamada.private@example.jp">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><i data-lucide="landmark" class="icon"></i> 銀行口座情報（ポイント振込先）</div>
+        <p style="font-size:12px;color:var(--text-secondary);margin:-8px 0 14px;">ポイントを銀行振込で交換申請する際の受取口座です。ご登録者ご本人名義の口座をご入力ください。</p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">銀行名</label>
+            <input class="form-input" value="三井住友銀行">
+          </div>
+          <div class="form-group">
+            <label class="form-label">支店名</label>
+            <input class="form-input" value="青山支店">
+          </div>
+          <div class="form-group">
+            <label class="form-label">口座種別</label>
+            <input class="form-input" value="普通">
+          </div>
+          <div class="form-group">
+            <label class="form-label">口座番号</label>
+            <input class="form-input" value="1234529">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">口座名義（カナ）</label>
+            <input class="form-input" value="ヤマダ タロウ">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" style="padding:10px 32px;">保存する</button>
+        <button class="btn btn-outline" style="padding:10px 24px;">パスワード変更</button>
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:var(--text-muted);margin-top:8px;">
+      凡例：白背景＝変更可（入力） ／ グレー背景＝閲覧のみ（変更不可）
+    </div>
+  </div>
+
+  <!-- ========== POINTS ========== -->
+  <!-- ========== SURVEYS ========== -->
+  <div class="page" id="page-surveys">
+    <h1 class="page-title">アンケート一覧</h1>
+    <p class="page-subtitle">配信中のアンケートと過去の回答済アンケートを確認できます。</p>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="showSurveyTab('active', this)">
+        <i data-lucide="radio" style="width:15px;height:15px;"></i>
+        配信中 <span class="tab-count">3</span>
+      </button>
+      <button class="tab-btn" onclick="showSurveyTab('answered', this)">
+        <i data-lucide="check-circle-2" style="width:15px;height:15px;"></i>
+        回答済 <span class="tab-count">12</span>
+      </button>
+    </div>
+
+    <!-- 配信中 -->
+    <div class="survey-tab active" id="survey-tab-active">
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>アンケート名</th>
+                <th>種別</th>
+                <th style="text-align:right;">獲得pt</th>
+                <th>所要時間</th>
+                <th>締切</th>
+                <th style="text-align:right;">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>循環器領域の処方実態調査</td>
+                <td>Web調査</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">800pt</td>
+                <td>約10分</td>
+                <td>2026-04-20</td>
+                <td style="text-align:right;"><button class="btn btn-primary btn-sm" onclick="showSurveyPreview('循環器領域の処方実態調査')">回答する</button></td>
+              </tr>
+              <tr>
+                <td>診療報酬改定に関する意識調査</td>
+                <td>Web調査</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">600pt</td>
+                <td>約8分</td>
+                <td>2026-04-18</td>
+                <td style="text-align:right;"><button class="btn btn-primary btn-sm" onclick="showSurveyPreview('診療報酬改定に関する意識調査')">回答する</button></td>
+              </tr>
+              <tr>
+                <td>症例アンケート（循環器疾患）</td>
+                <td>症例</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">500pt</td>
+                <td>約5分</td>
+                <td>2026-04-15</td>
+                <td style="text-align:right;"><button class="btn btn-primary btn-sm" onclick="showSurveyPreview('症例アンケート（循環器疾患）')">回答する</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 回答済 -->
+    <div class="survey-tab" id="survey-tab-answered">
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>アンケート名</th>
+                <th>種別</th>
+                <th style="text-align:right;">獲得pt</th>
+                <th>回答日</th>
+                <th>ステータス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>医療機器の採用状況アンケート</td>
+                <td>Web調査</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">500pt</td>
+                <td>2026-03-20</td>
+                <td><span class="status-badge status-granted">付与済</span></td>
+              </tr>
+              <tr>
+                <td>糖尿病治療薬の使用実態調査</td>
+                <td>Web調査</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">700pt</td>
+                <td>2026-03-08</td>
+                <td><span class="status-badge status-granted">付与済</span></td>
+              </tr>
+              <tr>
+                <td>インタビュー依頼（オンライン）</td>
+                <td>IDI</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">5,000pt</td>
+                <td>2026-02-22</td>
+                <td><span class="status-badge status-approved">承認</span></td>
+              </tr>
+              <tr>
+                <td>呼吸器疾患に関する症例アンケート</td>
+                <td>症例</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">400pt</td>
+                <td>2026-02-12</td>
+                <td><span class="status-badge status-granted">付与済</span></td>
+              </tr>
+              <tr>
+                <td>高血圧治療ガイドラインに関する調査</td>
+                <td>Web調査</td>
+                <td style="text-align:right;font-weight:600;color:var(--action);">600pt</td>
+                <td>2026-01-30</td>
+                <td><span class="status-badge status-granted">付与済</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-points">
+    <h1 class="page-title">ポイント（残高・履歴）</h1>
+    <p class="page-subtitle">ポイントの増減履歴と現在の残高を確認できます。</p>
+
+    <div class="points-balance-card">
+      <div>
+        <div class="points-balance-label">現在のポイント</div>
+        <div class="points-balance-value">12,500<span class="pts">pt</span></div>
+      </div>
+      <button class="btn btn-accent" onclick="showPage('exchange')" style="padding:12px 28px;font-size:14px;">ポイント交換へ →</button>
+    </div>
+
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:16px;">
+      ※ 付与 / 調整 / 交換の内訳を下の履歴で確認できます
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i data-lucide="chart-column" class="icon"></i> ポイント履歴</div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>種別</th>
+              <th>内容</th>
+              <th style="text-align:right;">増減</th>
+              <th style="text-align:right;">残高</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-02-01</td>
+              <td><span class="status-badge status-granted">付与</span></td>
+              <td>循環器領域の処方実態調査</td>
+              <td style="text-align:right;" class="amount-plus">+800</td>
+              <td style="text-align:right;font-weight:600;">12,500</td>
+            </tr>
+            <tr>
+              <td>2026-01-25</td>
+              <td><span class="status-badge status-exchanged">交換</span></td>
+              <td>Amazonギフト（申請）</td>
+              <td style="text-align:right;" class="amount-minus">-5,000</td>
+              <td style="text-align:right;font-weight:600;">11,700</td>
+            </tr>
+            <tr>
+              <td>2026-01-20</td>
+              <td><span class="status-badge status-adjusted">調整</span></td>
+              <td>救済付与（運営対応）</td>
+              <td style="text-align:right;" class="amount-plus">+1,000</td>
+              <td style="text-align:right;font-weight:600;">16,700</td>
+            </tr>
+            <tr>
+              <td>2026-01-10</td>
+              <td><span class="status-badge status-granted">付与</span></td>
+              <td>医療機器の採用状況アンケート</td>
+              <td style="text-align:right;" class="amount-plus">+500</td>
+              <td style="text-align:right;font-weight:600;">15,700</td>
+            </tr>
+            <tr>
+              <td>2025-12-20</td>
+              <td><span class="status-badge status-granted">付与</span></td>
+              <td>新薬に関する処方意向調査</td>
+              <td style="text-align:right;" class="amount-plus">+600</td>
+              <td style="text-align:right;font-weight:600;">15,200</td>
+            </tr>
+            <tr>
+              <td>2025-12-10</td>
+              <td><span class="status-badge status-exchanged">交換</span></td>
+              <td>銀行振込（申請）</td>
+              <td style="text-align:right;" class="amount-minus">-10,000</td>
+              <td style="text-align:right;font-weight:600;">14,600</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button>‹</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EXCHANGE ========== -->
+  <div class="page" id="page-exchange">
+    <div class="ex-page-head">
+      <h1 class="page-title" style="margin-bottom:0;">ポイント交換</h1>
+      <div class="ex-head-points">
+        <div class="ex-head-points-label">現在のポイント</div>
+        <div class="ex-head-points-value">12,500pt</div>
+      </div>
+    </div>
+
+    <div class="ex-top-row">
+      <div class="ex-points-card">
+        <div class="ex-points-label">現在のポイント</div>
+        <div class="ex-points-value">12,500pt</div>
+      </div>
+      <div class="ex-note-card">
+        <div class="ex-note-title">注意事項</div>
+        <ul class="ex-note-list">
+          <li>申請後、処理中の再申請はできません。</li>
+          <li>ポイント残高は申請時に仮減算されます。</li>
+          <li>処理状況は申請履歴よりご確認いただけます。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="ex-section-title">交換先一覧</h2>
+    <div class="ex-gift-grid">
+      <div class="ex-gift-card">
+        <div class="ex-gift-name">Amazonギフト</div>
+        <div class="ex-gift-amounts">交換可能額：2,000pt / 3,000pt / 5,000pt / 10,000pt</div>
+        <div class="ex-gift-delivery">メールで受領</div>
+        <button class="btn btn-primary ex-gift-btn" onclick="openExchangeApply('amazon')">交換額を選ぶ</button>
+      </div>
+      <div class="ex-gift-card">
+        <div class="ex-gift-name">銀行振込</div>
+        <div class="ex-gift-amounts">交換可能額：20,000pt / 30,000pt</div>
+        <div class="ex-gift-delivery">登録口座へ振込</div>
+        <button class="btn btn-primary ex-gift-btn" onclick="openExchangeApply('bank')">交換額を選ぶ</button>
+      </div>
+      <div class="ex-gift-card">
+        <div class="ex-gift-name">図書カードネットギフト</div>
+        <div class="ex-gift-amounts">交換可能額：3,000pt / 5,000pt / 10,000pt</div>
+        <div class="ex-gift-delivery">メールで受領</div>
+        <button class="btn btn-primary ex-gift-btn" onclick="openExchangeApply('book')">交換額を選ぶ</button>
+      </div>
+    </div>
+
+    <h2 class="ex-section-title">交換申請履歴</h2>
+    <div class="card" style="padding:0;">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="padding-left:20px;">申請日</th>
+              <th>交換先</th>
+              <th>使用pt</th>
+              <th style="padding-right:20px;">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-left:20px;">2026-04-02</td>
+              <td>Amazonギフト</td>
+              <td style="font-weight:600;">3,000</td>
+              <td style="padding-right:20px;"><span class="status-badge status-adjusted">Requested</span></td>
+            </tr>
+            <tr>
+              <td style="padding-left:20px;">2026-04-01</td>
+              <td>銀行振込</td>
+              <td style="font-weight:600;">20,000</td>
+              <td style="padding-right:20px;"><span class="status-badge status-exchanged">Processing</span></td>
+            </tr>
+            <tr>
+              <td style="padding-left:20px;">2026-03-28</td>
+              <td>Amazonギフト</td>
+              <td style="font-weight:600;">2,000</td>
+              <td style="padding-right:20px;"><span class="status-badge status-sent">Fulfilled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="ex-footer-note">交換トップでは「交換先の理解と選択」に絞り、申請内容の入力は次画面で行う。</p>
+  </div>
+
+  <!-- ========== EXCHANGE BANK (専用画面) ========== -->
+  <div class="page" id="page-exchange-bank">
+    <div style="margin-bottom:10px;">
+      <a class="link-btn" onclick="showPage('exchange')" style="font-size:12.5px;">← ポイント交換へ戻る</a>
+    </div>
+
+    <div class="ex-page-head">
+      <h1 class="page-title" style="margin-bottom:0;">銀行振込申請</h1>
+      <div class="ex-head-points">
+        <div class="ex-head-points-label">現在のポイント</div>
+        <div class="ex-head-points-value">12,500pt</div>
+      </div>
+    </div>
+
+    <!-- 上段：3カード -->
+    <div class="ex-bank-top">
+      <div class="ex-bank-card-sm">
+        <div class="ex-apply-label">現在のポイント</div>
+        <div class="ex-bank-val-lg">12,500pt</div>
+      </div>
+      <div class="ex-bank-card-sm">
+        <div class="ex-apply-label">交換先</div>
+        <div class="ex-bank-val-md">銀行振込</div>
+      </div>
+      <div class="ex-bank-card-wide">
+        <div class="ex-apply-label">交換額を選択してください</div>
+        <div class="ex-bank-amount-row">
+          <label class="ex-amount-option on">
+            <input type="radio" name="bankAmount" value="20000" checked onchange="selectBankAmount(this)">
+            <span>20,000pt</span>
+          </label>
+          <label class="ex-amount-option">
+            <input type="radio" name="bankAmount" value="30000" onchange="selectBankAmount(this)">
+            <span>30,000pt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 中段：振込先口座情報 + 登録済み口座情報 -->
+    <div class="ex-bank-mid">
+      <div class="ex-bank-info-card">
+        <div class="ex-bank-info-title">振込先口座情報</div>
+        <div class="ex-bank-info-body">
+          お振込みをご希望の場合は、振込先口座情報をご入力ください。<br>
+          ご入力いただいた内容は、今後の振込申請時にも利用できるよう保存されます。<br>
+          変更が必要な場合は、今回の申請時に更新してください。
+        </div>
+      </div>
+      <div class="ex-bank-saved-card">
+        <div class="ex-bank-info-title">登録済み口座情報</div>
+        <div class="ex-bank-mid-split">
+          <div class="ex-bank-saved-info">
+            三井住友銀行　青山支店<br>
+            普通　--4529<br>
+            SATO HANAKO
+          </div>
+          <div class="ex-bank-saved-btns">
+            <button class="btn btn-primary btn-sm" id="useSavedBankBtn" onclick="useSavedBank()">この口座を使う</button>
+            <button class="btn btn-secondary btn-sm" id="useNewBankBtn" onclick="showNewBankForm()">別の口座を入力する</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 別の口座を入力する場合 -->
+    <div class="ex-bank-form-card" id="newBankFormCard" style="display:none;">
+      <div class="ex-bank-form-title">別の口座を入力する場合</div>
+      <p class="ex-bank-form-note">※ ご入力内容で申請すると、登録済みの口座情報が上書きされます。</p>
+      <div class="ex-bank-form-grid">
+        <div class="form-group">
+          <label class="form-label">銀行名</label>
+          <input class="form-input" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">支店名</label>
+          <input class="form-input" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">口座種別</label>
+          <input class="form-input" type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">口座番号</label>
+          <input class="form-input" type="text">
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label class="form-label">口座名義（カナ）</label>
+          <input class="form-input" type="text">
+        </div>
+      </div>
+    </div>
+
+    <!-- 下段：チェック + 申請ボタン -->
+    <div class="ex-bank-footer-bar">
+      <div class="ex-bank-checks">
+        <label class="sp-confirm"><input type="checkbox"> <span>本人名義の口座であることを確認しました</span></label>
+        <label class="sp-confirm"><input type="checkbox"> <span>注意事項に同意します</span></label>
+      </div>
+      <button class="btn btn-primary" style="padding:12px 32px;">申請する</button>
+    </div>
+
+    <p class="ex-footer-note">銀行振込は、交換額の選択に加えて口座情報の確認・入力が必要なため、専用画面とする。</p>
+  </div>
+
+  <!-- ========== NOTICES ========== -->
+  <div class="page" id="page-notices">
+    <h1 class="page-title">お知らせ</h1>
+    <p class="page-subtitle">運営からの連絡事項をご確認ください。</p>
+
+    <div class="notice-view active" id="notice-list-view">
+      <div class="card" style="padding:16px;">
+        <div class="card-header" style="margin-bottom:12px;">
+          <div class="card-title"><i data-lucide="clipboard-list" class="icon"></i> お知らせ一覧</div>
+        </div>
+        <div class="notice-list">
+          <div class="notice-item unread" onclick="selectNotice(this)" data-title="メンテナンスのお知らせ" data-date="2026-02-10">
+            <div class="notice-item-content">
+              <div class="notice-item-title">メンテナンスのお知らせ</div>
+              <div class="notice-item-meta">
+                <span>2026-02-10</span>
+              </div>
+            </div>
+            <template class="notice-body-tpl">
+              <p>いつもご利用ありがとうございます。</p>
+              <p>下記日時にシステムメンテナンスを実施します。</p>
+              <p>
+                <strong>日時：</strong>2026/2/10 22:00〜24:00<br>
+                <strong>影響：</strong>期間中、ログイン/回答ができません
+              </p>
+              <p>ご不便をおかけしますが、ご了承ください。</p>
+            </template>
+          </div>
+          <div class="notice-item unread" onclick="selectNotice(this)" data-title="ポイント付与ルールの一部変更" data-date="2026-02-05">
+            <div class="notice-item-content">
+              <div class="notice-item-title">ポイント付与ルールの一部変更</div>
+              <div class="notice-item-meta">
+                <span>2026-02-05</span>
+              </div>
+            </div>
+            <template class="notice-body-tpl">
+              <p>平素より本サービスをご利用いただきありがとうございます。</p>
+              <p>2026年3月1日より、アンケート回答時のポイント付与ルールを一部変更いたします。</p>
+              <p>
+                <strong>変更点：</strong>一部カテゴリのアンケートにおいて、所要時間に応じたポイントの見直しを行います。<br>
+                <strong>適用日：</strong>2026/3/1 以降に公開されるアンケートから
+              </p>
+              <p>詳細は公開されるアンケートの案内画面でご確認ください。</p>
+            </template>
+          </div>
+          <div class="notice-item unread" onclick="selectNotice(this)" data-title="新規アンケート公開予定のご案内" data-date="2026-02-03">
+            <div class="notice-item-content">
+              <div class="notice-item-title">新規アンケート公開予定のご案内</div>
+              <div class="notice-item-meta">
+                <span>2026-02-03</span>
+              </div>
+            </div>
+            <template class="notice-body-tpl">
+              <p>新規アンケートの公開予定についてお知らせいたします。</p>
+              <p>2026年2月中旬に、循環器領域を中心とした複数のアンケートを順次公開予定です。</p>
+              <p>ご対象の先生方にはマイページ上でご案内を表示いたします。ご協力のほどよろしくお願いいたします。</p>
+            </template>
+          </div>
+          <div class="notice-item" onclick="selectNotice(this)" data-title="年末年始の運営体制について" data-date="2025-12-20">
+            <div class="notice-item-content">
+              <div class="notice-item-title">年末年始の運営体制について</div>
+              <div class="notice-item-meta">
+                <span>2025-12-20</span>
+              </div>
+            </div>
+            <template class="notice-body-tpl">
+              <p>年末年始の運営体制についてお知らせいたします。</p>
+              <p>
+                <strong>休業期間：</strong>2025/12/29 〜 2026/1/3<br>
+                <strong>お問い合わせ：</strong>期間中にいただいたご連絡は、1/5 以降順次ご対応いたします。
+              </p>
+              <p>ご不便をおかけしますが、何卒ご了承ください。</p>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice-view" id="notice-detail-view">
+      <button type="button" class="notice-back-btn" onclick="backToNoticeList()">
+        <i data-lucide="arrow-left" class="icon"></i> お知らせ一覧に戻る
+      </button>
+      <div class="notice-detail" id="notice-detail">
+        <div class="notice-detail-title" id="notice-detail-title">メンテナンスのお知らせ</div>
+        <div class="notice-detail-meta" id="notice-detail-meta">
+          掲載日：2026-02-10
+        </div>
+        <div class="notice-detail-body" id="notice-detail-body">
+          <p>いつもご利用ありがとうございます。</p>
+          <p>下記日時にシステムメンテナンスを実施します。</p>
+          <p>
+            <strong>日時：</strong>2026/2/10 22:00〜24:00<br>
+            <strong>影響：</strong>期間中、ログイン/回答ができません
+          </p>
+          <p>ご不便をおかけしますが、ご了承ください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SUPPORT ========== -->
+  <div class="page" id="page-support">
+    <h1 class="page-title">サポート</h1>
+    <p class="page-subtitle">お問い合わせフォームよりお気軽にご連絡ください。</p>
+
+    <div class="card support-card">
+      <div class="support-title">お問い合わせ</div>
+      <div class="support-info">
+        ご不明な点がございましたら、こちらからお問い合わせください。
+      </div>
+
+      <div class="form-group support-fg">
+        <label class="form-label support-label">お問い合わせ内容の種類</label>
+        <div class="support-sub">該当する内容を選択してください</div>
+        <div class="support-radio-group">
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="point" onchange="updateSupportCategory(this)">
+            <span>ポイントについて</span>
+          </label>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="exchange" onchange="updateSupportCategory(this)">
+            <span>ポイント交換申請について</span>
+          </label>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="survey" onchange="updateSupportCategory(this)">
+            <span>ご参加中・ご参加済みの調査について</span>
+          </label>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="profile" onchange="updateSupportCategory(this)">
+            <span>登録情報について</span>
+          </label>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="referral" onchange="updateSupportCategory(this)">
+            <span>ご紹介制度について</span>
+          </label>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="quit" onchange="updateSupportCategory(this)">
+            <span>退会について</span>
+          </label>
+          <div class="support-radio-note" id="supportQuitNote">
+            退会をご希望の場合は、内容確認のため事務局よりご連絡することがあります。未交換ポイントの取扱いについても、確認のうえ個別にご案内します。
+          </div>
+          <label class="support-radio-item">
+            <input type="radio" name="supportCategory" value="other" onchange="updateSupportCategory(this)">
+            <span>その他のお問い合わせ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group support-fg">
+        <label class="form-label support-label">お名前</label>
+        <input class="form-input" type="text" value="山田 太郎">
+      </div>
+
+      <div class="form-group support-fg">
+        <label class="form-label support-label">メールアドレス</label>
+        <input class="form-input" type="email" value="taro.yamada@example.jp">
+      </div>
+
+      <div class="form-group support-fg">
+        <label class="form-label support-label">本文</label>
+        <textarea class="form-input support-textarea" rows="5" placeholder="お問い合わせ内容をご記入ください"></textarea>
+      </div>
+
+      <div class="support-actions">
+        <button class="btn btn-primary support-submit">送信</button>
+      </div>
+    </div>
+
+    <p class="support-note">※ お名前・メールアドレスは初期表示を推奨</p>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="mp-footer">
+    <div class="mp-footer-links">
+      <a href="規約・ポイントページイメージ.html#terms" target="_blank" rel="noopener">利用規約</a>
+      <span class="mp-footer-sep">|</span>
+      <a href="規約・ポイントページイメージ.html#privacy" target="_blank" rel="noopener">プライバシーポリシー</a>
+    </div>
+    <div class="mp-footer-copy">Copyright © Seed Planning, Inc. All rights reserved.</div>
+  </footer>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="exchangeModal">
+  <div class="modal">
+    <div class="modal-title">交換申請</div>
+    <div class="modal-row">
+      <span class="modal-label">交換先</span>
+      <span class="modal-value">Amazonギフト（5,000pt）</span>
+    </div>
+    <div class="modal-row">
+      <span class="modal-label">口数</span>
+      <div class="modal-qty">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-value" id="qtyValue">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+        <span style="font-size:13px;color:var(--text-secondary);">＝ <strong id="qtyTotal">5,000</strong>pt</span>
+      </div>
+    </div>
+    <div class="modal-check">
+      <input type="checkbox" id="agreeCheck">
+      <label for="agreeCheck">注意事項に同意します</label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">キャンセル</button>
+      <button class="btn btn-primary">申請する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXCHANGE APPLY MODAL ===== -->
+<div class="sp-overlay" id="exchangeApplyModal">
+  <div class="sp-modal ex-apply-modal">
+    <div class="sp-modal-header" style="padding:26px 28px 0;">
+      <h2 id="exApplyTitle" style="font-size:18px;">Amazonギフト申請</h2>
+    </div>
+    <div class="sp-modal-body" style="padding:18px 28px 8px;">
+      <div class="ex-apply-points-row">
+        <span>現在のポイント</span>
+        <span class="ex-apply-points">12,500pt</span>
+      </div>
+
+      <div class="ex-apply-block">
+        <div class="ex-apply-label">交換先</div>
+        <div class="ex-apply-value" id="exApplyName">Amazonギフト</div>
+      </div>
+
+      <div class="ex-apply-block">
+        <div class="ex-apply-label">交換額を選択してください</div>
+        <div class="ex-radio-box" id="exApplyAmounts"></div>
+      </div>
+
+      <div class="ex-apply-block">
+        <div class="ex-apply-label">注意事項</div>
+        <div class="ex-notes-box" id="exApplyNotes"></div>
+      </div>
+
+      <label class="sp-confirm" style="padding:8px 0 6px;">
+        <input type="checkbox" id="exApplyAgree" onchange="toggleExApplyBtn()">
+        <span>注意事項に同意します</span>
+      </label>
+    </div>
+    <div class="sp-modal-footer" style="padding:12px 28px 22px;gap:10px;">
+      <button class="btn btn-outline" onclick="closeExchangeApply()">キャンセル</button>
+      <button class="btn ex-apply-submit" id="exApplyBtn">申請する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SURVEY PREVIEW MODAL ===== -->
+<div class="sp-overlay" id="surveyPreviewModal">
+  <div class="sp-modal">
+    <!-- プレビュー状態 -->
+    <div id="sp-preview-content">
+      <div class="sp-modal-header">
+        <h2>調査ご協力前のご案内</h2>
+        <p>この先は、調査実施会社の画面へ移動します。<br>ご参加前に、以下の内容をご確認ください。</p>
+      </div>
+      <div class="sp-modal-body">
+        <div class="sp-info-box">
+          <div class="sp-info-row">
+            <span class="sp-info-label">調査名：</span>
+            <span class="sp-info-value" id="sp-survey-name">循環器領域の処方実態調査</span>
+          </div>
+          <div class="sp-info-row">
+            <span class="sp-info-label">謝礼：</span>
+            <span class="sp-info-value" id="sp-survey-pts">800ポイント</span>
+          </div>
+          <div class="sp-info-row">
+            <span class="sp-info-label">所要時間の目安：</span>
+            <span class="sp-info-value" id="sp-survey-time">10分</span>
+          </div>
+        </div>
+
+        <div class="sp-notes-title">注意事項</div>
+        <ul class="sp-notes-list">
+          <li>ポイント付与や参加状況の確認のため、会員識別コードを調査実施会社へ提供します。</li>
+          <li>ポイントはご参加直後ではなく、内容確認および調査終了後に順次反映されます。反映まで1〜2週間程度かかる場合があります。</li>
+          <li>調査によっては、事前確認の結果、ご参加対象外となる場合や、募集状況により受付終了となる場合があります。</li>
+          <li>極端に短いご回答や、意味のない記述、同一選択の繰り返しなど、適切なご回答ではないと判断される場合は、謝礼対象外となることがあります。</li>
+        </ul>
+
+        <label class="sp-confirm">
+          <input type="checkbox" id="spAgreeCheck" onchange="toggleProceedBtn()">
+          <span>内容を確認のうえ、外部の調査画面へ進みます。</span>
+        </label>
+      </div>
+      <div class="sp-modal-footer">
+        <button class="btn btn-outline" onclick="closeSurveyPreview()">キャンセル</button>
+        <button class="btn sp-btn-proceed" id="spProceedBtn" onclick="proceedToSurvey()">調査に進む</button>
+      </div>
+    </div>
+
+    <!-- 回答結果表示状態 -->
+    <div id="sp-result-content" style="display:none;">
+      <div class="sp-result-header">
+        <div class="sp-result-icon" id="sp-result-icon"></div>
+        <div class="sp-result-kicker">回答結果</div>
+        <h2 class="sp-result-title">ご協力ありがとうございました</h2>
+      </div>
+      <div class="sp-modal-body">
+        <p class="sp-result-lead" id="sp-result-lead"></p>
+        <div class="sp-result-info" id="sp-result-info"></div>
+      </div>
+      <div class="sp-modal-footer">
+        <button class="btn btn-primary" onclick="goToHistory()">参加履歴で確認する</button>
+        <button class="btn btn-outline" onclick="closeSurveyPreview()">マイページへ戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+    var page = document.getElementById('page-' + pageId);
+    if (page) page.classList.add('active');
+    var nav = document.getElementById('nav-' + pageId);
+    if (nav) {
+      nav.classList.add('active');
+    } else if (pageId.indexOf('exchange') === 0) {
+      var exNav = document.getElementById('nav-exchange');
+      if (exNav) exNav.classList.add('active');
+    }
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function toggleSidebar() {
+    var sb = document.getElementById('sidebar');
+    var ov = document.getElementById('sidebarOverlay');
+    var opened = sb.classList.toggle('open');
+    ov.classList.toggle('show', opened);
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+  }
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) closeSidebar();
+  });
+
+  function openModal() {
+    document.getElementById('exchangeModal').classList.add('show');
+  }
+  function closeModal() {
+    document.getElementById('exchangeModal').classList.remove('show');
+  }
+  document.getElementById('exchangeModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  let qty = 1;
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(2, qty + delta));
+    document.getElementById('qtyValue').textContent = qty;
+    document.getElementById('qtyTotal').textContent = (qty * 5000).toLocaleString();
+  }
+
+  function selectNotice(el) {
+    const title = el.getAttribute('data-title') || '';
+    const date = el.getAttribute('data-date') || '';
+    const tpl = el.querySelector('.notice-body-tpl');
+    document.getElementById('notice-detail-title').textContent = title;
+    document.getElementById('notice-detail-meta').textContent = '掲載日：' + date;
+    const body = document.getElementById('notice-detail-body');
+    body.innerHTML = '';
+    if (tpl) body.appendChild(tpl.content.cloneNode(true));
+    el.classList.remove('unread');
+    document.getElementById('notice-list-view').classList.remove('active');
+    document.getElementById('notice-detail-view').classList.add('active');
+    if (window.lucide) lucide.createIcons();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function backToNoticeList() {
+    document.getElementById('notice-detail-view').classList.remove('active');
+    document.getElementById('notice-list-view').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showSurveyTab(tab, btn) {
+    document.querySelectorAll('.survey-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('survey-tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  const surveyData = {
+    '循環器領域の処方実態調査': { pts: '800ポイント', time: '10分' },
+    '診療報酬改定に関する意識調査': { pts: '600ポイント', time: '8分' },
+    '症例アンケート（循環器疾患）': { pts: '500ポイント', time: '5分' },
+    '医療機器の採用状況アンケート': { pts: '500ポイント', time: '5分' }
+  };
+
+  function showSurveyPreview(title) {
+    var data = surveyData[title] || { pts: '500ポイント', time: '10分' };
+    document.getElementById('sp-survey-name').textContent = title;
+    document.getElementById('sp-survey-pts').textContent = data.pts;
+    document.getElementById('sp-survey-time').textContent = data.time;
+    document.getElementById('spAgreeCheck').checked = false;
+    document.getElementById('spProceedBtn').classList.remove('enabled');
+    document.getElementById('sp-preview-content').style.display = 'block';
+    document.getElementById('sp-result-content').style.display = 'none';
+    document.getElementById('surveyPreviewModal').classList.add('show');
+  }
+
+  function closeSurveyPreview() {
+    document.getElementById('surveyPreviewModal').classList.remove('show');
+    document.getElementById('sp-preview-content').style.display = 'block';
+    document.getElementById('sp-result-content').style.display = 'none';
+  }
+
+  function toggleProceedBtn() {
+    var btn = document.getElementById('spProceedBtn');
+    if (document.getElementById('spAgreeCheck').checked) {
+      btn.classList.add('enabled');
+    } else {
+      btn.classList.remove('enabled');
+    }
+  }
+
+  function proceedToSurvey() {
+    if (!document.getElementById('spProceedBtn').classList.contains('enabled')) return;
+    window.open('survey-result.html', '_blank');
+  }
+
+  function useSavedBank() {
+    var form = document.getElementById('newBankFormCard');
+    if (form) form.style.display = 'none';
+    var useBtn = document.getElementById('useSavedBankBtn');
+    var newBtn = document.getElementById('useNewBankBtn');
+    if (useBtn) { useBtn.classList.remove('btn-secondary'); useBtn.classList.add('btn-primary'); }
+    if (newBtn) { newBtn.classList.remove('btn-primary'); newBtn.classList.add('btn-secondary'); }
+  }
+
+  function showNewBankForm() {
+    var form = document.getElementById('newBankFormCard');
+    if (form) form.style.display = '';
+    var useBtn = document.getElementById('useSavedBankBtn');
+    var newBtn = document.getElementById('useNewBankBtn');
+    if (newBtn) { newBtn.classList.remove('btn-secondary'); newBtn.classList.add('btn-primary'); }
+    if (useBtn) { useBtn.classList.remove('btn-primary'); useBtn.classList.add('btn-secondary'); }
+  }
+
+  var surveyResultData = {
+    complete: {
+      icon: 'check-circle-2',
+      iconColor: 'var(--action)',
+      lead: 'アンケートへのご協力、誠にありがとうございました。<br>ご回答を正常に受け付け、記録しています。',
+      info: 'ポイントの反映状況を含む参加結果は、マイページの参加履歴よりご確認いただけます。<br>なお、調査実施会社の設定や通信状況等により、まれに回答内容が正しく記録されない場合があります。<br><br>そのため、ポイント付与や参加結果の表示には、少しお時間をいただくことがあります。<br>あらかじめご了承ください。'
+    },
+    screenout: {
+      icon: 'info',
+      iconColor: 'var(--primary)',
+      lead: 'アンケートへのご協力、誠にありがとうございました。<br>ご回答の結果、今回はここで終了となりました。<br><br>お時間を割いてご参加いただいたお礼に、参加ポイントを付与させていただいています。',
+      info: '参加結果やポイントの反映状況は、マイページの参加履歴よりご確認いただけます。<br>なお、調査実施会社の設定や通信状況等により、まれに回答内容が正しく記録されない場合があります。<br><br>表示や反映に少しお時間をいただくことがありますので、あらかじめご了承ください。'
+    },
+    quotafull: {
+      icon: 'alert-triangle',
+      iconColor: 'var(--primary)',
+      lead: 'アンケートへのご協力、誠にありがとうございました。<br>ご回答の途中またはご参加のお手続き後に、募集状況により今回は受付終了となりました。<br><br>せっかくご協力いただいたにもかかわらず、このようなご案内となりましたことをお詫び申し上げます。<br>お時間を割いてご参加いただいたお礼に、参加ポイントを付与させていただいています。',
+      info: '参加結果やポイントの反映状況は、マイページの参加履歴よりご確認いただけます。<br>なお、調査実施会社の設定や通信状況等により、まれに回答内容が正しく記録されない場合があります。<br><br>表示や反映に少しお時間をいただくことがありますので、あらかじめご了承ください。'
+    },
+    error: {
+      icon: 'alert-circle',
+      iconColor: 'var(--primary)',
+      lead: 'アンケートへのご協力、誠にありがとうございました。<br>現在、参加結果の確認を行っております。<br><br>ご回答内容や参加状況は、調査実施会社からの情報に基づき、<br>後ほどマイページの参加履歴へ反映される場合がございます。',
+      info: '反映までにお時間をいただく場合がございます。<br>参加履歴には一時的に「回答中」と表示されることがありますが、調査終了までそのままお待ちください。<br><br>ご不便をおかけいたしますが、何卒ご了承いただけますと幸いです。<br>ご不明な点は、サポートまでご連絡ください。'
+    }
+  };
+
+  window.showSurveyResult = function(type) {
+    try {
+      var d = surveyResultData[type] || surveyResultData.complete;
+      var iconEl = document.getElementById('sp-result-icon');
+      iconEl.innerHTML = '<i data-lucide="' + d.icon + '" style="color:' + d.iconColor + ';width:24px;height:24px;"></i>';
+      document.getElementById('sp-result-lead').innerHTML = d.lead;
+      document.getElementById('sp-result-info').innerHTML = d.info;
+      document.getElementById('sp-preview-content').style.display = 'none';
+      document.getElementById('sp-result-content').style.display = 'block';
+      document.getElementById('surveyPreviewModal').classList.add('show');
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+      try { window.focus(); } catch (e) {}
+    } catch (e) {
+      console.error('showSurveyResult error:', e);
+    }
+  };
+
+  function goToHistory() {
+    closeSurveyPreview();
+    showPage('surveys');
+    var tabs = document.querySelectorAll('.tab-btn');
+    if (tabs.length >= 2) showSurveyTab('answered', tabs[1]);
+  }
+
+  // 子タブからの postMessage を受信
+  window.addEventListener('message', function (e) {
+    if (e && e.data && e.data.kind === 'survey-result' && e.data.type) {
+      window.showSurveyResult(e.data.type);
+    }
+  });
+
+  document.getElementById('surveyPreviewModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSurveyPreview();
+  });
+
+  // ===== Exchange Apply Modal =====
+  var exchangeConfig = {
+    amazon: {
+      title: 'Amazonギフト申請',
+      name: 'Amazonギフト',
+      amounts: [2000, 3000, 5000, 10000],
+      defaultAmount: 5000,
+      notes: [
+        '申請後の取消はできません。',
+        '処理状況は申請履歴よりご確認いただけます。'
+      ]
+    },
+    book: {
+      title: '図書カードネットギフト申請',
+      name: '図書カードネットギフト',
+      amounts: [3000, 5000, 10000],
+      defaultAmount: 5000,
+      notes: [
+        '申請後の取消はできません。',
+        '処理状況は申請履歴よりご確認いただけます。',
+        'giftee(ギフティ)よりメールで送付されます。'
+      ]
+    },
+    bank: {
+      title: '銀行振込申請',
+      name: '銀行振込',
+      amounts: [20000, 30000],
+      defaultAmount: 20000,
+      notes: [
+        '申請後の取消はできません。',
+        '処理状況は申請履歴よりご確認いただけます。',
+        '登録口座へ指定日までに振り込まれます。'
+      ]
+    }
+  };
+
+  function openExchangeApply(type) {
+    if (type === 'bank') {
+      showPage('exchange-bank');
+      return;
+    }
+
+    var cfg = exchangeConfig[type];
+    if (!cfg) return;
+
+    document.getElementById('exApplyTitle').textContent = cfg.title;
+    document.getElementById('exApplyName').textContent = cfg.name;
+
+    var amtBox = document.getElementById('exApplyAmounts');
+    amtBox.innerHTML = cfg.amounts.map(function (a) {
+      var on = a === cfg.defaultAmount;
+      return '<label class="ex-radio-row' + (on ? ' on' : '') + '">' +
+        '<input type="radio" name="exApplyAmount" value="' + a + '"' + (on ? ' checked' : '') + '>' +
+        '<span>' + a.toLocaleString() + 'pt</span>' +
+      '</label>';
+    }).join('');
+
+    amtBox.querySelectorAll('input[type="radio"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        amtBox.querySelectorAll('.ex-radio-row').forEach(function (row) { row.classList.remove('on'); });
+        if (r.checked) r.parentElement.classList.add('on');
+      });
+    });
+
+    var notesBox = document.getElementById('exApplyNotes');
+    notesBox.innerHTML = cfg.notes.map(function (n) {
+      return '<div class="ex-note-item">' + n + '</div>';
+    }).join('');
+
+    document.getElementById('exApplyAgree').checked = false;
+    document.getElementById('exApplyBtn').classList.remove('enabled');
+
+    document.getElementById('exchangeApplyModal').classList.add('show');
+  }
+
+  function closeExchangeApply() {
+    document.getElementById('exchangeApplyModal').classList.remove('show');
+  }
+
+  function toggleExApplyBtn() {
+    var btn = document.getElementById('exApplyBtn');
+    if (document.getElementById('exApplyAgree').checked) {
+      btn.classList.add('enabled');
+    } else {
+      btn.classList.remove('enabled');
+    }
+  }
+
+  document.getElementById('exchangeApplyModal').addEventListener('click', function (e) {
+    if (e.target === this) closeExchangeApply();
+  });
+
+  function selectBankAmount(radio) {
+    document.querySelectorAll('.ex-amount-option').forEach(function (el) { el.classList.remove('on'); });
+    if (radio.checked) radio.parentElement.classList.add('on');
+  }
+
+  function updateSupportCategory(radio) {
+    document.querySelectorAll('.support-radio-item').forEach(function (el) { el.classList.remove('on'); });
+    if (radio.checked) radio.parentElement.classList.add('on');
+    var note = document.getElementById('supportQuitNote');
+    if (radio.value === 'quit') note.classList.add('show');
+    else note.classList.remove('show');
+  }
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

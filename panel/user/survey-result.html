@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>調査実施画面（モック）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #243A52;
+    --action: #5F8475;
+    --action-dark: #567A6C;
+    --action-light: #E8F0ED;
+    --bg: #F5F6F7;
+    --card: #FFFFFF;
+    --text: #2B2F33;
+    --text-secondary: #64748B;
+    --border: #E6E8EB;
+    --neutral-bg: #F1F3F5;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    max-width: 560px; width: 100%;
+    padding: 36px 32px;
+  }
+
+  .kicker {
+    font-size: 12px; color: var(--text-secondary);
+    letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 20px; font-weight: 700; color: var(--text);
+    margin-bottom: 10px;
+  }
+  .lead {
+    font-size: 13.5px; color: var(--text-secondary);
+    margin-bottom: 24px; line-height: 1.85;
+  }
+
+  .btn-list {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .result-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; border-radius: 8px;
+    border: 1px solid var(--border); background: #fff;
+    font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text);
+    cursor: pointer;
+    transition: background 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    min-height: 52px;
+  }
+  .result-btn:hover { background: var(--neutral-bg); border-color: var(--primary); }
+  .result-btn .label-sub {
+    font-size: 11px; color: var(--text-secondary); font-weight: 400;
+    margin-left: 10px;
+  }
+  .result-btn.primary {
+    background: var(--action); color: #fff; border-color: var(--action);
+  }
+  .result-btn.primary:hover { background: var(--action-dark); border-color: var(--action-dark); }
+  .result-btn.primary .label-sub { color: rgba(255,255,255,0.85); }
+
+  .note {
+    margin-top: 20px; padding: 14px 16px;
+    background: var(--neutral-bg); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 12px; color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .no-opener {
+    display: none; margin-top: 14px;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .sent-note {
+    display: none;
+    margin-top: 16px; padding: 14px 16px;
+    background: var(--action-light); border: 1px solid var(--action);
+    border-radius: 8px; font-size: 13px; line-height: 1.7; color: var(--text);
+    align-items: flex-start; gap: 10px;
+  }
+  .sent-note.on { display: flex; }
+  .sent-note i {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--action); color: #fff; display: flex;
+    align-items: center; justify-content: center; font-style: normal;
+    font-weight: 700; font-size: 13px; margin-top: 1px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">調査実施会社の画面（モック）</div>
+    <h1>回答結果を選択してください</h1>
+    <p class="lead">このページはテスト用です。実際の調査画面の代わりに、4種類の回答結果パターンを切り替えて確認できます。ボタンを押すと、マイページのポップアップが該当パターンに切り替わります。</p>
+
+    <div class="btn-list">
+      <button class="result-btn primary" onclick="sendResult('complete')">
+        <span>Complete<span class="label-sub">完了</span></span>
+        <span>→</span>
+      </button>
+      <button class="result-btn" onclick="sendResult('screenout')">
+        <span>Screenout<span class="label-sub">対象外</span></span>
+        <span>→</span>
+      </button>
+      <button class="result-btn" onclick="sendResult('quotafull')">
+        <span>QuotaFull<span class="label-sub">募集終了</span></span>
+        <span>→</span>
+      </button>
+      <button class="result-btn" onclick="sendResult('error')">
+        <span>Error<span class="label-sub">判別不可</span></span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <div class="note">
+      ボタンを押すと、マイページのタブ側で結果モーダルが切り替わります。このタブは手動で閉じてください。
+    </div>
+    <div class="sent-note" id="sentNote">
+      <i>✓</i>
+      <div>
+        <b id="sentLabel"></b> を親タブへ送信しました。<br>
+        マイページのタブに切り替えて結果モーダルをご確認ください。
+      </div>
+    </div>
+    <div class="no-opener" id="noOpener">
+      ※ マイページを先に開いてから「調査に進む」で呼び出してください（親タブが検出できません）。
+    </div>
+  </div>
+
+<script>
+  function sendResult(type) {
+    var opener = null;
+    try { opener = window.opener; } catch (e) {}
+
+    if (!opener) {
+      document.getElementById('noOpener').style.display = 'block';
+      return;
+    }
+
+    var delivered = false;
+
+    // 1) postMessage を優先（cross-origin セーフ）
+    try {
+      opener.postMessage({ kind: 'survey-result', type: type }, '*');
+      delivered = true;
+    } catch (e) {
+      console.error('postMessage error:', e);
+    }
+
+    // 2) 直接呼び出しも試行（同一オリジン時の保険）
+    try {
+      if (typeof opener.showSurveyResult === 'function') {
+        opener.showSurveyResult(type);
+        delivered = true;
+      }
+    } catch (e) {
+      console.error('direct call error:', e);
+    }
+
+    try { opener.focus(); } catch (e) {}
+
+    if (delivered) {
+      showSent(type);
+    } else {
+      document.getElementById('noOpener').style.display = 'block';
+    }
+  }
+
+  function showSent(type) {
+    var labels = {
+      complete: 'Complete（完了）',
+      screenout: 'Screenout（対象外）',
+      quotafull: 'QuotaFull（募集終了）',
+      error: 'Error（判別不可）'
+    };
+    document.getElementById('sentLabel').textContent = labels[type] || type;
+    document.getElementById('sentNote').classList.add('on');
+  }
+</script>
+</body>
+</html>

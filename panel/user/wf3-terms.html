@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>登録手続きを続ける | シードメディカルパネル</title>
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="member.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="member">
+<header class="mb-header">
+  <div class="mb-logo"><div class="logo-box">S</div>シードメディカルパネル</div>
+  <a href="index.html" style="font-size:12px;color:var(--g500);text-decoration:none">← モック一覧</a>
+</header>
+
+<div class="mb-wrap wide">
+  <div class="mb-title">登録手続きを続ける</div>
+  <div class="mb-lead">まず規約をご確認のうえ、基本情報の入力へお進みください。</div>
+
+  <div class="stepper">
+    <div class="stp on"><div class="stp-n">1</div><div class="stp-lb">規約確認</div></div>
+    <div class="stp-line"></div>
+    <div class="stp"><div class="stp-n">2</div><div class="stp-lb">基本情報入力</div></div>
+    <div class="stp-line"></div>
+    <div class="stp"><div class="stp-n">3</div><div class="stp-lb">登録完了</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-t" style="margin-bottom:14px"><i data-lucide="file-text"></i>1. 規約確認</div>
+    <div style="border:1px solid var(--g200);border-radius:8px;padding:16px;max-height:320px;overflow-y:auto;font-size:12px;line-height:1.9;color:var(--g600);background:var(--g50)">
+      <b style="color:var(--g800)">利用規約</b><br>
+      第1条（目的）本規約は、株式会社シード・プランニング（以下「当社」）が運営するシードメディカルパネル（以下「本サービス」）の利用に関する条件を定めるものです。<br><br>
+      第2条（会員登録）本サービスの利用を希望する者は、本規約に同意の上、当社所定の方法により会員登録を行うものとします。<br><br>
+      <b style="color:var(--g800)">個人情報保護方針</b><br>
+      当社は、お預かりした個人情報を、調査の企画・実施・集計および謝礼のお支払いのためにのみ使用し、事前の同意なく第三者に提供しません。<br><br>
+      （以下、規約本文が続きます）
+    </div>
+    <div class="fg" style="margin-top:16px">
+      <label class="cbl"><input type="checkbox"> 利用規約・個人情報保護方針を確認し、同意します</label>
+    </div>
+    <div class="btn-grp" style="justify-content:space-between;margin-top:20px">
+      <a href="login.html" class="btn btn-out" style="text-decoration:none"><i data-lucide="arrow-left"></i>戻る</a>
+      <a href="step2-basic.html" class="btn btn-pr" style="text-decoration:none">基本情報入力へ進む<i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<footer class="mb-footer">
+  <a href="#">会社概要</a>|<a href="#">お問い合わせ</a>|<a href="#">個人情報保護方針</a>
+  <div style="margin-top:10px;font-size:11px;color:var(--g400)">Seed Medical Panel | Phase 1</div>
+</footer>
+<script>lucide.createIcons();</script>
+</body></html>
