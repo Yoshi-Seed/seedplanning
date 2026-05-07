@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会員登録審査一覧 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="member-review">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i on" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">会員登録審査一覧</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <!-- 詳細画面 -->
+  <div id="mr-detail" style="display:none">
+    <h1 class="pg-t">会員登録審査</h1><p class="pg-d">仮登録ユーザの詳細確認・審査</p>
+    <button class="btn btn-out btn-sm mb4" onclick="document.getElementById('mr-detail').style.display='none';document.getElementById('mr-list').style.display='block'">← 一覧に戻る</button>
+
+    <div class="g21">
+      <div>
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><i data-lucide="user"></i>基本情報</div><span class="sb draft">未対応</span></div>
+          <div class="g2">
+            <div class="dr"><div class="dr-l">仮登録番号</div><div class="dr-v fm">PROV-2026-00128</div></div>
+            <div class="dr"><div class="dr-l">登録日</div><div class="dr-v">2026/02/10</div></div>
+            <div class="dr"><div class="dr-l">苗字</div><div class="dr-v">山田</div></div>
+            <div class="dr"><div class="dr-l">名前</div><div class="dr-v">太郎</div></div>
+            <div class="dr"><div class="dr-l">苗字（かな）</div><div class="dr-v">やまだ</div></div>
+            <div class="dr"><div class="dr-l">名前（かな）</div><div class="dr-v">たろう</div></div>
+            <div class="dr"><div class="dr-l">生年</div><div class="dr-v">1978年</div></div>
+            <div class="dr"><div class="dr-l">性別</div><div class="dr-v">男性</div></div>
+            <div class="dr"><div class="dr-l">メールアドレス</div><div class="dr-v">taro.yamada@example.com</div></div>
+            <div class="dr"><div class="dr-l">電話番号</div><div class="dr-v">090-1234-5678</div></div>
+            <div class="dr"><div class="dr-l">職業</div><div class="dr-v">医師</div></div>
+            <div class="dr"><div class="dr-l">役職</div><div class="dr-v">部長</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><i data-lucide="stethoscope"></i>専門領域</div></div>
+          <div class="g2">
+            <div class="dr"><div class="dr-l">主専門</div><div class="dr-v">内科</div></div>
+            <div class="dr"><div class="dr-l">副専門</div><div class="dr-v">糖尿病内科 / 循環器内科</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><i data-lucide="building-2"></i>勤務先情報</div></div>
+          <div class="dr"><div class="dr-l">医療機関名</div><div class="dr-v">○○病院</div></div>
+          <div class="dr"><div class="dr-l">医療機関名（かな）</div><div class="dr-v">まるまるびょういん</div></div>
+          <div class="dr"><div class="dr-l">病院の種類</div><div class="dr-v">大学病院</div></div>
+          <div class="dr"><div class="dr-l">病床数</div><div class="dr-v">820床</div></div>
+          <div class="dr"><div class="dr-l">都道府県</div><div class="dr-v">東京都</div></div>
+          <div class="dr"><div class="dr-l">住所</div><div class="dr-v">東京都千代田区丸の内1-2-3</div></div>
+          <div class="dr"><div class="dr-l">病院電話番号</div><div class="dr-v">03-1234-5678</div></div>
+          <div class="dr"><div class="dr-l">電話照合マッチ</div><div class="dr-v t-gn">● マッチ（公開電話と一致）</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><i data-lucide="link-2"></i>登録経路</div></div>
+          <div class="dr"><div class="dr-l">source</div><div class="dr-v"><span class="chip">紹介</span></div></div>
+          <div class="dr"><div class="dr-l">紹介元会員ID</div><div class="dr-v fm">12345</div></div>
+          <div class="dr"><div class="dr-l">紹介元氏名</div><div class="dr-v">田中 一郎</div></div>
+          <div class="dr"><div class="dr-l">申込IPアドレス</div><div class="dr-v fm">203.0.113.42</div></div>
+          <div class="dr"><div class="dr-l">User-Agent</div><div class="dr-v ts">Chrome 122 / Win11</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><i data-lucide="shield-check"></i>本人確認資料</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="fx fxb fxc" style="padding:10px;background:var(--g50);border-radius:7px"><span class="ts">医師免許証コピー</span><button class="btn btn-out btn-sm">表示</button></div>
+            <div class="fx fxb fxc" style="padding:10px;background:var(--g50);border-radius:7px"><span class="ts">勤務先在籍証明</span><button class="btn btn-out btn-sm">表示</button></div>
+            <div class="fx fxb fxc" style="padding:10px;background:var(--g50);border-radius:7px"><span class="ts">本人写真</span><button class="btn btn-out btn-sm">表示</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 備考欄 -->
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="message-square"></i>備考（担当者メモ）</div><span class="ts tm">最終更新：—</span></div>
+      <textarea class="ft" placeholder="確認時のメモを記載してください（例：紹介元との関係性確認済み、勤務先電話で在籍確認OK 等）" style="min-height:140px"></textarea>
+      <div class="fh">このメモは内部管理用で、申請者には表示されません</div>
+    </div>
+
+    <!-- 審査アクション -->
+    <div class="card">
+      <div class="alt a-info" style="margin-bottom:12px"><i data-lucide="info"></i>承認すると申請者へ会員登録完了メールが自動送信されます</div>
+      <div class="btn-grp" style="justify-content:center;gap:12px">
+        <button class="btn btn-ok" style="padding:10px 32px"><i data-lucide="check" style="width:15px;height:15px"></i>承認</button>
+        <button class="btn btn-pr" style="padding:10px 32px">確認中</button>
+        <button class="btn btn-warn" style="padding:10px 32px">保留にする</button>
+        <button class="btn btn-ng" style="padding:10px 32px"><i data-lucide="x" style="width:15px;height:15px"></i>却下</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一覧画面 -->
+  <div id="mr-list">
+  <h1 class="pg-t">会員登録審査一覧</h1><p class="pg-d">新規会員登録の審査・承認を管理</p>
+
+  <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+    <div class="st c-nv"><div class="st-lb">未対応</div><div class="st-val">5</div><div class="st-sub">担当未割当</div></div>
+    <div class="st c-bl"><div class="st-lb">確認中</div><div class="st-val">2</div><div class="st-sub">審査作業中</div></div>
+    <div class="st c-gn"><div class="st-lb">今月承認</div><div class="st-val">38</div><div class="st-sub">承認済み件数</div></div>
+    <div class="st c-rd"><div class="st-lb">今月却下</div><div class="st-val">4</div><div class="st-sub">却下件数</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd">
+      <div class="card-t"><i data-lucide="user-check"></i>仮登録一覧</div>
+      <div class="btn-grp">
+        <input class="fi" placeholder="氏名・医療機関で検索…" style="width:220px;padding:6px 10px">
+        <select class="fs" style="width:140px;padding:6px 10px">
+          <option>すべて</option>
+          <option>未対応</option>
+          <option>確認中</option>
+          <option>保留</option>
+          <option>承認済</option>
+          <option>却下</option>
+        </select>
+        <select class="fs" style="width:130px;padding:6px 10px">
+          <option>全source</option>
+          <option>紹介</option>
+          <option>Web</option>
+          <option>営業</option>
+          <option>イベント</option>
+        </select>
+      </div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>氏名</th><th>医療機関</th><th>登録日</th><th>source</th><th>紹介元</th><th>状態</th><th>担当</th><th class="tr">操作</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>山田 太郎</strong></td>
+          <td>○○病院</td>
+          <td>2026/02/10</td>
+          <td><span class="chip">紹介</span></td>
+          <td class="fm">12345</td>
+          <td><span class="sb draft">未対応</span></td>
+          <td class="tm">—</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>佐藤 健一</strong></td>
+          <td>大阪中央クリニック</td>
+          <td>2026/02/12</td>
+          <td><span class="chip">Web</span></td>
+          <td class="tm">—</td>
+          <td><span class="sb draft">未対応</span></td>
+          <td class="tm">—</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>鈴木 美穂</strong></td>
+          <td>名古屋第一病院</td>
+          <td>2026/02/13</td>
+          <td><span class="chip">紹介</span></td>
+          <td class="fm">10892</td>
+          <td><span class="sb pend">確認中</span></td>
+          <td>木原</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>田中 陽介</strong></td>
+          <td>福岡スキンケアクリニック</td>
+          <td>2026/02/14</td>
+          <td><span class="chip">営業</span></td>
+          <td class="tm">—</td>
+          <td><span class="sb draft">未対応</span></td>
+          <td class="tm">—</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>高橋 由紀</strong></td>
+          <td>北海道大学病院</td>
+          <td>2026/02/15</td>
+          <td><span class="chip">イベント</span></td>
+          <td class="tm">—</td>
+          <td><span class="sb pend">確認中</span></td>
+          <td>本田</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>伊藤 直人</strong></td>
+          <td>横浜こども医療センター</td>
+          <td>2026/02/16</td>
+          <td><span class="chip">紹介</span></td>
+          <td class="fm">20413</td>
+          <td><span class="sb draft">未対応</span></td>
+          <td class="tm">—</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>中村 さくら</strong></td>
+          <td>大阪総合医療センター</td>
+          <td>2026/02/17</td>
+          <td><span class="chip">Web</span></td>
+          <td class="tm">—</td>
+          <td><span class="sb draft">未対応</span></td>
+          <td class="tm">—</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>小林 拓也</strong></td>
+          <td>愛知がんセンター</td>
+          <td>2026/02/05</td>
+          <td><span class="chip">紹介</span></td>
+          <td class="fm">15067</td>
+          <td><span class="sb ok">承認済</span></td>
+          <td>木原</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+        <tr>
+          <td><strong>加藤 優子</strong></td>
+          <td>福岡大学病院</td>
+          <td>2026/02/03</td>
+          <td><span class="chip">Web</span></td>
+          <td class="tm">—</td>
+          <td><span class="sb ng">却下</span></td>
+          <td>長己</td>
+          <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('mr-detail').style.display='block';document.getElementById('mr-list').style.display='none'">確認</button></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div class="fx fxb fxc mt4"><span class="ts tm">表示: 1–9 / 49件</span><div class="btn-grp"><button class="btn btn-out btn-sm">← 前へ</button><button class="btn btn-out btn-sm">次へ →</button></div></div>
+  </div>
+  </div>
+
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey Operations — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="survey-ops">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i on" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">Survey Operations</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <h1 class="pg-t">Survey Operations</h1><p class="pg-d">登録 → 検証 → 配信 → 監視 → 制御を1画面で完結</p>
+  <div class="tabs" id="so-tabs"><div class="tab on" data-so="list">配信中案件一覧 <span class="tb">5</span></div><div class="tab">完了</div></div>
+
+  <!-- === 配信中案件一覧 === -->
+  <div id="so-list">
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="list"></i>現在配信中案件一覧</div><div class="btn-grp"><button type="button" class="btn btn-out btn-sm">CSV出力</button><button type="button" class="btn btn-out btn-sm">更新</button><button type="button" class="btn btn-pr btn-sm" style="display:inline-flex;align-items:center;gap:6px" onclick="soNewProject()"><i data-lucide="plus" style="width:14px;height:14px"></i>新規案件追加</button></div></div>
+      <div class="so-filters">
+        <div class="fg so-q-wrap">
+          <label class="fl" for="so-q">検索（曖昧一致）</label>
+          <input type="search" class="fs" id="so-q" placeholder="ID・調査名・クライアント名・バッチ番号など" autocomplete="off">
+        </div>
+        <div class="fg so-d-wrap">
+          <label class="fl" for="so-d-start">配信開始日</label>
+          <input type="date" class="fs" id="so-d-start">
+        </div>
+        <div class="fg so-d-wrap">
+          <label class="fl" for="so-d-end">配信終了日</label>
+          <input type="date" class="fs" id="so-d-end">
+        </div>
+        <button type="button" class="btn btn-out btn-sm" id="so-filter-clear">条件クリア</button>
+        <span class="so-count" id="so-list-hit">全 <strong id="so-list-n">5</strong> 件</span>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>ID</th><th class="tc">配信中バッチ数</th><th>調査名</th><th>クライアント名</th><th>担当者</th><th>配信期間</th><th class="tr">完了数</th><th class="tr">ScreenOut数</th><th class="tr">QuotaFull数</th><th class="tr">未完了数</th></tr></thead>
+        <tbody id="so-list-tbody">
+          <tr style="cursor:pointer" onclick="soDetail()" data-start="2026-02-01" data-end="2026-04-05"><td class="fm">SV-1001</td><td class="tc">2</td><td><strong>糖尿病治療意識調査 2026/Q1</strong></td><td>Client A</td><td>山田 太郎</td><td>2026/02/01 〜 2026/04/05</td><td class="tr fb">1,842</td><td class="tr">320</td><td class="tr">45</td><td class="tr">1,135</td></tr>
+          <tr style="cursor:pointer" onclick="soDetail()" data-start="2026-03-10" data-end="2026-04-15"><td class="fm">SV-1002</td><td class="tc">1</td><td><strong>高血圧薬剤選択調査</strong></td><td>Client B</td><td>佐藤 花子</td><td>2026/03/10 〜 2026/04/15</td><td class="tr fb">320</td><td class="tr">98</td><td class="tr">22</td><td class="tr">460</td></tr>
+          <tr style="cursor:pointer" onclick="soDetail()" data-start="2026-03-20" data-end="2026-04-20"><td class="fm">SV-1003</td><td class="tc">1</td><td><strong>皮膚科処方実態調査</strong></td><td>Client C</td><td>山田 太郎</td><td>2026/03/20 〜 2026/04/20</td><td class="tr fb">78</td><td class="tr">42</td><td class="tr">5</td><td class="tr">375</td></tr>
+          <tr style="cursor:pointer" onclick="soDetail()" data-start="2026-03-01" data-end="2026-04-10"><td class="fm">SV-1004</td><td class="tc">3</td><td><strong>花粉症治療実態調査</strong></td><td>Client D</td><td>佐藤 花子</td><td>2026/03/01 〜 2026/04/10</td><td class="tr fb">540</td><td class="tr">112</td><td class="tr">30</td><td class="tr">318</td></tr>
+          <tr style="cursor:pointer" onclick="soDetail()" data-start="2026-04-01" data-end="2026-04-10"><td class="fm">SV-1005</td><td class="tc">1</td><td><strong>花粉症治療実態調査（追加）</strong></td><td>Client D</td><td>山田 太郎</td><td>2026/04/01 〜 2026/04/10</td><td class="tr fb">32</td><td class="tr">9</td><td class="tr">2</td><td class="tr">157</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- === 詳細画面 === -->
+  <div id="so-detail" style="display:none">
+    <button class="btn btn-out btn-sm" onclick="soBack()" style="margin-bottom:16px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-hd"><div class="card-t"><i data-lucide="clipboard-list"></i>Survey基本情報</div><span class="sb live">● 配信中</span></div>
+      <div class="g2">
+        <div class="fg"><label class="fl">調査名</label><div class="fi fi-ro">糖尿病治療意識調査 2026/Q1</div></div>
+        <div class="fg"><label class="fl">クライアント名</label><div class="fi fi-ro">Client A</div></div>
+        <div class="fg"><label class="fl">実査期間</label><div class="fi fi-ro">2026/02/01 〜 2026/04/05</div></div>
+        <div class="fg"><label class="fl">謝礼ポイント</label><div class="fi fi-ro">200pt / Complete</div></div>
+        <div class="fg"><label class="fl">Vendor</label><div class="fi fi-ro">Vendor X</div></div>
+        <div class="fg" style="grid-column:1/-1"><label class="fl">Survey Link</label><div class="fi fi-ro fm" style="font-size:11px">https://survey.vendorx.com/s/abc123</div></div>
+      </div>
+    </div>
+    <div class="tabs" id="so-detail-tabs" style="margin-bottom:16px">
+      <div class="tab on" data-dtab="detail-info" onclick="soDetailTabSwitch('detail-info')">配信中案件詳細情報</div>
+      <div class="tab" data-dtab="detail-log" onclick="soDetailTabSwitch('detail-log')">操作ログ</div>
+    </div>
+    <div id="so-detail-tab-info">
+    <div class="g21 g21-so">
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="activity"></i>進捗（リアルタイム）</div><span class="tx tm">最終更新: 09:30 — 自動更新 30秒毎</span></div>
+        <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+          <div class="st c-gn"><div class="st-lb">Complete</div><div class="st-val" id="so-d-v-c">4</div><div class="st-sub">目標: <span class="st-goal" id="so-d-v-goal">12</span>（<span id="so-d-v-cpct">33.3</span>%）</div><div class="pbar"><div class="pfill" id="so-d-pfill-c" style="width:33.3%;background:var(--green)"></div></div></div>
+          <div class="st c-am"><div class="st-lb">Screenout</div><div class="st-val" id="so-d-v-so">2</div><div class="st-sub" id="so-d-sub-so">SO率: 33.3%</div></div>
+          <div class="st c-bl"><div class="st-lb">QuotaFull</div><div class="st-val" id="so-d-v-qf">1</div><div class="st-sub" id="so-d-sub-qf">QF率: 8.3%</div></div>
+          <div class="st c-nv"><div class="st-lb">Incomplete</div><div class="st-val" id="so-d-v-inc">5</div><div class="st-sub" id="so-d-sub-inc">内訳比: 41.7%</div></div>
+        </div>
+        <div class="so-d-mid-cards">
+          <div class="so-kpi-box">
+            <div class="kpi-lb">配信数</div>
+            <div class="kpi-val t-nv" id="so-d-delivered">12</div>
+            <div class="kpi-sub" id="so-d-delivered-sub">配信対象に送信済み（モック）</div>
+          </div>
+          <div class="so-kpi-box">
+            <div class="kpi-lb">推定完了数</div>
+            <div class="kpi-val t-gn" id="so-d-est-comp">2</div>
+            <div class="kpi-sub" id="so-d-est-comp-sub">IR17%により自動推定（モック）</div>
+          </div>
+        </div>
+        <div class="so-kpi-wrap">
+          <div class="so-kpi-box">
+            <div class="kpi-lb">LOI</div>
+            <div class="kpi-val" id="so-d-kpi-loi">12分45秒</div>
+            <div class="kpi-sub" id="so-d-kpi-loi-sub">回答完了者の所要時間（中央値・モック）</div>
+          </div>
+          <div class="so-kpi-box">
+            <div class="kpi-lb">完了率</div>
+            <div class="kpi-val t-nv" id="so-d-kpi-rate">66.7%</div>
+            <div class="kpi-sub" id="so-d-kpi-rate-sub">4 / (4 + 2) = Complete / (Complete + Screenout)</div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-pr btn-sm" style="margin-bottom:12px;display:inline-flex;align-items:center;gap:6px" onclick="soNewBatchFromDetail()"><i data-lucide="plus" style="width:16px;height:16px"></i>新規バッチ作成</button>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="layers"></i>配信中バッチ一覧</div><span class="tx tm">同一Survey内の稼働バッチ</span></div>
+        <div class="fx fxc" style="margin-bottom:12px"><button type="button" class="btn btn-out btn-sm" id="so-batch-clear-sel" onclick="soDetailBatchSelectionClear()" title="案件対象者全員分のデータで進捗・一覧を集計します">選択解除</button></div>
+        <div class="tw"><table>
+          <thead><tr><th>バッチ番号</th><th>バッチ名</th><th>配信期間</th><th class="tr">COMPLETE</th><th class="tr">ScreenOut</th><th class="tr">QuotaFull</th><th class="tr">INCOMPLETE</th><th>ステータス</th><th class="tc">操作</th></tr></thead>
+          <tbody id="so-batch-tbody">
+            <tr class="so-batch-row" data-batch-id="1" onclick="soDetailSelectBatch('1')" title="クリックでこのバッチの進捗・対象会員に絞り込み"><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td>2026/02/01 〜 2026/04/05</td><td class="tr"><span class="complete-fr">3/6</span></td><td class="tr">0</td><td class="tr">0</td><td class="tr">3</td><td><span class="t-gn">配信中</span></td><td class="tc"><button type="button" class="btn btn-pr btn-sm" onclick="event.stopPropagation();soQuickBatchFromDetail('1')" title="このバッチの抽出条件を引き継いで新規バッチを作成">クイック配信</button></td></tr>
+            <tr class="so-batch-row" data-batch-id="2" onclick="soDetailSelectBatch('2')" title="クリックでこのバッチの進捗・対象会員に絞り込み"><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td>2026/03/10 〜 2026/04/05</td><td class="tr"><span class="complete-fr">1/6</span></td><td class="tr">2</td><td class="tr">1</td><td class="tr">2</td><td><span class="t-gn">配信中</span></td><td class="tc"><button type="button" class="btn btn-pr btn-sm" onclick="event.stopPropagation();soQuickBatchFromDetail('2')" title="このバッチの抽出条件を引き継いで新規バッチを作成">クイック配信</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="users"></i>対象会員一覧</div><div class="btn-grp"><button type="button" class="btn btn-out btn-sm">CSV出力</button></div></div>
+        <div class="so-filters" id="so-detail-member-filters">
+          <div class="fg so-q-wrap">
+            <label class="fl" for="so-m-q">会員ID検索</label>
+            <input type="search" class="fs" id="so-m-q" placeholder="HCP-XXXXX（部分一致）" autocomplete="off">
+          </div>
+          <div class="fg" style="width:120px;margin-bottom:0">
+            <label class="fl" for="so-m-batch">バッチ番号</label>
+            <select class="fs" id="so-m-batch">
+              <option value="">すべて</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+          <div class="fg" style="width:140px;margin-bottom:0">
+            <label class="fl" for="so-m-facility">施設タイプ</label>
+            <select class="fs" id="so-m-facility">
+              <option value="">すべて</option>
+              <option>病院</option>
+              <option>クリニック</option>
+            </select>
+          </div>
+          <div class="fg" style="width:180px;margin-bottom:0">
+            <label class="fl" for="so-m-st">ステータス</label>
+            <select class="fs" id="so-m-st">
+              <option value="">すべて</option>
+              <option value="未クリック">未クリック</option>
+              <option value="Incomplete">Incomplete</option>
+              <option value="Complete">Complete</option>
+              <option value="Screenout">Screenout</option>
+              <option value="QuotaFull">QuotaFull</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-out btn-sm" id="so-m-clear">条件クリア</button>
+          <span class="so-count" id="so-m-hit">全 <strong id="so-m-n">12</strong> 件</span>
+        </div>
+        <div class="tw"><table class="so-m-table">
+          <thead><tr><th>会員ID</th><th class="tc">バッチ番号</th><th>バッチ名</th><th>配信日時</th><th>クリック日時</th><th>ステータス</th><th class="tr">最終更新</th><th class="tc" style="width:100px">操作</th></tr></thead>
+          <tbody id="so-m-tbody">
+            <tr data-st="Complete" data-batch="1" data-facility="病院" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-10392</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/28 08:30</td><td class="ts">2026/03/28 10:05</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete" selected>Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/28 14:22</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Complete" data-batch="1" data-facility="クリニック" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-20511</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/27 08:30</td><td class="ts">2026/03/27 08:52</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete" selected>Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/27 09:15</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Incomplete" data-batch="1" data-facility="病院" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-54012</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/26 08:30</td><td class="ts">2026/03/26 17:20</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete" selected>Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/26 18:40</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Screenout" data-batch="2" data-facility="病院" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-77109</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/25 08:30</td><td class="ts">2026/03/25 10:48</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete">Complete</option><option value="Screenout" selected>Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/25 11:03</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="QuotaFull" data-batch="2" data-facility="クリニック" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-88102</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/24 08:30</td><td class="ts">2026/03/24 16:40</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull" selected>QuotaFull</option></select></td><td class="tr ts">2026/03/24 16:55</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Incomplete" data-batch="1" data-facility="クリニック" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-11223</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/23 08:30</td><td class="ts">2026/03/23 07:58</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete" selected>Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/23 08:12</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Screenout" data-batch="2" data-facility="病院" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-33445</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/22 08:30</td><td class="ts">2026/03/22 21:12</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete">Complete</option><option value="Screenout" selected>Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/22 21:30</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Complete" data-batch="1" data-facility="クリニック" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-55667</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/21 08:30</td><td class="ts">2026/03/21 12:50</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete" selected>Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/21 13:07</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Incomplete" data-batch="2" data-facility="病院" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-77889</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/20 08:30</td><td class="ts">2026/03/20 07:30</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete" selected>Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/20 07:45</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="Complete" data-batch="2" data-facility="クリニック" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-99001</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/19 08:30</td><td class="ts">2026/03/19 18:55</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック">未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete" selected>Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/19 19:18</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="未クリック" data-batch="1" data-facility="病院" data-batch-name="2026/Q1 初回配信"><td class="fm t-nv">HCP-10203</td><td class="tc fb">1</td><td class="ts">2026/Q1 初回配信</td><td class="ts">2026/03/18 08:30</td><td class="tm">—</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック" selected>未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/18 08:30</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+            <tr data-st="未クリック" data-batch="2" data-facility="クリニック" data-batch-name="フォローアップ配信"><td class="fm t-nv">HCP-40506</td><td class="tc fb">2</td><td class="ts">フォローアップ配信</td><td class="ts">2026/03/17 08:30</td><td class="tm">—</td><td><select class="fs so-st-sel" onchange="soMemberStatusChange(this)"><option value="未クリック" selected>未クリック</option><option value="Incomplete">Incomplete</option><option value="Complete">Complete</option><option value="Screenout">Screenout</option><option value="QuotaFull">QuotaFull</option></select></td><td class="tr ts">2026/03/17 08:30</td><td class="tc"><button type="button" class="btn btn-out btn-sm so-m-reset" onclick="soMemberStatusResetMock()">リセット</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="shield"></i>配信制御（RBAC）</div></div>
+        <div class="ctrl-grid so-ctrl-disabled" id="so-detail-ctrl-wrap">
+          <div class="ctrl c-stop"><i data-lucide="octagon" style="width:20px;height:20px"></i>停止STOP<span>新規回答の受付と全配信を停止</span></div>
+          <div class="ctrl c-lock"><i data-lucide="lock" style="width:20px;height:20px"></i>Close<span>Surveyを終了</span></div>
+          <div class="ctrl c-play"><i data-lucide="play" style="width:20px;height:20px"></i>再開<span>配信を再開</span></div>
+        </div>
+        <div class="alt a-warn mt4"><i data-lucide="alert-triangle"></i>制御操作には管理者権限が必要です。全操作はログに記録されます。</div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="filter"></i>選択中バッチの抽出・除外条件</div></div>
+        <div id="so-d-extract-panel">
+          <p class="ts tm" id="so-d-extract-hint" style="margin:0 0 12px">配信中バッチ一覧でバッチを選択すると、抽出・除外条件が表示されます。</p>
+          <div id="so-d-extract-fields" style="display:none">
+            <div class="g2">
+              <div class="fg"><label class="fl">主専門領域</label><div class="fi fi-ro" id="so-d-ex-main-spec">—</div></div>
+              <div class="fg"><label class="fl">副専門領域</label><div class="fi fi-ro" id="so-d-ex-sub-spec">—</div></div>
+              <div class="fg"><label class="fl">施設タイプ</label><div class="fi fi-ro" id="so-d-ex-fac">—</div></div>
+              <div class="fg"><label class="fl">病床数</label><div class="fi fi-ro" id="so-d-ex-bed">—</div></div>
+              <div class="fg"><label class="fl">都道府県</label><div class="fi fi-ro" id="so-d-ex-pref">—</div></div>
+              <div class="fg"><label class="fl">経験年数</label><div class="fi fi-ro" id="so-d-ex-exp">—</div></div>
+            </div>
+            <hr class="div">
+            <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--g600)">除外条件</div>
+            <div class="fg" style="margin-bottom:4px"><div class="fi fi-ro" id="so-d-ex-bl">—</div></div>
+            <div class="fg" style="margin-bottom:0"><div class="fi fi-ro" id="so-d-ex-recent">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /g21 -->
+  </div><!-- /so-detail-tab-info -->
+
+  <!-- 操作ログタブ -->
+  <div id="so-detail-tab-log" style="display:none">
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="scroll-text"></i>操作ログ</div></div>
+      <div class="so-filters" style="margin-bottom:12px">
+        <div class="fg" style="width:200px;margin-bottom:0">
+          <label class="fl" for="so-log-type">ログタイプ</label>
+          <select class="fs" id="so-log-type" onchange="soLogFilter()">
+            <option value="">すべて</option>
+            <option value="配信制御">配信制御</option>
+            <option value="リセット">リセット</option>
+            <option value="ステータス変更">ステータス変更</option>
+          </select>
+        </div>
+        <span class="so-count" id="so-log-hit">全 <strong id="so-log-n">8</strong> 件</span>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>日時</th><th>ログタイプ</th><th>操作者</th><th>対象</th><th>内容</th></tr></thead>
+        <tbody id="so-log-tbody">
+          <tr data-log-type="配信制御"><td class="ts">2026/04/05 10:30</td><td><span class="sb live" style="font-size:11px">配信制御</span></td><td>山田 太郎</td><td>Survey全体</td><td>配信を<strong>停止（STOP）</strong>しました</td></tr>
+          <tr data-log-type="配信制御"><td class="ts">2026/04/05 11:00</td><td><span class="sb live" style="font-size:11px">配信制御</span></td><td>山田 太郎</td><td>Survey全体</td><td>配信を<strong>再開</strong>しました</td></tr>
+          <tr data-log-type="リセット"><td class="ts">2026/04/04 14:22</td><td><span class="sb pend" style="font-size:11px">リセット</span></td><td>佐藤 花子</td><td>HCP-54012（バッチ1）</td><td>ステータスを<strong>リセット</strong>しました（Incomplete → 未クリック）</td></tr>
+          <tr data-log-type="ステータス変更"><td class="ts">2026/04/03 16:10</td><td><span class="sb ok" style="font-size:11px">ステータス変更</span></td><td>山田 太郎</td><td>HCP-77109（バッチ2）</td><td>ステータスを <strong>Incomplete → Screenout</strong> に変更</td></tr>
+          <tr data-log-type="リセット"><td class="ts">2026/04/02 09:45</td><td><span class="sb pend" style="font-size:11px">リセット</span></td><td>山田 太郎</td><td>HCP-88102（バッチ2）</td><td>ステータスを<strong>リセット</strong>しました（QuotaFull → 未クリック）</td></tr>
+          <tr data-log-type="配信制御"><td class="ts">2026/03/28 08:00</td><td><span class="sb live" style="font-size:11px">配信制御</span></td><td>佐藤 花子</td><td>Survey全体</td><td>Surveyを<strong>Close</strong>しました</td></tr>
+          <tr data-log-type="ステータス変更"><td class="ts">2026/03/25 13:20</td><td><span class="sb ok" style="font-size:11px">ステータス変更</span></td><td>佐藤 花子</td><td>HCP-11223（バッチ1）</td><td>ステータスを <strong>未クリック → Incomplete</strong> に変更</td></tr>
+          <tr data-log-type="ステータス変更"><td class="ts">2026/03/20 17:55</td><td><span class="sb ok" style="font-size:11px">ステータス変更</span></td><td>山田 太郎</td><td>HCP-40506（バッチ2）</td><td>ステータスを <strong>Complete → Incomplete</strong> に変更</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div><!-- /so-detail-tab-log -->
+
+  </div><!-- /so-detail -->
+
+  <!-- === Survey基本情報作成 === -->
+  <div id="so-new-project" style="display:none">
+    <button type="button" class="btn btn-out btn-sm" onclick="soNewProjectBack()" style="margin-bottom:16px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div class="card" style="max-width:920px">
+      <div class="card-hd"><div class="card-t"><i data-lucide="file-plus-2"></i>Survey基本情報作成</div><span class="sb pend">● 下書き</span></div>
+      <div class="g2">
+        <div class="fg"><label class="fl">調査名</label><input type="text" class="fs" placeholder="例: ○○治療意識調査 2026/Q2"></div>
+        <div class="fg"><label class="fl">クライアント名</label><input type="text" class="fs" placeholder="例: Client A"></div>
+        <div class="fg" style="grid-column:1/-1"><label class="fl">実査期間</label><div class="fx g8 fxc" style="flex-wrap:wrap"><input type="date" class="fs" style="flex:1;min-width:140px" id="so-new-d1"><span class="ts tm">〜</span><input type="date" class="fs" style="flex:1;min-width:140px" id="so-new-d2"></div></div>
+        <div class="fg"><label class="fl">想定LOI（分）</label><input type="number" class="fs" placeholder="例: 10" min="1"></div>
+        <div class="fg"><label class="fl">想定IR（%）</label><input type="number" class="fs" placeholder="例: 15" min="0" max="100"></div>
+      </div>
+      <hr class="div">
+      <div class="card-t mb4"><i data-lucide="gift"></i>謝礼ポイント設定</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div class="fg"><label class="fl">Complete</label><input type="number" class="fs" placeholder="例: 200" min="0"><div class="fh">完了時の謝礼ポイント</div></div>
+        <div class="fg"><label class="fl">ScreenOut</label><input type="number" class="fs" value="100" min="0"><div class="fh">スクリーニング除外時</div></div>
+        <div class="fg"><label class="fl">QuotaFull</label><input type="number" class="fs" value="100" min="0"><div class="fh">割当上限到達時</div></div>
+      </div>
+      <hr class="div">
+      <div class="g2">
+        <div class="fg" style="grid-column:1/-1"><label class="fl">Survey Link</label><input type="text" class="fs fm" style="font-size:12px" id="so-new-survey-link" value="https://external-survey.example.com/s/entry/demo-2026q1" placeholder="外部アンケートのURL"></div>
+        <div class="fg" style="grid-column:1/-1">
+          <label class="fl">URLテスト</label>
+          <div class="fx g8 fxc" style="flex-wrap:wrap">
+            <button type="button" class="btn btn-out btn-sm" onclick="soNewProjectUrlTest('survey')"><i data-lucide="external-link" style="width:14px;height:14px"></i> Survey Linkを開く</button>
+          </div>
+          <div class="fh">入力中のSurvey Linkを別タブで開きます。{UID}・{案件ID} がある場合はテスト用に置換します。</div>
+        </div>
+      </div>
+      <hr class="div">
+      <div class="card-t mb4"><i data-lucide="link"></i>ステータスURL</div>
+      <div class="g2">
+        <div class="fg"><label class="fl">Complete URL</label><div class="fx fxc" style="gap:8px;align-items:center"><span class="so-url-ck" id="so-new-verify-complete" title="URLテストボタンを押すとチェックが緑になります"><i data-lucide="check" style="width:14px;height:14px"></i></span><input type="text" class="fs fm" style="font-size:12px;flex:1;min-width:0" id="so-new-url-complete" value="https://panel.example.com/cb/complete?uid={UID}"></div></div>
+        <div class="fg"><label class="fl">Screenout URL</label><div class="fx fxc" style="gap:8px;align-items:center"><span class="so-url-ck" id="so-new-verify-screenout" title="URLテストボタンを押すとチェックが緑になります"><i data-lucide="check" style="width:14px;height:14px"></i></span><input type="text" class="fs fm" style="font-size:12px;flex:1;min-width:0" id="so-new-url-screenout" value="https://panel.example.com/cb/screenout?uid={UID}"></div></div>
+        <div class="fg"><label class="fl">QuotaFull URL</label><div class="fx fxc" style="gap:8px;align-items:center"><span class="so-url-ck" id="so-new-verify-quota" title="URLテストボタンを押すとチェックが緑になります"><i data-lucide="check" style="width:14px;height:14px"></i></span><input type="text" class="fs fm" style="font-size:12px;flex:1;min-width:0" id="so-new-url-quota" value="https://panel.example.com/cb/quota?uid={UID}"></div></div>
+        <div class="fg"><label class="fl">リダイレクトパラメータ</label><input type="text" class="fs fm" style="font-size:12px" id="so-new-url-params" value="案件ID={案件ID}&amp;UID={UID}"><div class="fh">デフォルト: 案件IDとUIDをクエリに付与。{案件ID}は保存時採番、{UID}はパネリストID（自動付与）</div></div>
+        <div class="fg" style="grid-column:1/-1">
+          <label class="fl">URLテスト</label>
+          <div class="fx g8 fxc" style="flex-wrap:wrap">
+            <button type="button" class="btn btn-out btn-sm" onclick="soNewProjectUrlTest('complete')"><i data-lucide="external-link" style="width:14px;height:14px"></i> Complete URLを開く</button>
+            <button type="button" class="btn btn-out btn-sm" onclick="soNewProjectUrlTest('screenout')"><i data-lucide="external-link" style="width:14px;height:14px"></i> Screenout URLを開く</button>
+            <button type="button" class="btn btn-out btn-sm" onclick="soNewProjectUrlTest('quota')"><i data-lucide="external-link" style="width:14px;height:14px"></i> QuotaFull URLを開く</button>
+          </div>
+          <div class="fh">ボタンを押すと別タブで開き、対応するチェックが緑になります。プレースホルダはテスト用に置換して開きます。</div>
+        </div>
+      </div>
+      <div class="fx fxc g8 mt4" style="justify-content:flex-end;flex-wrap:wrap">
+        <button type="button" class="btn btn-out" onclick="soNewProjectBack()">キャンセル</button>
+        <button type="button" class="btn btn-pr">保存（モック）</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === 新規バッチ作成（配信中案件一覧タブ配下・詳細と同じ導線） === -->
+  <div id="so-new-batch" style="display:none">
+    <button type="button" class="btn btn-out btn-sm" onclick="soNewBatchBack()" style="margin-bottom:12px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div style="margin-bottom:16px">
+      <div style="font-size:18px;font-weight:700;color:var(--g800)">新規バッチ作成</div>
+      <p class="pg-d" style="margin-top:6px;margin-bottom:0">条件・除外・上限を統合し、人数と根拠を"見える化"してから配信する</p>
+    </div>
+  <div class="card" style="padding:16px 24px"><div class="stepper">
+    <div class="stp on" id="s1"><span class="stp-n">1</span><span class="stp-lb">条件設定</span></div><div class="stp-line" id="l1"></div>
+    <div class="stp" id="s2"><span class="stp-n">2</span><span class="stp-lb">プレビュー確認</span></div><div class="stp-line" id="l2"></div>
+    <div class="stp" id="s3"><span class="stp-n">3</span><span class="stp-lb">配信実行</span></div>
+  </div></div>
+
+  <!-- Step 1 -->
+  <div id="ss1"><div class="g-side">
+    <div class="fpanel">
+      <div class="fg"><label class="fl">バッチ名称 <span class="req">*</span></label><input type="text" class="fs" id="so-batch-name-input" placeholder="例: 2026/Q1 初回配信"></div>
+      <hr class="div">
+      <div style="font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:6px"><i data-lucide="filter" style="width:16px;height:16px"></i>抽出条件（絞り込み）</div>
+      <div class="fg">
+        <label class="fl">主専門領域（単一選択） <span class="req">*</span></label>
+        <div class="so-spec-picker" id="so-batch-main-spec" onclick="soToggleSpecPicker(this)" style="cursor:pointer">
+          <input type="text" class="fs" readonly placeholder="クリックして診療科を選択" id="so-batch-main-spec-input" style="cursor:pointer">
+          <div class="so-spec-dropdown" style="display:none;position:absolute;z-index:100;background:#fff;border:1px solid var(--g200);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);max-height:320px;overflow:hidden;margin-top:4px;width:100%;flex-direction:column" onclick="event.stopPropagation()">
+            <div style="padding:8px;border-bottom:1px solid var(--g100);flex-shrink:0"><input type="search" class="fs" placeholder="コードまたは診療科名で検索…" onkeyup="soFilterSpecList(this)" style="margin-bottom:0"></div>
+            <div class="so-spec-list" data-mode="single" style="overflow-y:auto;max-height:260px">
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="01" onchange="soSelectMainSpec(this)"><span class="so-spec-code">01</span> 内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="02" onchange="soSelectMainSpec(this)"><span class="so-spec-code">02</span> 呼吸器内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="03" onchange="soSelectMainSpec(this)"><span class="so-spec-code">03</span> 循環器内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="04" onchange="soSelectMainSpec(this)"><span class="so-spec-code">04</span> 消化器内科（胃腸内科）</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="05" onchange="soSelectMainSpec(this)"><span class="so-spec-code">05</span> 腎臓内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="06" onchange="soSelectMainSpec(this)"><span class="so-spec-code">06</span> 脳神経内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="07" onchange="soSelectMainSpec(this)"><span class="so-spec-code">07</span> 糖尿病内科（代謝内科）</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="08" onchange="soSelectMainSpec(this)"><span class="so-spec-code">08</span> 血液内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="09" onchange="soSelectMainSpec(this)"><span class="so-spec-code">09</span> 皮膚科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="10" onchange="soSelectMainSpec(this)"><span class="so-spec-code">10</span> アレルギー科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="11" onchange="soSelectMainSpec(this)"><span class="so-spec-code">11</span> リウマチ科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="12" onchange="soSelectMainSpec(this)"><span class="so-spec-code">12</span> 感染症内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="13" onchange="soSelectMainSpec(this)"><span class="so-spec-code">13</span> 小児科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="14" onchange="soSelectMainSpec(this)"><span class="so-spec-code">14</span> 精神科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="15" onchange="soSelectMainSpec(this)"><span class="so-spec-code">15</span> 心療内科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="20" onchange="soSelectMainSpec(this)"><span class="so-spec-code">20</span> 外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="21" onchange="soSelectMainSpec(this)"><span class="so-spec-code">21</span> 呼吸器外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="22" onchange="soSelectMainSpec(this)"><span class="so-spec-code">22</span> 循環器外科（心臓・血管外科）</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="23" onchange="soSelectMainSpec(this)"><span class="so-spec-code">23</span> 乳腺外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="24" onchange="soSelectMainSpec(this)"><span class="so-spec-code">24</span> 気管食道外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="25" onchange="soSelectMainSpec(this)"><span class="so-spec-code">25</span> 消化器外科（胃腸外科）</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="26" onchange="soSelectMainSpec(this)"><span class="so-spec-code">26</span> 泌尿器科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="27" onchange="soSelectMainSpec(this)"><span class="so-spec-code">27</span> 肛門外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="28" onchange="soSelectMainSpec(this)"><span class="so-spec-code">28</span> 脳神経外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="29" onchange="soSelectMainSpec(this)"><span class="so-spec-code">29</span> 整形外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="30" onchange="soSelectMainSpec(this)"><span class="so-spec-code">30</span> 形成外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="31" onchange="soSelectMainSpec(this)"><span class="so-spec-code">31</span> 美容外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="32" onchange="soSelectMainSpec(this)"><span class="so-spec-code">32</span> 眼科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="33" onchange="soSelectMainSpec(this)"><span class="so-spec-code">33</span> 耳鼻いんこう科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="34" onchange="soSelectMainSpec(this)"><span class="so-spec-code">34</span> 小児外科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="35" onchange="soSelectMainSpec(this)"><span class="so-spec-code">35</span> 産婦人科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="36" onchange="soSelectMainSpec(this)"><span class="so-spec-code">36</span> 産科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="37" onchange="soSelectMainSpec(this)"><span class="so-spec-code">37</span> 婦人科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="50" onchange="soSelectMainSpec(this)"><span class="so-spec-code">50</span> リハビリテーション科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="51" onchange="soSelectMainSpec(this)"><span class="so-spec-code">51</span> 放射線科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="52" onchange="soSelectMainSpec(this)"><span class="so-spec-code">52</span> 麻酔科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="53" onchange="soSelectMainSpec(this)"><span class="so-spec-code">53</span> 病理診断科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="54" onchange="soSelectMainSpec(this)"><span class="so-spec-code">54</span> 臨床検査科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="55" onchange="soSelectMainSpec(this)"><span class="so-spec-code">55</span> 救急科</label>
+              <label class="so-spec-item"><input type="radio" name="main-spec" value="60" onchange="soSelectMainSpec(this)"><span class="so-spec-code">60</span> 臨床研修医</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">副専門領域（複数選択可）</label>
+        <div class="so-spec-picker" id="so-batch-sub-spec" onclick="soToggleSpecPicker(this)" style="cursor:pointer;position:relative">
+          <div class="fs" style="min-height:36px;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:4px" id="so-batch-sub-spec-display"><span class="tm">クリックして診療科を選択（複数可）</span></div>
+          <div class="so-spec-dropdown" style="display:none;position:absolute;z-index:100;background:#fff;border:1px solid var(--g200);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);max-height:320px;overflow:hidden;margin-top:4px;width:100%;flex-direction:column" onclick="event.stopPropagation()">
+            <div style="padding:8px;border-bottom:1px solid var(--g100);flex-shrink:0"><input type="search" class="fs" placeholder="コードまたは診療科名で検索…" onkeyup="soFilterSpecList(this)" style="margin-bottom:0"></div>
+            <div class="so-spec-list" data-mode="multi" style="overflow-y:auto;max-height:260px">
+              <label class="so-spec-item"><input type="checkbox" value="01" onchange="soUpdateSubSpec()"><span class="so-spec-code">01</span> 内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="02" onchange="soUpdateSubSpec()"><span class="so-spec-code">02</span> 呼吸器内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="03" onchange="soUpdateSubSpec()"><span class="so-spec-code">03</span> 循環器内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="04" onchange="soUpdateSubSpec()"><span class="so-spec-code">04</span> 消化器内科（胃腸内科）</label>
+              <label class="so-spec-item"><input type="checkbox" value="05" onchange="soUpdateSubSpec()"><span class="so-spec-code">05</span> 腎臓内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="06" onchange="soUpdateSubSpec()"><span class="so-spec-code">06</span> 脳神経内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="07" onchange="soUpdateSubSpec()"><span class="so-spec-code">07</span> 糖尿病内科（代謝内科）</label>
+              <label class="so-spec-item"><input type="checkbox" value="08" onchange="soUpdateSubSpec()"><span class="so-spec-code">08</span> 血液内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="09" onchange="soUpdateSubSpec()"><span class="so-spec-code">09</span> 皮膚科</label>
+              <label class="so-spec-item"><input type="checkbox" value="10" onchange="soUpdateSubSpec()"><span class="so-spec-code">10</span> アレルギー科</label>
+              <label class="so-spec-item"><input type="checkbox" value="11" onchange="soUpdateSubSpec()"><span class="so-spec-code">11</span> リウマチ科</label>
+              <label class="so-spec-item"><input type="checkbox" value="12" onchange="soUpdateSubSpec()"><span class="so-spec-code">12</span> 感染症内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="13" onchange="soUpdateSubSpec()"><span class="so-spec-code">13</span> 小児科</label>
+              <label class="so-spec-item"><input type="checkbox" value="14" onchange="soUpdateSubSpec()"><span class="so-spec-code">14</span> 精神科</label>
+              <label class="so-spec-item"><input type="checkbox" value="15" onchange="soUpdateSubSpec()"><span class="so-spec-code">15</span> 心療内科</label>
+              <label class="so-spec-item"><input type="checkbox" value="20" onchange="soUpdateSubSpec()"><span class="so-spec-code">20</span> 外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="21" onchange="soUpdateSubSpec()"><span class="so-spec-code">21</span> 呼吸器外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="22" onchange="soUpdateSubSpec()"><span class="so-spec-code">22</span> 循環器外科（心臓・血管外科）</label>
+              <label class="so-spec-item"><input type="checkbox" value="23" onchange="soUpdateSubSpec()"><span class="so-spec-code">23</span> 乳腺外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="24" onchange="soUpdateSubSpec()"><span class="so-spec-code">24</span> 気管食道外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="25" onchange="soUpdateSubSpec()"><span class="so-spec-code">25</span> 消化器外科（胃腸外科）</label>
+              <label class="so-spec-item"><input type="checkbox" value="26" onchange="soUpdateSubSpec()"><span class="so-spec-code">26</span> 泌尿器科</label>
+              <label class="so-spec-item"><input type="checkbox" value="27" onchange="soUpdateSubSpec()"><span class="so-spec-code">27</span> 肛門外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="28" onchange="soUpdateSubSpec()"><span class="so-spec-code">28</span> 脳神経外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="29" onchange="soUpdateSubSpec()"><span class="so-spec-code">29</span> 整形外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="30" onchange="soUpdateSubSpec()"><span class="so-spec-code">30</span> 形成外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="31" onchange="soUpdateSubSpec()"><span class="so-spec-code">31</span> 美容外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="32" onchange="soUpdateSubSpec()"><span class="so-spec-code">32</span> 眼科</label>
+              <label class="so-spec-item"><input type="checkbox" value="33" onchange="soUpdateSubSpec()"><span class="so-spec-code">33</span> 耳鼻いんこう科</label>
+              <label class="so-spec-item"><input type="checkbox" value="34" onchange="soUpdateSubSpec()"><span class="so-spec-code">34</span> 小児外科</label>
+              <label class="so-spec-item"><input type="checkbox" value="35" onchange="soUpdateSubSpec()"><span class="so-spec-code">35</span> 産婦人科</label>
+              <label class="so-spec-item"><input type="checkbox" value="36" onchange="soUpdateSubSpec()"><span class="so-spec-code">36</span> 産科</label>
+              <label class="so-spec-item"><input type="checkbox" value="37" onchange="soUpdateSubSpec()"><span class="so-spec-code">37</span> 婦人科</label>
+              <label class="so-spec-item"><input type="checkbox" value="50" onchange="soUpdateSubSpec()"><span class="so-spec-code">50</span> リハビリテーション科</label>
+              <label class="so-spec-item"><input type="checkbox" value="51" onchange="soUpdateSubSpec()"><span class="so-spec-code">51</span> 放射線科</label>
+              <label class="so-spec-item"><input type="checkbox" value="52" onchange="soUpdateSubSpec()"><span class="so-spec-code">52</span> 麻酔科</label>
+              <label class="so-spec-item"><input type="checkbox" value="53" onchange="soUpdateSubSpec()"><span class="so-spec-code">53</span> 病理診断科</label>
+              <label class="so-spec-item"><input type="checkbox" value="54" onchange="soUpdateSubSpec()"><span class="so-spec-code">54</span> 臨床検査科</label>
+              <label class="so-spec-item"><input type="checkbox" value="55" onchange="soUpdateSubSpec()"><span class="so-spec-code">55</span> 救急科</label>
+              <label class="so-spec-item"><input type="checkbox" value="60" onchange="soUpdateSubSpec()"><span class="so-spec-code">60</span> 臨床研修医</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">施設タイプ</label><select class="fs" id="so-batch-ex-facility"><option value="">選択してください</option><option value="b1-fac">病院・クリニック（バランス配分）</option><option value="b2-fac">病院優先</option><option value="clinic">クリニックのみ</option></select></div>
+      <div class="fg">
+        <label class="fl">病床数</label>
+        <div class="fx fxc g8">
+          <input type="number" class="fs" id="so-batch-bed-min" placeholder="下限" min="0" style="flex:1">
+          <span class="ts tm">〜</span>
+          <input type="number" class="fs" id="so-batch-bed-max" placeholder="上限" min="0" style="flex:1">
+          <span class="ts tm">床</span>
+        </div>
+        <div class="fh">空欄の場合は制限なし</div>
+      </div>
+      <div class="fg"><label class="fl">都道府県</label><select class="fs" id="so-batch-ex-pref"><option value="">選択してください</option><option value="b1-pref">東京・大阪・愛知・福岡</option><option value="b2-pref">関東・関西・北海道</option><option value="all">全国</option></select></div>
+      <div class="fg">
+        <label class="fl">経験年数</label>
+        <div style="margin-bottom:8px">
+          <div class="fx fxc" style="gap:8px;margin-bottom:4px">
+            <span class="ts" style="min-width:40px">下限:</span>
+            <input type="range" min="0" max="40" value="0" id="so-exp-min" class="so-range" oninput="soExpSliderSync()" style="flex:1">
+            <span class="ts fb" style="min-width:40px;text-align:right" id="so-exp-min-val">0年</span>
+          </div>
+          <div class="fx fxc" style="gap:8px">
+            <span class="ts" style="min-width:40px">上限:</span>
+            <input type="range" min="0" max="40" value="40" id="so-exp-max" class="so-range" oninput="soExpSliderSync()" style="flex:1">
+            <span class="ts fb" style="min-width:40px;text-align:right" id="so-exp-max-val">40+年</span>
+          </div>
+        </div>
+        <div class="fh" id="so-exp-label">全範囲（0〜40+年）</div>
+      </div>
+      <hr class="div">
+      <div style="font-size:12px;font-weight:700;margin-bottom:12px;color:var(--g600)">除外条件</div>
+      <div class="fg"><label class="cbl"><input type="checkbox" checked id="so-batch-ex-bl">配信禁止者を自動除外（ブラックリスト）</label></div>
+      <div class="fg"><label class="cbl"><input type="checkbox" checked id="so-batch-ex-recent">過去12時間以内配信済パネラーを除外</label></div>
+      <button type="button" class="btn btn-pr wf mt4" onclick="soBatchRunExtract()">抽出実行</button>
+      <button type="button" class="btn btn-out wf mt2">条件セット保存</button>
+    </div>
+    <div class="card" id="ss1-placeholder" style="min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--ice);background:var(--ice-light)">
+      <i data-lucide="target" style="width:48px;height:48px;color:var(--navy);opacity:.4;margin-bottom:12px"></i>
+      <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px">抽出条件を設定してください</div>
+      <div class="ts tm">左側のフィルター条件を設定後、「抽出実行」ボタンをクリックすると、<br>対象会員のプレビューと推定人数が右側（青枠）に表示されます。</div>
+    </div>
+    <div id="ss1-preview" class="batch-preview-box" style="display:none">
+      <div class="fx fxb fxc" style="margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="card-t" style="margin:0"><i data-lucide="bar-chart-3"></i>Preview</div>
+        <button type="button" class="btn btn-out btn-sm" onclick="soBatchBackToConditions()">← 条件を変更</button>
+      </div>
+      <div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px">
+        <div class="st c-nv"><div class="st-lb">推定配信人数</div><div class="st-val t-nv">1,480</div><div class="st-sub">フィルター・除外・上限反映後</div></div>
+        <div class="st c-gn"><div class="st-lb">想定完了数</div><div class="st-val t-gn">120</div><div class="st-sub">IR=17%（自動推定）の場合</div></div>
+      </div>
+      <div class="card" style="background:#fff">
+        <div class="card-hd"><div class="card-t"><i data-lucide="users"></i>対象会員プレビュー（最初の20名表示）</div><span class="so-count">選択: <strong id="so-pv-sel-n">6</strong> / 6名</span></div>
+        <div class="so-filters" style="margin-bottom:8px;align-items:center">
+          <div class="fg so-q-wrap" style="margin-bottom:0">
+            <input type="search" class="fs" id="so-pv-q" placeholder="会員ID・施設名で検索…" autocomplete="off" onkeyup="soPreviewFilter()">
+          </div>
+          <div class="fg" style="width:130px;margin-bottom:0">
+            <select class="fs" id="so-pv-ck-filter" onchange="soPreviewFilter()">
+              <option value="">すべて</option>
+              <option value="checked">チェック有り</option>
+              <option value="unchecked">チェック無し</option>
+            </select>
+          </div>
+          <label class="cbl" style="font-size:12px;white-space:nowrap"><input type="checkbox" id="so-pv-all" checked onchange="soPreviewToggleAll(this)"> 全選択</label>
+        </div>
+        <div class="tw"><table><thead><tr><th class="tc" style="width:36px"><input type="checkbox" checked disabled title="ヘッダー：全選択は上のチェックで操作"></th><th>ID（匿名）</th><th>診療科</th><th>施設</th><th>都道府県</th><th>経験年数</th></tr></thead><tbody id="so-pv-tbody">
+          <tr class="so-pv-row" data-search="hcp-10392 ○○病院"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-10392</td><td>内科</td><td>○○病院</td><td>東京</td><td>10年</td></tr>
+          <tr class="so-pv-row" data-search="hcp-20511 △△クリニック"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-20511</td><td>整形外科</td><td>△△クリニック</td><td>大阪</td><td>6年</td></tr>
+          <tr class="so-pv-row" data-search="hcp-54012 □□病院"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-54012</td><td>小児科</td><td>□□病院</td><td>愛知</td><td>14年</td></tr>
+          <tr class="so-pv-row" data-search="hcp-39017 ◇◇クリニック"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-39017</td><td>皮膚科</td><td>◇◇クリニック</td><td>福岡</td><td>3年</td></tr>
+          <tr class="so-pv-row" data-search="hcp-77109 ××病院"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-77109</td><td>循環器</td><td>××病院</td><td>北海道</td><td>12年</td></tr>
+          <tr class="so-pv-row" data-search="hcp-44281 ◎◎クリニック"><td class="tc"><input type="checkbox" class="so-pv-ck" checked onchange="soPreviewCountSel()"></td><td class="fm t-nv">HCP-44281</td><td>内科</td><td>◎◎クリニック</td><td>東京</td><td>8年</td></tr>
+          <tr><td colspan="6" class="tc tm">… 他 1,473名</td></tr>
+        </tbody></table></div>
+      </div>
+      <button type="button" class="btn btn-ok wf mt4" onclick="goStep(3)" style="padding:14px">配信へ進む</button>
+      <button type="button" class="btn btn-out wf mt2">CSV出力（抽出根拠）</button>
+    </div>
+  </div></div>
+
+  <!-- Step 3 -->
+  <div id="ss3" style="display:none"><div class="g21">
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="mail"></i>メール配信実行</div></div>
+        <div style="background:var(--ice-light);border:1px solid var(--ice);border-radius:8px;padding:14px 16px;margin-bottom:20px" class="fx fxb fxc">
+          <div><span class="ts fb">配信対象</span><span style="font-size:28px;font-weight:700;color:var(--navy);margin-left:12px">1,480名</span></div>
+          <div><span class="ts tm">想定完了</span><span style="font-size:20px;font-weight:700;color:var(--green);margin-left:8px">120名</span></div>
+          <div><span class="ts tm">IR推定</span><span style="font-size:20px;font-weight:700;color:var(--teal);margin-left:8px">17%</span></div>
+        </div>
+        <div class="fg"><label class="fl">件名 <span class="req">*</span></label><input class="fi" value="【ご協力のお願い】糖尿病治療意識調査（所要時間:約10分）"></div>
+        <div class="fg"><label class="fl">アンケートURL <span class="req">*</span></label><input class="fi fm" value="https://survey.vendorx.com/s/abc123" style="font-size:12px"><div class="fh">リダイレクトパラメータ（ユーザーID等）は自動付与されます</div></div>
+        <div class="fg"><label class="fl">本文 <span class="req">*</span></label><textarea class="ft" rows="8">○○先生
+
+いつもお世話になっております。
+新しいアンケート調査のご案内です。
+
+■ 調査名：糖尿病治療意識調査 2026/Q1
+■ 所要時間：約10分
+■ 謝礼：200ポイント
+
+下記URLよりご回答ください。
+{SURVEY_URL}
+
+ご協力いただけますと幸いです。</textarea></div>
+      </div>
+      <div class="alt a-err" style="font-size:13px"><i data-lucide="alert-triangle"></i><strong>送信後の取り消しはできません。</strong>配信対象・件名・本文を十分に確認してから送信してください。</div>
+      <div class="fx g8"><button type="button" id="so-batch-send-btn" class="btn btn-ok f1" disabled style="padding:14px;font-size:15px;justify-content:center">1,480名に配信実行</button><button type="button" class="btn btn-out" onclick="goStep(1)" style="padding:14px">← 戻る</button></div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="clipboard-check"></i>配信前チェックリスト</div></div>
+        <ul class="ck-list">
+          <li class="ck-i"><label><input type="checkbox" class="so-batch-ck">対象抽出の条件確認済み</label></li>
+          <li class="ck-i"><label><input type="checkbox" class="so-batch-ck">ブラックリスト除外済み</label></li>
+          <li class="ck-i"><label><input type="checkbox" class="so-batch-ck">Survey Validation 全項目OK</label></li>
+          <li class="ck-i"><label><input type="checkbox" class="so-batch-ck">返却URL設定確認済み</label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="user"></i>操作者情報</div></div>
+        <div class="dr"><div class="dr-l">操作者</div><div class="dr-v">山田 太郎</div></div>
+        <div class="dr"><div class="dr-l">日時</div><div class="dr-v">2026/04/01 09:30</div></div>
+        <div class="dr"><div class="dr-l">権限</div><div class="dr-v">配信管理者</div></div>
+        <div class="fh mt4">この操作は自動的にログに記録されます</div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+
+
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

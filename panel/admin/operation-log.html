@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>操作ログ — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="operation-log">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i on" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">操作ログ</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 17:45</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <h1 class="pg-t">操作ログ</h1><p class="pg-d">管理者による全操作の監査ログ（過去90日分を保持）</p>
+
+  <!-- サマリー -->
+  <div class="stats" style="grid-template-columns:repeat(5,1fr)">
+    <div class="st c-nv"><div class="st-lb">本日の操作件数</div><div class="st-val">47</div><div class="st-sub">前日 38件</div></div>
+    <div class="st c-gn"><div class="st-lb">配信系操作</div><div class="st-val">14</div><div class="st-sub">案件・バッチ・簡易</div></div>
+    <div class="st c-am"><div class="st-lb">謝礼・ポイント系</div><div class="st-val">18</div><div class="st-sub">付与・交換</div></div>
+    <div class="st c-bl"><div class="st-lb">会員系操作</div><div class="st-val">12</div><div class="st-sub">情報変更・審査</div></div>
+    <div class="st c-tl"><div class="st-lb">アクティブ操作者</div><div class="st-val">4</div><div class="st-sub">山田 / 田中 / 鈴木 / 佐藤</div></div>
+  </div>
+
+  <!-- フィルターバー -->
+  <div class="card" style="padding:16px 20px">
+    <div class="so-filters" style="margin-bottom:0;padding-bottom:0;border-bottom:none">
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">操作カテゴリ</label>
+        <select class="fs" style="padding:6px 10px;width:170px">
+          <option>全カテゴリ</option>
+          <option>案件作成</option>
+          <option>バッチ作成</option>
+          <option>バッチ配信</option>
+          <option>回答ステータス</option>
+          <option>ポイント付与</option>
+          <option>ポイント交換</option>
+          <option>簡易アンケート</option>
+          <option>QRコード</option>
+          <option>会員情報変更</option>
+          <option>会員登録審査</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">アクション</label>
+        <select class="fs" style="padding:6px 10px;width:140px">
+          <option>全アクション</option>
+          <option>作成</option>
+          <option>更新</option>
+          <option>配信開始</option>
+          <option>配信停止</option>
+          <option>終了</option>
+          <option>承認</option>
+          <option>却下</option>
+          <option>確定</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">操作者</label>
+        <select class="fs" style="padding:6px 10px;width:140px">
+          <option>全操作者</option>
+          <option>山田 太郎</option>
+          <option>田中 一郎</option>
+          <option>鈴木 花子</option>
+          <option>佐藤 健二</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">期間</label>
+        <div class="fx g8">
+          <input class="fi" type="date" value="2026-04-01" style="padding:6px 10px;width:150px">
+          <span style="align-self:center;color:var(--g400)">〜</span>
+          <input class="fi" type="date" value="2026-04-01" style="padding:6px 10px;width:150px">
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:0;flex:1;min-width:200px">
+        <label class="fl">対象ID / キーワード</label>
+        <input class="fi" type="text" placeholder="PRJ-125 / M-10294 / BATCH-0451 ..." style="padding:6px 10px;width:100%">
+      </div>
+      <div style="margin-left:auto;align-self:flex-end">
+        <button class="btn btn-out"><i data-lucide="download" style="width:15px;height:15px"></i>CSV出力</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 操作ログ一覧 -->
+  <div class="card">
+    <div class="card-hd"><div class="card-t"><i data-lucide="history"></i>操作ログ一覧</div><span class="ts tm">表示: 2026/04/01 00:00 〜 2026/04/01 17:45</span></div>
+    <div class="tw"><table>
+      <thead><tr>
+        <th style="width:140px">操作日時</th>
+        <th style="width:100px">操作者</th>
+        <th style="width:130px">カテゴリ</th>
+        <th>対象</th>
+        <th style="width:110px">アクション</th>
+        <th>詳細</th>
+      </tr></thead>
+      <tbody>
+
+        <!-- 1. 案件作成 -->
+        <tr>
+          <td class="fm">2026/04/01 09:20:14</td>
+          <td>山田 太郎</td>
+          <td><span class="sb draft">案件作成</span></td>
+          <td><span class="fm t-nv">PRJ-125</span> 糖尿病治療意識調査 2026/Q1</td>
+          <td><span class="sb ok">作成</span></td>
+          <td class="tx tm">Client A / Vendor X / 目標IR 18% / Complete 2,000</td>
+        </tr>
+
+        <!-- 2. バッチ作成 -->
+        <tr>
+          <td class="fm">2026/04/01 09:25:42</td>
+          <td>田中 一郎</td>
+          <td><span class="sb draft">バッチ作成</span></td>
+          <td><span class="fm t-nv">BATCH-0451</span>（PRJ-125）</td>
+          <td><span class="sb ok">作成</span></td>
+          <td class="tx tm">配信数 500 / 配信予定 2026/04/01 10:00</td>
+        </tr>
+
+        <!-- 3-a. バッチ配信開始 -->
+        <tr>
+          <td class="fm">2026/04/01 10:00:03</td>
+          <td>田中 一郎</td>
+          <td><span class="sb hold">バッチ配信</span></td>
+          <td><span class="fm t-nv">BATCH-0451</span>（PRJ-125）</td>
+          <td><span class="sb live">配信開始</span></td>
+          <td class="tx tm">ターゲット 500名 / 開始トリガー：手動</td>
+        </tr>
+
+        <!-- 4-a. 回答ステータス Complete -->
+        <tr>
+          <td class="fm">2026/04/01 10:08:51</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb hold">回答ステータス</span></td>
+          <td><span class="fm">M-10294</span> 山田 太郎 / <span class="fm">BATCH-0448</span></td>
+          <td><span class="sb ok">Complete 確定</span></td>
+          <td class="tx tm">IR条件合致 / 回答所要時間 12分</td>
+        </tr>
+
+        <!-- 4-b. 回答ステータス Screen-out -->
+        <tr>
+          <td class="fm">2026/04/01 10:15:22</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb hold">回答ステータス</span></td>
+          <td><span class="fm">M-11071</span> 鈴木 一 / <span class="fm">BATCH-0448</span></td>
+          <td><span class="sb ng">Screen-out</span></td>
+          <td class="tx tm">対象外属性（診療科不一致）</td>
+        </tr>
+
+        <!-- 5-a. ポイント付与 確定 -->
+        <tr>
+          <td class="fm">2026/04/01 10:30:17</td>
+          <td>佐藤 健二</td>
+          <td><span class="sb pend">ポイント付与</span></td>
+          <td><span class="fm">M-12345</span> 田中 美咲 <span class="fb">+500pt</span></td>
+          <td><span class="sb ok">確定</span></td>
+          <td class="tx tm">回答完了報酬（BATCH-0448）</td>
+        </tr>
+
+        <!-- 5-b. ポイント付与 却下 -->
+        <tr>
+          <td class="fm">2026/04/01 10:45:08</td>
+          <td>佐藤 健二</td>
+          <td><span class="sb pend">ポイント付与</span></td>
+          <td><span class="fm">M-11802</span> 石橋 花子 <span class="fb">500pt</span></td>
+          <td><span class="sb ng">却下</span></td>
+          <td class="tx tm">回答品質不良（ストレートライン検知）</td>
+        </tr>
+
+        <!-- 6-a. ポイント交換 承認 -->
+        <tr>
+          <td class="fm">2026/04/01 11:02:45</td>
+          <td>田中 一郎</td>
+          <td><span class="sb pend">ポイント交換</span></td>
+          <td><span class="fm t-nv">RD-001</span> M-10294 ¥5,000（Amazonギフト）</td>
+          <td><span class="sb ok">承認</span></td>
+          <td class="tx tm">Processing → Fulfilled / 送付先メール確認済</td>
+        </tr>
+
+        <!-- 6-b. ポイント交換 却下 -->
+        <tr>
+          <td class="fm">2026/04/01 11:10:32</td>
+          <td>田中 一郎</td>
+          <td><span class="sb pend">ポイント交換</span></td>
+          <td><span class="fm t-nv">RD-003</span> M-11071 ¥3,000（Amazonギフト）</td>
+          <td><span class="sb ng">却下</span></td>
+          <td class="tx tm">本人確認未完了 / 会員へ差戻し連絡済</td>
+        </tr>
+
+        <!-- 7-a. 簡易アンケート 作成 -->
+        <tr>
+          <td class="fm">2026/04/01 13:00:51</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb draft">簡易アンケート</span></td>
+          <td><span class="fm t-nv">QS-008</span> 新機能利用アンケート</td>
+          <td><span class="sb ok">作成</span></td>
+          <td class="tx tm">対象 全会員 / 設問数 5問</td>
+        </tr>
+
+        <!-- 7-b. 簡易アンケート 配信開始 -->
+        <tr>
+          <td class="fm">2026/04/01 13:30:00</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb draft">簡易アンケート</span></td>
+          <td><span class="fm t-nv">QS-008</span> 新機能利用アンケート</td>
+          <td><span class="sb live">配信開始</span></td>
+          <td class="tx tm">対象会員 1,284名 / プッシュ通知あり</td>
+        </tr>
+
+        <!-- 8. 登録用QRコード作成 -->
+        <tr>
+          <td class="fm">2026/04/01 14:02:19</td>
+          <td>山田 太郎</td>
+          <td><span class="sb hold">QRコード</span></td>
+          <td><span class="fm t-nv">QR-042</span> 第78回日本循環器学会 出展用</td>
+          <td><span class="sb ok">作成</span></td>
+          <td class="tx tm">有効期限 2026/04/30 / 流入タグ：conf-2026-04</td>
+        </tr>
+
+        <!-- 9. 会員情報変更 -->
+        <tr>
+          <td class="fm">2026/04/01 14:28:44</td>
+          <td>佐藤 健二</td>
+          <td><span class="sb hold">会員情報変更</span></td>
+          <td><span class="fm">M-10294</span> 山田 太郎</td>
+          <td><span class="sb ok">更新</span></td>
+          <td class="tx tm">メールアドレス変更：t.yamada@... → taro.yamada@example.com</td>
+        </tr>
+
+        <!-- 10-a. 会員登録審査 承認 -->
+        <tr>
+          <td class="fm">2026/04/01 15:00:12</td>
+          <td>田中 一郎</td>
+          <td><span class="sb pend">会員登録審査</span></td>
+          <td><span class="fm">M-15001</span> 佐藤 健（内科）</td>
+          <td><span class="sb ok">承認</span></td>
+          <td class="tx tm">医師免許番号 照合済 / 初回ログイン案内送信</td>
+        </tr>
+
+        <!-- 10-b. 会員登録審査 却下 -->
+        <tr>
+          <td class="fm">2026/04/01 15:15:37</td>
+          <td>田中 一郎</td>
+          <td><span class="sb pend">会員登録審査</span></td>
+          <td><span class="fm">M-15002</span> 田中 直（皮膚科）</td>
+          <td><span class="sb ng">却下</span></td>
+          <td class="tx tm">医師免許番号不一致 / 再申請案内送信</td>
+        </tr>
+
+        <!-- 3-b. バッチ配信停止 -->
+        <tr>
+          <td class="fm">2026/04/01 15:30:05</td>
+          <td>山田 太郎</td>
+          <td><span class="sb hold">バッチ配信</span></td>
+          <td><span class="fm t-nv">BATCH-0449</span>（PRJ-118）</td>
+          <td><span class="sb ng">配信停止</span></td>
+          <td class="tx tm">回答枠到達により一時停止 / 残 12名は保留</td>
+        </tr>
+
+        <!-- 3-c. バッチ配信終了 -->
+        <tr>
+          <td class="fm">2026/04/01 15:45:28</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb hold">バッチ配信</span></td>
+          <td><span class="fm t-nv">BATCH-0447</span>（PRJ-109）</td>
+          <td><span class="sb draft">終了</span></td>
+          <td class="tx tm">全Complete枠到達（800 / 800）</td>
+        </tr>
+
+        <!-- 1. 案件作成（2件目） -->
+        <tr>
+          <td class="fm">2026/04/01 16:02:11</td>
+          <td>佐藤 健二</td>
+          <td><span class="sb draft">案件作成</span></td>
+          <td><span class="fm t-nv">PRJ-126</span> 皮膚科処方実態調査</td>
+          <td><span class="sb ok">作成</span></td>
+          <td class="tx tm">Client C / Vendor X / Complete 600</td>
+        </tr>
+
+        <!-- 6-c. ポイント交換 承認（現金振込） -->
+        <tr>
+          <td class="fm">2026/04/01 16:30:49</td>
+          <td>田中 一郎</td>
+          <td><span class="sb pend">ポイント交換</span></td>
+          <td><span class="fm t-nv">RD-005</span> M-13408 ¥10,000（現金振込）</td>
+          <td><span class="sb ok">承認</span></td>
+          <td class="tx tm">Fulfilled / 銀行振込依頼 経理送付済</td>
+        </tr>
+
+        <!-- 7-c. 簡易アンケート 配信停止 -->
+        <tr>
+          <td class="fm">2026/04/01 17:00:24</td>
+          <td>山田 太郎</td>
+          <td><span class="sb draft">簡易アンケート</span></td>
+          <td><span class="fm t-nv">QS-008</span> 新機能利用アンケート</td>
+          <td><span class="sb ng">配信停止</span></td>
+          <td class="tx tm">回答数 642件で十分と判断し停止</td>
+        </tr>
+
+        <!-- 9-b. 会員情報変更（管理者による属性修正） -->
+        <tr>
+          <td class="fm">2026/04/01 17:18:57</td>
+          <td>佐藤 健二</td>
+          <td><span class="sb hold">会員情報変更</span></td>
+          <td><span class="fm">M-12345</span> 田中 美咲</td>
+          <td><span class="sb ok">更新</span></td>
+          <td class="tx tm">所属施設名 修正：△△病院 → ○○総合病院</td>
+        </tr>
+
+        <!-- 4-c. 回答ステータス 取消 -->
+        <tr>
+          <td class="fm">2026/04/01 17:32:10</td>
+          <td>鈴木 花子</td>
+          <td><span class="sb hold">回答ステータス</span></td>
+          <td><span class="fm">M-10987</span> 中村 太一 / <span class="fm">BATCH-0451</span></td>
+          <td><span class="sb ng">Complete取消</span></td>
+          <td class="tx tm">重複回答検知により取消 / ポイント再計算対象</td>
+        </tr>
+
+      </tbody>
+    </table></div>
+    <div class="fx fxb fxc mt4">
+      <span class="ts tm">表示: 1–22 / 47件</span>
+      <div class="btn-grp">
+        <button class="btn btn-out btn-sm">← 前へ</button>
+        <button class="btn btn-pr btn-sm">1</button>
+        <button class="btn btn-out btn-sm">2</button>
+        <button class="btn btn-out btn-sm">3</button>
+        <button class="btn btn-out btn-sm">次へ →</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

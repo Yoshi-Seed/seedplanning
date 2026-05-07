@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登録用QRコード一覧 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="qr-codes">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i on" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b>登録用QRコード</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <!-- === 一覧 === -->
+  <div id="qr-list">
+    <h1 class="pg-t">登録用QRコード一覧</h1><p class="pg-d">会員登録導線用のQRコードを発行・管理</p>
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-t"><i data-lucide="qr-code"></i>QRコード一覧</div>
+        <div class="btn-grp">
+          <button type="button" class="btn btn-out btn-sm">CSV出力</button>
+          <button type="button" class="btn btn-pr btn-sm" onclick="qrShowNew()" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="plus" style="width:14px;height:14px"></i>QRコード追加</button>
+        </div>
+      </div>
+      <div class="so-filters">
+        <div class="fg so-q-wrap">
+          <label class="fl" for="qr-q">検索（曖昧一致）</label>
+          <input type="search" class="fs" id="qr-q" placeholder="内容で検索…" autocomplete="off" onkeyup="qrFilter()">
+        </div>
+        <span class="so-count">全 <strong id="qr-n">4</strong> 件</span>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>開始日</th><th>終了日</th><th>内容</th></tr></thead>
+        <tbody id="qr-tbody">
+          <tr class="qr-row" style="cursor:pointer" onclick="qrDetail(0)" data-search="2026医師会イベント">
+            <td class="ts">2026/04/01</td><td class="ts">2026/06/30</td><td><strong>2026 春季医師会イベント</strong></td>
+          </tr>
+          <tr class="qr-row" style="cursor:pointer" onclick="qrDetail(1)" data-search="学会ブース配布">
+            <td class="ts">2026/03/15</td><td class="ts">2026/05/15</td><td><strong>第○○回内科学会 ブース配布用</strong></td>
+          </tr>
+          <tr class="qr-row" style="cursor:pointer" onclick="qrDetail(2)" data-search="紹介キャンペーン">
+            <td class="ts">2026/02/01</td><td class="ts">2026/04/30</td><td><strong>会員紹介キャンペーン（Q1）</strong></td>
+          </tr>
+          <tr class="qr-row" style="cursor:pointer" onclick="qrDetail(3)" data-search="メルマガ">
+            <td class="ts">2026/01/10</td><td class="ts">2026/03/31</td><td><strong>メルマガ登録用（冬号）</strong></td>
+          </tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- === 詳細 === -->
+  <div id="qr-detail" style="display:none">
+    <button type="button" class="btn btn-out btn-sm" onclick="qrBack()" style="margin-bottom:16px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div class="card" style="max-width:620px;margin:0 auto">
+      <div class="card-hd"><div class="card-t"><i data-lucide="qr-code"></i>登録用QRコード</div><span class="sb live" id="qr-d-status">● 有効</span></div>
+      <div style="text-align:center;padding:24px 0">
+        <div style="display:inline-block;padding:16px;background:#fff;border:1px solid var(--border);border-radius:var(--radius)">
+          <img id="qr-d-img" src="" alt="QRコード" width="240" height="240" style="display:block">
+        </div>
+        <div class="fh" style="margin-top:10px">読み込み先URL: <span class="fm" id="qr-d-url">—</span></div>
+      </div>
+      <hr class="div">
+      <div class="g2">
+        <div class="dr"><div class="dr-l">開始日</div><div class="dr-v" id="qr-d-start">—</div></div>
+        <div class="dr"><div class="dr-l">終了日</div><div class="dr-v" id="qr-d-end">—</div></div>
+        <div class="dr" style="grid-column:1/-1"><div class="dr-l">内容</div><div class="dr-v" id="qr-d-desc">—</div></div>
+      </div>
+      <div class="btn-grp mt4" style="justify-content:flex-end">
+        <button type="button" class="btn btn-out btn-sm" onclick="qrDownload()"><i data-lucide="download" style="width:14px;height:14px"></i>PNGダウンロード</button>
+        <button type="button" class="btn btn-out btn-sm" onclick="qrCopyUrl()"><i data-lucide="copy" style="width:14px;height:14px"></i>URLをコピー</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === 新規追加 === -->
+  <div id="qr-new" style="display:none">
+    <button type="button" class="btn btn-out btn-sm" onclick="qrBack()" style="margin-bottom:16px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div class="card" style="max-width:620px;margin:0 auto">
+      <div class="card-hd"><div class="card-t"><i data-lucide="plus-circle"></i>QRコード追加</div></div>
+      <div class="g2">
+        <div class="fg"><label class="fl" for="qr-new-start">開始日 <span class="req">*</span></label><input type="date" class="fs" id="qr-new-start"></div>
+        <div class="fg"><label class="fl" for="qr-new-end">終了日 <span class="req">*</span></label><input type="date" class="fs" id="qr-new-end"></div>
+        <div class="fg" style="grid-column:1/-1"><label class="fl" for="qr-new-desc">内容 <span class="req">*</span></label><input type="text" class="fs" id="qr-new-desc" placeholder="例: 2026 春季医師会イベント"></div>
+      </div>
+      <div class="fh">発行するとQRコードが即時表示され、一覧にも追加されます。</div>
+      <div class="btn-grp mt4" style="justify-content:flex-end">
+        <button type="button" class="btn btn-out" onclick="qrBack()">キャンセル</button>
+        <button type="button" class="btn btn-pr" onclick="qrIssue()"><i data-lucide="qr-code" style="width:14px;height:14px"></i>QRコードを発行</button>
+      </div>
+    </div>
+
+    <!-- 発行結果 -->
+    <div class="card" id="qr-issued" style="display:none;max-width:620px;margin:20px auto 0">
+      <div class="card-hd"><div class="card-t"><i data-lucide="check-circle"></i>発行完了</div><span class="sb live">● 有効</span></div>
+      <div style="text-align:center;padding:24px 0">
+        <div style="display:inline-block;padding:16px;background:#fff;border:1px solid var(--border);border-radius:var(--radius)">
+          <img id="qr-issued-img" src="" alt="発行されたQRコード" width="240" height="240" style="display:block">
+        </div>
+        <div class="fh" style="margin-top:10px">読み込み先URL: <span class="fm" id="qr-issued-url">—</span></div>
+      </div>
+      <div class="btn-grp" style="justify-content:flex-end">
+        <button type="button" class="btn btn-out btn-sm" onclick="qrBack()">一覧に戻る</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+<script>
+var QR_DATA=[
+  {start:'2026/04/01',end:'2026/06/30',desc:'2026 春季医師会イベント',code:'QR-A001'},
+  {start:'2026/03/15',end:'2026/05/15',desc:'第○○回内科学会 ブース配布用',code:'QR-A002'},
+  {start:'2026/02/01',end:'2026/04/30',desc:'会員紹介キャンペーン（Q1）',code:'QR-A003'},
+  {start:'2026/01/10',end:'2026/03/31',desc:'メルマガ登録用（冬号）',code:'QR-A004'}
+];
+function qrBuildUrl(code,end){
+  return 'https://panel.example.com/register?code='+encodeURIComponent(code)+'&until='+encodeURIComponent(end.replace(/\//g,'-'));
+}
+function qrImgSrc(url){
+  return 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&data='+encodeURIComponent(url);
+}
+function qrShowView(v){
+  ['qr-list','qr-detail','qr-new'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.style.display=(id===v?'':'none');
+  });
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function qrDetail(i){
+  var d=QR_DATA[i];if(!d)return;
+  var url=qrBuildUrl(d.code,d.end);
+  document.getElementById('qr-d-img').src=qrImgSrc(url);
+  document.getElementById('qr-d-url').textContent=url;
+  document.getElementById('qr-d-start').textContent=d.start;
+  document.getElementById('qr-d-end').textContent=d.end;
+  document.getElementById('qr-d-desc').textContent=d.desc;
+  window.__qrCurrent={img:qrImgSrc(url),url:url,code:d.code};
+  qrShowView('qr-detail');
+}
+function qrBack(){
+  document.getElementById('qr-issued').style.display='none';
+  qrShowView('qr-list');
+}
+function qrShowNew(){
+  document.getElementById('qr-new-start').value='';
+  document.getElementById('qr-new-end').value='';
+  document.getElementById('qr-new-desc').value='';
+  document.getElementById('qr-issued').style.display='none';
+  qrShowView('qr-new');
+}
+function qrFilter(){
+  var q=(document.getElementById('qr-q').value||'').toLowerCase();
+  var rows=document.querySelectorAll('.qr-row');
+  var n=0;
+  rows.forEach(function(r){
+    var s=(r.getAttribute('data-search')||'').toLowerCase()+' '+(r.textContent||'').toLowerCase();
+    var show=!q||s.indexOf(q)>=0;
+    r.style.display=show?'':'none';
+    if(show)n++;
+  });
+  var el=document.getElementById('qr-n');if(el)el.textContent=n;
+}
+function qrIssue(){
+  var s=document.getElementById('qr-new-start').value;
+  var e=document.getElementById('qr-new-end').value;
+  var desc=(document.getElementById('qr-new-desc').value||'').trim();
+  if(!s){alert('開始日を入力してください');return;}
+  if(!e){alert('終了日を入力してください');return;}
+  if(s>e){alert('終了日は開始日以降にしてください');return;}
+  if(!desc){alert('内容を入力してください');return;}
+  var fmt=function(v){return v.replace(/-/g,'/');};
+  var sFmt=fmt(s),eFmt=fmt(e);
+  var code='QR-'+Math.random().toString(36).slice(2,7).toUpperCase();
+  var url=qrBuildUrl(code,eFmt);
+  var img=qrImgSrc(url);
+  QR_DATA.unshift({start:sFmt,end:eFmt,desc:desc,code:code});
+  var tbody=document.getElementById('qr-tbody');
+  if(tbody){
+    var tr=document.createElement('tr');
+    tr.className='qr-row';
+    tr.style.cursor='pointer';
+    tr.setAttribute('data-search',desc);
+    tr.setAttribute('onclick','qrDetail(0)');
+    tr.innerHTML='<td class="ts">'+sFmt+'</td><td class="ts">'+eFmt+'</td><td><strong>'+desc+'</strong></td>';
+    document.querySelectorAll('.qr-row').forEach(function(r,idx){r.setAttribute('onclick','qrDetail('+(idx+1)+')');});
+    tbody.insertBefore(tr,tbody.firstChild);
+  }
+  var nEl=document.getElementById('qr-n');if(nEl)nEl.textContent=QR_DATA.length;
+  document.getElementById('qr-issued-img').src=img;
+  document.getElementById('qr-issued-url').textContent=url;
+  document.getElementById('qr-issued').style.display='';
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+function qrDownload(){
+  var c=window.__qrCurrent;if(!c)return;
+  var a=document.createElement('a');
+  a.href=c.img;a.download=c.code+'.png';a.target='_blank';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function qrCopyUrl(){
+  var c=window.__qrCurrent;if(!c)return;
+  if(navigator.clipboard)navigator.clipboard.writeText(c.url).then(function(){alert('URLをコピーしました');});
+  else alert('URL: '+c.url);
+}
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof lucide!=='undefined')lucide.createIcons();
+});
+</script>
+<script src="js/admin.js"></script>
+</body>
+</html>

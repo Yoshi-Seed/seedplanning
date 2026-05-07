@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ダッシュボード — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="dashboard">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i on" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">ダッシュボード</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <h1 class="pg-t">ダッシュボード</h1><p class="pg-d">Survey運用の全体状況をリアルタイムで把握</p>
+  <div class="stats" style="grid-template-columns:repeat(5,1fr)">
+    <div class="st c-nv"><div class="st-lb">進行中 Survey</div><div class="st-val">3</div><div class="st-sub">本日配信予定 1件</div></div>
+    <div class="st c-gn"><div class="st-lb">本日 Complete</div><div class="st-val">247</div><div class="st-sub">前日比 +12%</div></div>
+    <div class="st c-am"><div class="st-lb">謝礼 未処理</div><div class="st-val">5</div><div class="st-sub">高額申請 2件</div></div>
+    <div class="st c-bl"><div class="st-lb">総配信数（今月）</div><div class="st-val">4,820</div><div class="st-sub">先月同期比 +8%</div></div>
+    <div class="st c-tl"><div class="st-lb">平均 IR</div><div class="st-val">18.3%</div><div class="st-sub">過去3ヶ月平均 17.1%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="card-t"><i data-lucide="flask-conical"></i>進行中 Survey</div><button class="btn btn-out btn-sm" onclick="nav('survey-ops')">すべて表示 →</button></div>
+    <div class="tw"><table><thead><tr><th>調査名</th><th>ステータス</th><th>Complete</th><th>残日数</th></tr></thead><tbody>
+      <tr><td><strong>糖尿病治療意識調査 2026/Q1</strong><br><span class="tx tm">Client A / Vendor X</span></td><td><span class="sb live">● 配信中</span></td><td><strong>1,842</strong> / 2,000<div class="pbar"><div class="pfill" style="width:92%;background:var(--green)"></div></div></td><td>5日</td></tr>
+      <tr><td><strong>高血圧薬剤選択調査</strong><br><span class="tx tm">Client B / Vendor Y</span></td><td><span class="sb live">● 配信中</span></td><td><strong>320</strong> / 800<div class="pbar"><div class="pfill" style="width:40%;background:var(--blue)"></div></div></td><td>14日</td></tr>
+      <tr><td><strong>皮膚科処方実態調査</strong><br><span class="tx tm">Client C / Vendor X</span></td><td><span class="sb pend">● 検証中</span></td><td>—</td><td>21日</td></tr>
+    </tbody></table></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="coins"></i>謝礼処理サマリー</div><button class="btn btn-out btn-sm" onclick="nav('redemption')">詳細 →</button></div>
+      <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+        <div class="tc"><div style="font-size:24px;font-weight:700;color:var(--amber)">5</div><div class="tx tm">未処理</div></div>
+        <div class="tc"><div style="font-size:24px;font-weight:700;color:var(--green)">128</div><div class="tx tm">今月承認済</div></div>
+        <div class="tc"><div style="font-size:24px;font-weight:700;color:var(--red)">3</div><div class="tx tm">今月却下</div></div>
+        <div class="tc"><div style="font-size:24px;font-weight:700;color:var(--navy)">385k</div><div class="tx tm">今月処理pt</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="zap"></i>クイックアクション</div></div>
+      <div class="btn-grp" style="flex-wrap:wrap">
+        <button class="btn btn-pr" onclick="soNewBatchFromDashboard()">新規バッチ作成</button>
+
+        <button class="btn btn-out" onclick="nav('survey-ops')">Survey登録</button>
+        <button class="btn btn-out" onclick="nav('redemption')">謝礼承認 (5件)</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

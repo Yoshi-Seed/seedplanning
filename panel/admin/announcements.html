@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お知らせ配信 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="announcements">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i on" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">お知らせ配信</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <h1 class="pg-t">お知らせ配信</h1><p class="pg-d">会員向けお知らせの作成・配信管理</p>
+
+  <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+    <div class="st c-bl"><div class="st-lb">総配信数</div><div class="st-val">48</div><div class="st-sub">今月 +6件</div></div>
+    <div class="st c-gn"><div class="st-lb">配信中</div><div class="st-val">5</div><div class="st-sub">アクティブ配信</div></div>
+    <div class="st c-rd"><div class="st-lb">配信停止</div><div class="st-val">1</div><div class="st-sub">停止中</div></div>
+  </div>
+
+  <!-- エディター画面 -->
+  <div id="ann-editor" style="display:none">
+    <div class="card" style="border-color:var(--navy);border-width:2px">
+      <div class="card-hd">
+        <div class="card-t"><i data-lucide="file-edit"></i>お知らせ新規作成</div>
+        <button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='none';document.getElementById('ann-list').style.display='block'">← 一覧に戻る</button>
+      </div>
+
+      <div class="g21">
+        <div>
+          <div class="fg"><label class="fl">タイトル <span class="req">*</span></label><input class="fi" placeholder="お知らせのタイトルを入力"></div>
+
+          <div class="fg">
+            <label class="fl">本文 <span class="req">*</span></label>
+            <!-- リッチエディター ツールバー -->
+            <div style="border:1px solid var(--g300);border-radius:7px;overflow:hidden">
+              <div style="display:flex;flex-wrap:wrap;gap:2px;padding:8px 10px;background:var(--g50);border-bottom:1px solid var(--g200)">
+                <select style="font-size:12px;padding:4px 8px;border:1px solid var(--g300);border-radius:4px;background:#fff">
+                  <option>本文</option>
+                  <option>見出し1</option>
+                  <option>見出し2</option>
+                  <option>見出し3</option>
+                </select>
+                <div style="width:1px;background:var(--g300);margin:0 6px"></div>
+                <button class="ann-tb" title="太字"><i data-lucide="bold" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="斜体"><i data-lucide="italic" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="下線"><i data-lucide="underline" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="取り消し線"><i data-lucide="strikethrough" style="width:15px;height:15px"></i></button>
+                <div style="width:1px;background:var(--g300);margin:0 6px"></div>
+                <button class="ann-tb" title="箇条書き"><i data-lucide="list" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="番号付きリスト"><i data-lucide="list-ordered" style="width:15px;height:15px"></i></button>
+                <div style="width:1px;background:var(--g300);margin:0 6px"></div>
+                <button class="ann-tb" title="リンク挿入"><i data-lucide="link" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="画像挿入"><i data-lucide="image" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="テーブル挿入"><i data-lucide="table" style="width:15px;height:15px"></i></button>
+                <div style="width:1px;background:var(--g300);margin:0 6px"></div>
+                <button class="ann-tb" title="左揃え"><i data-lucide="align-left" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="中央揃え"><i data-lucide="align-center" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="右揃え"><i data-lucide="align-right" style="width:15px;height:15px"></i></button>
+                <div style="width:1px;background:var(--g300);margin:0 6px"></div>
+                <button class="ann-tb" title="元に戻す"><i data-lucide="undo-2" style="width:15px;height:15px"></i></button>
+                <button class="ann-tb" title="やり直す"><i data-lucide="redo-2" style="width:15px;height:15px"></i></button>
+              </div>
+              <!-- 編集エリア -->
+              <div contenteditable="true" style="min-height:320px;padding:16px;font-size:14px;line-height:1.8;outline:none;color:var(--g800)" placeholder="ここに本文を入力…">
+                <p style="color:var(--g400)">ここに本文を入力…</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl">添付ファイル</label>
+            <div style="border:2px dashed var(--g300);border-radius:7px;padding:24px;text-align:center;color:var(--g400);cursor:pointer">
+              <i data-lucide="upload" style="width:24px;height:24px;margin:0 auto 8px;display:block"></i>
+              <div style="font-size:13px">ファイルをドラッグ＆ドロップ、またはクリックして選択</div>
+              <div style="font-size:11px;margin-top:4px">PDF, PNG, JPG（最大10MB）</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="fpanel">
+            <div style="font-size:12px;font-weight:700;color:var(--g600);margin-bottom:12px">配信設定</div>
+            <div class="fg">
+              <label class="fl">配信先（職業） <span class="req">*</span></label>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:10px;background:#fff;border:1px solid var(--g300);border-radius:7px">
+                <label class="cbl"><input type="checkbox" id="ann-job-all" checked onchange="annToggleAllJobs(this)">全選択</label>
+                <hr class="div" style="margin:4px 0">
+                <label class="cbl"><input type="checkbox" class="ann-job" value="doctor" checked onchange="annSyncJobAll()">医師</label>
+                <label class="cbl"><input type="checkbox" class="ann-job" value="dentist" checked onchange="annSyncJobAll()">歯科医師</label>
+                <label class="cbl"><input type="checkbox" class="ann-job" value="pharmacist" checked onchange="annSyncJobAll()">薬剤師</label>
+                <label class="cbl"><input type="checkbox" class="ann-job" value="nurse" checked onchange="annSyncJobAll()">看護師</label>
+                <label class="cbl"><input type="checkbox" class="ann-job" value="other" checked onchange="annSyncJobAll()">その他</label>
+              </div>
+              <div class="fh">選択した職業の会員へ配信されます</div>
+            </div>
+            <div class="fg"><label class="fl">配信者</label><input class="fi fi-ro" value="山田 太郎" readonly></div>
+            <hr class="div">
+            <div class="alt a-info"><i data-lucide="info"></i>配信すると即座に対象会員へ通知されます</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+              <button class="btn btn-pr" style="justify-content:center;padding:12px;width:100%"><i data-lucide="send" style="width:16px;height:16px"></i>配信する</button>
+              <button class="btn btn-out" style="justify-content:center;padding:12px;width:100%" onclick="document.getElementById('ann-editor').style.display='none';document.getElementById('ann-list').style.display='block'">キャンセル</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一覧画面 -->
+  <div id="ann-list">
+  <div class="card">
+    <div class="card-hd">
+      <div class="card-t"><i data-lucide="megaphone"></i>お知らせ一覧</div>
+      <div class="btn-grp">
+        <input class="fi" placeholder="タイトルで検索…" style="width:200px;padding:6px 10px">
+        <select class="fs" style="width:140px;padding:6px 10px">
+          <option>すべて</option>
+          <option>配信中</option>
+          <option>配信停止</option>
+        </select>
+        <button class="btn btn-pr" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'"><i data-lucide="plus" style="width:16px;height:16px"></i>新規作成</button>
+      </div>
+    </div>
+    <div class="tw"><table><thead><tr><th>タイトル</th><th>ステータス</th><th>配信日時</th><th>配信者</th><th class="tr">操作</th></tr></thead><tbody>
+      <tr>
+        <td><strong>システムメンテナンスのお知らせ（4/15）</strong><br><span class="tx tm">定期メンテナンスに伴うサービス停止について</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td>2026/04/08 10:00</td>
+        <td>山田 太郎</td>
+        <td class="tr"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'">編集</button></div></td>
+      </tr>
+      <tr>
+        <td><strong>4月度ポイントキャンペーンのご案内</strong><br><span class="tx tm">期間限定ポイント2倍キャンペーン実施中</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td>2026/04/05 09:00</td>
+        <td>鈴木 花子</td>
+        <td class="tr"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'">編集</button></div></td>
+      </tr>
+      <tr>
+        <td><strong>新規アンケート「高血圧薬剤選択調査」公開</strong><br><span class="tx tm">対象の先生方への参加依頼</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td>2026/04/03 12:00</td>
+        <td>山田 太郎</td>
+        <td class="tr"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'">編集</button></div></td>
+      </tr>
+      <tr>
+        <td><strong>3月度アンケート結果レポート公開</strong><br><span class="tx tm">糖尿病治療意識調査の結果サマリー</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td>2026/03/25 09:00</td>
+        <td>佐藤 健一</td>
+        <td class="tr"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'">編集</button></div></td>
+      </tr>
+      <tr>
+        <td><strong>ポイント交換先の追加について</strong><br><span class="tx tm">PayPayポイント交換の開始</span></td>
+        <td><span class="sb ng">● 配信停止</span></td>
+        <td>2026/03/20 11:00</td>
+        <td>山田 太郎</td>
+        <td class="tr"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm" onclick="document.getElementById('ann-editor').style.display='block';document.getElementById('ann-list').style.display='none'">編集</button></div></td>
+      </tr>
+    </tbody></table></div>
+    <div class="fx fxb fxc mt4"><span class="ts tm">表示: 1–5 / 48件</span><div class="btn-grp"><button class="btn btn-out btn-sm">← 前へ</button><button class="btn btn-out btn-sm">次へ →</button></div></div>
+  </div>
+
+  </div>
+  </div>
+</div>
+<style>
+.ann-tb{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:none;background:transparent;border-radius:4px;cursor:pointer;color:var(--g600);transition:all .12s}
+.ann-tb:hover{background:var(--g200);color:var(--g800)}
+</style>
+<script src="js/admin.js"></script>
+<script>
+function annToggleAllJobs(el){
+  document.querySelectorAll('.ann-job').forEach(function(c){c.checked=el.checked;});
+}
+function annSyncJobAll(){
+  var all=document.querySelectorAll('.ann-job');
+  var on=document.querySelectorAll('.ann-job:checked');
+  var head=document.getElementById('ann-job-all');
+  if(head)head.checked=(all.length===on.length);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>簡易アンケート配信一覧 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="quick-survey">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i on" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">簡易アンケート配信一覧</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <!-- 新規作成エディター画面 -->
+  <div id="qs-editor" style="display:none">
+    <h1 class="pg-t">新規作成</h1>
+    <p class="pg-d">Mini Survey &gt; 新規作成</p>
+    <button class="btn btn-out btn-sm mb4" onclick="document.getElementById('qs-editor').style.display='none';document.getElementById('qs-list').style.display='block'">← 一覧に戻る</button>
+
+    <div class="card">
+      <div class="fg"><label class="fl">タイトル <span class="req">*</span></label><input class="fi" placeholder="例：2月キャンペーン満足度調査"></div>
+      <div class="fg"><label class="fl">説明 <span class="req">*</span></label><textarea class="ft" placeholder="調査の目的・回答時間目安（例：3分）など"></textarea></div>
+      <div class="fg">
+        <label class="fl">配信期間 <span class="req">*</span></label>
+        <div class="fx g8">
+          <div class="f1">
+            <div class="tx tm" style="margin-bottom:4px">開始</div>
+            <input class="fi" type="date" value="2026-02-10">
+          </div>
+          <div class="f1">
+            <div class="tx tm" style="margin-bottom:4px">終了</div>
+            <input class="fi" type="date" value="2026-02-17">
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="fg"><label class="fl">謝礼</label><input class="fi" value="200pt（MVP）"></div>
+        <div class="fg"><label class="fl">Status</label><div><span class="sb draft">Draft</span></div></div>
+      </div>
+    </div>
+
+    <!-- 質問エリア -->
+    <div id="qs-questions">
+      <div class="card qs-q" data-type="single">
+        <div class="card-hd"><div class="card-t"><i data-lucide="help-circle"></i>質問1（必須）</div><button class="btn btn-out btn-sm" onclick="this.closest('.card').remove()"><i data-lucide="x" style="width:14px;height:14px"></i>削除</button></div>
+        <div class="fg"><label class="fl">設問文</label><input class="fi" placeholder="（例）今回のキャンペーンに満足しましたか？"></div>
+        <div class="fg"><label class="fl">タイプ</label>
+          <select class="fs qs-type" style="width:200px" onchange="qsTypeChange(this)">
+            <option value="single">single（単一選択）</option>
+            <option value="multi">multi（複数選択）</option>
+            <option value="open">open（自由記述）</option>
+            <option value="scale">scale（5段階評価）</option>
+          </select>
+        </div>
+        <!-- single: 単一選択 -->
+        <div class="fg qs-opt qs-opt-single">
+          <label class="fl">選択肢（ラジオボタン）</label>
+          <div class="qs-choice-list">
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="circle" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" value="満足" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="circle" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" value="不満" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+          </div>
+          <button class="btn btn-out btn-sm" onclick="qsAddChoice(this,'circle')"><i data-lucide="plus" style="width:14px;height:14px"></i>選択肢を追加</button>
+        </div>
+        <!-- multi: 複数選択 -->
+        <div class="fg qs-opt qs-opt-multi" style="display:none">
+          <label class="fl">選択肢（チェックボックス）</label>
+          <div class="qs-choice-list">
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="square" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" placeholder="選択肢を入力" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="square" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" placeholder="選択肢を入力" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+          </div>
+          <button class="btn btn-out btn-sm" onclick="qsAddChoice(this,'square')"><i data-lucide="plus" style="width:14px;height:14px"></i>選択肢を追加</button>
+          <div class="fh">複数の選択肢にチェックを入れて回答できます</div>
+        </div>
+        <!-- open: 自由記述 -->
+        <div class="fg qs-opt qs-opt-open" style="display:none">
+          <label class="fl">回答プレビュー</label>
+          <textarea class="ft" placeholder="回答者はここに自由に記述します" disabled></textarea>
+          <div class="fh">回答は自由記述欄になります</div>
+        </div>
+        <!-- scale: 段階評価 -->
+        <div class="fg qs-opt qs-opt-scale" style="display:none">
+          <label class="fl">段階評価</label>
+          <div class="fx g8 mb4" style="align-items:flex-end">
+            <div style="width:160px"><div class="tx tm" style="margin-bottom:4px">段階数</div>
+              <select class="fs qs-scale-n" onchange="qsScaleRender(this)">
+                <option value="3">3段階</option>
+                <option value="4">4段階</option>
+                <option value="5" selected>5段階</option>
+                <option value="6">6段階</option>
+                <option value="7">7段階</option>
+                <option value="10">10段階</option>
+              </select>
+            </div>
+            <div class="f1"><div class="tx tm" style="margin-bottom:4px">最低のラベル</div><input class="fi qs-scale-min" placeholder="例：とても不満" value="不満" oninput="qsScaleRender(this)"></div>
+            <div class="f1"><div class="tx tm" style="margin-bottom:4px">最高のラベル</div><input class="fi qs-scale-max" placeholder="例：とても満足" value="満足" oninput="qsScaleRender(this)"></div>
+          </div>
+          <div style="background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:14px">
+            <div class="tx tm mb4">プレビュー</div>
+            <div class="fx g8 qs-scale-preview" style="justify-content:space-between;flex-wrap:wrap"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card qs-q" data-type="open">
+        <div class="card-hd"><div class="card-t"><i data-lucide="help-circle"></i>質問2（必須）</div><button class="btn btn-out btn-sm" onclick="this.closest('.card').remove()"><i data-lucide="x" style="width:14px;height:14px"></i>削除</button></div>
+        <div class="fg"><label class="fl">設問文</label><input class="fi" placeholder="（例）ご意見・ご要望があれば自由にご記入ください"></div>
+        <div class="fg"><label class="fl">タイプ</label>
+          <select class="fs qs-type" style="width:200px" onchange="qsTypeChange(this)">
+            <option value="single">single（単一選択）</option>
+            <option value="multi">multi（複数選択）</option>
+            <option value="open" selected>open（自由記述）</option>
+            <option value="scale">scale（5段階評価）</option>
+          </select>
+        </div>
+        <!-- single -->
+        <div class="fg qs-opt qs-opt-single" style="display:none">
+          <label class="fl">選択肢（ラジオボタン）</label>
+          <div class="qs-choice-list">
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="circle" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" placeholder="選択肢を入力" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+          </div>
+          <button class="btn btn-out btn-sm" onclick="qsAddChoice(this,'circle')"><i data-lucide="plus" style="width:14px;height:14px"></i>選択肢を追加</button>
+        </div>
+        <!-- multi -->
+        <div class="fg qs-opt qs-opt-multi" style="display:none">
+          <label class="fl">選択肢（チェックボックス）</label>
+          <div class="qs-choice-list">
+            <div class="fx g8 mb4" style="align-items:center"><i data-lucide="square" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" placeholder="選択肢を入力" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button></div>
+          </div>
+          <button class="btn btn-out btn-sm" onclick="qsAddChoice(this,'square')"><i data-lucide="plus" style="width:14px;height:14px"></i>選択肢を追加</button>
+          <div class="fh">複数の選択肢にチェックを入れて回答できます</div>
+        </div>
+        <!-- open -->
+        <div class="fg qs-opt qs-opt-open">
+          <label class="fl">回答プレビュー</label>
+          <textarea class="ft" placeholder="回答者はここに自由に記述します" disabled></textarea>
+          <div class="fh">回答は自由記述欄になります</div>
+        </div>
+        <!-- scale -->
+        <div class="fg qs-opt qs-opt-scale" style="display:none">
+          <label class="fl">段階評価</label>
+          <div class="fx g8 mb4" style="align-items:flex-end">
+            <div style="width:160px"><div class="tx tm" style="margin-bottom:4px">段階数</div>
+              <select class="fs qs-scale-n" onchange="qsScaleRender(this)">
+                <option value="3">3段階</option>
+                <option value="4">4段階</option>
+                <option value="5" selected>5段階</option>
+                <option value="6">6段階</option>
+                <option value="7">7段階</option>
+                <option value="10">10段階</option>
+              </select>
+            </div>
+            <div class="f1"><div class="tx tm" style="margin-bottom:4px">最低のラベル</div><input class="fi qs-scale-min" placeholder="例：とても不満" value="不満" oninput="qsScaleRender(this)"></div>
+            <div class="f1"><div class="tx tm" style="margin-bottom:4px">最高のラベル</div><input class="fi qs-scale-max" placeholder="例：とても満足" value="満足" oninput="qsScaleRender(this)"></div>
+          </div>
+          <div style="background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:14px">
+            <div class="tx tm mb4">プレビュー</div>
+            <div class="fx g8 qs-scale-preview" style="justify-content:space-between;flex-wrap:wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 質問追加ボタン -->
+    <button class="btn wf" style="background:var(--amber);color:#fff;padding:14px;justify-content:center;font-size:14px"><i data-lucide="plus" style="width:16px;height:16px"></i>質問追加（最大5）</button>
+
+    <!-- 保存・配信ボタン -->
+    <div class="card mt4">
+      <div class="btn-grp" style="justify-content:flex-end">
+        <button class="btn btn-out" onclick="document.getElementById('qs-editor').style.display='none';document.getElementById('qs-list').style.display='block'">キャンセル</button>
+        <button class="btn btn-out">下書き保存</button>
+        <button class="btn btn-pr" onclick="qsOpenBatch()"><i data-lucide="send" style="width:15px;height:15px"></i>配信開始</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === 配信先選択（シンプル版） === -->
+  <div id="qs-batch" style="display:none">
+    <button type="button" class="btn btn-out btn-sm" onclick="qsBackToEditor()" style="margin-bottom:12px"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 質問作成に戻る</button>
+    <div style="margin-bottom:16px">
+      <div style="font-size:18px;font-weight:700;color:var(--g800)">配信先選択</div>
+      <p class="pg-d" style="margin-top:6px;margin-bottom:0">主専門領域・副専門領域のみで絞り込み、そのまま配信します</p>
+    </div>
+
+    <div id="ss1">
+      <div class="card" style="max-width:640px">
+        <div class="fg"><label class="fl">配信名称 <span class="req">*</span></label><input type="text" class="fs" placeholder="例: 2026/Q1 簡易アンケート"></div>
+        <div class="fg">
+          <label class="fl">主専門領域（単一選択） <span class="req">*</span></label>
+          <div class="so-spec-picker" onclick="soToggleSpecPicker(this)" style="cursor:pointer;position:relative">
+            <input type="text" class="fs" readonly placeholder="クリックして診療科を選択" style="cursor:pointer">
+            <div class="so-spec-dropdown" style="display:none;position:absolute;z-index:100;background:#fff;border:1px solid var(--g200);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);max-height:320px;overflow:hidden;margin-top:4px;width:100%;flex-direction:column" onclick="event.stopPropagation()">
+              <div style="padding:8px;border-bottom:1px solid var(--g100);flex-shrink:0"><input type="search" class="fs" placeholder="コードまたは診療科名で検索…" onkeyup="soFilterSpecList(this)" style="margin-bottom:0"></div>
+              <div class="so-spec-list" data-mode="single" style="overflow-y:auto;max-height:260px">
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="01" onchange="soSelectMainSpec(this)"><span class="so-spec-code">01</span> 内科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="03" onchange="soSelectMainSpec(this)"><span class="so-spec-code">03</span> 循環器内科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="07" onchange="soSelectMainSpec(this)"><span class="so-spec-code">07</span> 糖尿病内科（代謝内科）</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="09" onchange="soSelectMainSpec(this)"><span class="so-spec-code">09</span> 皮膚科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="13" onchange="soSelectMainSpec(this)"><span class="so-spec-code">13</span> 小児科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="14" onchange="soSelectMainSpec(this)"><span class="so-spec-code">14</span> 精神科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="20" onchange="soSelectMainSpec(this)"><span class="so-spec-code">20</span> 外科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="29" onchange="soSelectMainSpec(this)"><span class="so-spec-code">29</span> 整形外科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="32" onchange="soSelectMainSpec(this)"><span class="so-spec-code">32</span> 眼科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="33" onchange="soSelectMainSpec(this)"><span class="so-spec-code">33</span> 耳鼻いんこう科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="35" onchange="soSelectMainSpec(this)"><span class="so-spec-code">35</span> 産婦人科</label>
+                <label class="so-spec-item"><input type="radio" name="qs-main-spec" value="55" onchange="soSelectMainSpec(this)"><span class="so-spec-code">55</span> 救急科</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="fl">副専門領域（複数選択可）</label>
+          <div class="so-spec-picker" onclick="soToggleSpecPicker(this)" style="cursor:pointer;position:relative">
+            <div class="fs" style="min-height:36px;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:4px"><span class="tm">クリックして診療科を選択（複数可）</span></div>
+            <div class="so-spec-dropdown" style="display:none;position:absolute;z-index:100;background:#fff;border:1px solid var(--g200);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);max-height:320px;overflow:hidden;margin-top:4px;width:100%;flex-direction:column" onclick="event.stopPropagation()">
+              <div style="padding:8px;border-bottom:1px solid var(--g100);flex-shrink:0"><input type="search" class="fs" placeholder="コードまたは診療科名で検索…" onkeyup="soFilterSpecList(this)" style="margin-bottom:0"></div>
+              <div class="so-spec-list" data-mode="multi" style="overflow-y:auto;max-height:260px">
+                <label class="so-spec-item"><input type="checkbox" value="01" onchange="soUpdateSubSpec()"><span class="so-spec-code">01</span> 内科</label>
+                <label class="so-spec-item"><input type="checkbox" value="03" onchange="soUpdateSubSpec()"><span class="so-spec-code">03</span> 循環器内科</label>
+                <label class="so-spec-item"><input type="checkbox" value="07" onchange="soUpdateSubSpec()"><span class="so-spec-code">07</span> 糖尿病内科（代謝内科）</label>
+                <label class="so-spec-item"><input type="checkbox" value="09" onchange="soUpdateSubSpec()"><span class="so-spec-code">09</span> 皮膚科</label>
+                <label class="so-spec-item"><input type="checkbox" value="13" onchange="soUpdateSubSpec()"><span class="so-spec-code">13</span> 小児科</label>
+                <label class="so-spec-item"><input type="checkbox" value="14" onchange="soUpdateSubSpec()"><span class="so-spec-code">14</span> 精神科</label>
+                <label class="so-spec-item"><input type="checkbox" value="20" onchange="soUpdateSubSpec()"><span class="so-spec-code">20</span> 外科</label>
+                <label class="so-spec-item"><input type="checkbox" value="29" onchange="soUpdateSubSpec()"><span class="so-spec-code">29</span> 整形外科</label>
+                <label class="so-spec-item"><input type="checkbox" value="32" onchange="soUpdateSubSpec()"><span class="so-spec-code">32</span> 眼科</label>
+                <label class="so-spec-item"><input type="checkbox" value="33" onchange="soUpdateSubSpec()"><span class="so-spec-code">33</span> 耳鼻いんこう科</label>
+                <label class="so-spec-item"><input type="checkbox" value="35" onchange="soUpdateSubSpec()"><span class="so-spec-code">35</span> 産婦人科</label>
+                <label class="so-spec-item"><input type="checkbox" value="55" onchange="soUpdateSubSpec()"><span class="so-spec-code">55</span> 救急科</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-pr wf mt4" onclick="qsConfirmSend()" style="padding:12px"><i data-lucide="send" style="width:15px;height:15px"></i>配信</button>
+      </div>
+    </div>
+
+    <!-- 配信確認モーダル -->
+    <div id="qs-confirm-modal" class="modal-ov" style="display:none" onclick="qsCloseConfirm()">
+      <div class="modal-bx" style="max-width:380px" onclick="event.stopPropagation()">
+        <div class="modal-bd" style="text-align:center;padding:28px 20px 20px">
+          <i data-lucide="send" style="width:40px;height:40px;color:var(--navy);margin-bottom:12px"></i>
+          <div style="font-size:16px;font-weight:700;color:var(--g800);margin-bottom:6px">配信しますか？</div>
+          <div class="tx tm">選択した専門領域の対象会員に<br>簡易アンケートを配信します</div>
+        </div>
+        <div class="modal-ft" style="justify-content:center;gap:12px">
+          <button type="button" class="btn btn-out" onclick="qsCloseConfirm()" style="min-width:100px">NO</button>
+          <button type="button" class="btn btn-ok" onclick="qsDoSend()" style="min-width:100px">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 回答者一覧画面 -->
+  <div id="qs-respondents" style="display:none">
+    <button class="btn btn-out btn-sm mb4" onclick="qsBackToList()">← 一覧に戻る</button>
+    <h1 class="pg-t" id="qs-rp-title">—</h1>
+    <p class="pg-d" id="qs-rp-period">配信期間: —</p>
+
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="st c-nv"><div class="st-lb">配信対象</div><div class="st-val" id="qs-rp-target">—</div><div class="st-sub">メール送信済</div></div>
+      <div class="st c-gn"><div class="st-lb">回答済</div><div class="st-val" id="qs-rp-done">—</div><div class="st-sub t-gn" id="qs-rp-rate">回答率 —%</div></div>
+      <div class="st c-am"><div class="st-lb">未回答</div><div class="st-val" id="qs-rp-pending">—</div><div class="st-sub">リマインド対象</div></div>
+      <div class="st c-bl"><div class="st-lb">ステータス</div><div class="st-val" style="font-size:18px" id="qs-rp-status">—</div><div class="st-sub">現在の配信状態</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-t"><i data-lucide="users"></i>回答者一覧</div>
+        <div class="btn-grp">
+          <input class="fi" placeholder="氏名・IDで検索…" style="width:200px;padding:6px 10px">
+          <select class="fs" style="width:140px;padding:6px 10px">
+            <option>すべて</option>
+            <option>回答済</option>
+            <option>未回答</option>
+          </select>
+          <button class="btn btn-out btn-sm"><i data-lucide="download" style="width:15px;height:15px"></i>CSV出力</button>
+        </div>
+      </div>
+      <div class="tw"><table>
+        <thead><tr>
+          <th>会員ID</th><th>氏名</th><th>主専門領域</th><th>施設</th><th>都道府県</th>
+          <th>回答日時</th><th>所要時間</th><th>ステータス</th><th class="tr">付与pt</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="fm t-nv">M-10294</td><td>山田 太郎</td><td>内科</td><td>○○総合病院</td><td>東京</td><td class="fm">2026/04/01 10:42</td><td>2分18秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-11802</td><td>石橋 花子</td><td>循環器内科</td><td>△△病院</td><td>大阪</td><td class="fm">2026/04/01 11:05</td><td>3分02秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-12345</td><td>田中 美咲</td><td>小児科</td><td>□□クリニック</td><td>愛知</td><td class="fm">2026/04/01 12:18</td><td>2分47秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-13408</td><td>鈴木 一</td><td>皮膚科</td><td>◇◇クリニック</td><td>福岡</td><td class="fm">2026/04/01 13:55</td><td>1分58秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-13902</td><td>佐藤 健二</td><td>整形外科</td><td>××病院</td><td>北海道</td><td class="fm">2026/04/01 14:12</td><td>3分21秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-14021</td><td>中村 太一</td><td>精神科</td><td>◎◎メンタルクリニック</td><td>東京</td><td class="fm">2026/04/01 15:30</td><td>2分39秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-14587</td><td>高橋 真理</td><td>産婦人科</td><td>▼▼レディースクリニック</td><td>神奈川</td><td class="fm">2026/04/01 16:04</td><td>2分11秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-15013</td><td>伊藤 誠</td><td>耳鼻いんこう科</td><td>★★耳鼻咽喉科</td><td>京都</td><td class="fm">2026/04/01 16:48</td><td>3分05秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-15420</td><td>渡辺 由紀</td><td>眼科</td><td>◆◆アイクリニック</td><td>兵庫</td><td class="fm">2026/04/01 17:22</td><td>2分02秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-15812</td><td>小林 健一</td><td>内科</td><td>▲▲内科クリニック</td><td>埼玉</td><td class="fm">2026/04/02 09:15</td><td>2分58秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-16104</td><td>加藤 奈々</td><td>小児科</td><td>◯◯こどもクリニック</td><td>千葉</td><td class="fm">2026/04/02 10:33</td><td>2分27秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr><td class="fm t-nv">M-16589</td><td>松本 大輔</td><td>外科</td><td>■■総合病院</td><td>広島</td><td class="fm">2026/04/02 11:47</td><td>3分33秒</td><td><span class="sb ok">● 回答済</span></td><td class="tr fb">+50</td></tr>
+          <tr style="background:var(--g50)"><td class="fm t-nv">M-17012</td><td>井上 香織</td><td>循環器内科</td><td>□□循環器病院</td><td>宮城</td><td class="tx tm">—</td><td class="tx tm">—</td><td><span class="sb pend">● 未回答</span></td><td class="tr tx tm">—</td></tr>
+          <tr style="background:var(--g50)"><td class="fm t-nv">M-17384</td><td>木村 信二</td><td>糖尿病内科</td><td>△△糖尿病センター</td><td>愛知</td><td class="tx tm">—</td><td class="tx tm">—</td><td><span class="sb pend">● 未回答</span></td><td class="tr tx tm">—</td></tr>
+          <tr style="background:var(--g50)"><td class="fm t-nv">M-17902</td><td>清水 彩</td><td>皮膚科</td><td>◎◎皮膚科医院</td><td>静岡</td><td class="tx tm">—</td><td class="tx tm">—</td><td><span class="sb pend">● 未回答</span></td><td class="tr tx tm">—</td></tr>
+        </tbody>
+      </table></div>
+      <div class="fx fxb fxc mt4">
+        <span class="ts tm">表示: 1–15 / <span id="qs-rp-total">—</span>件</span>
+        <div class="btn-grp">
+          <button class="btn btn-out btn-sm">← 前へ</button>
+          <button class="btn btn-pr btn-sm">1</button>
+          <button class="btn btn-out btn-sm">2</button>
+          <button class="btn btn-out btn-sm">3</button>
+          <button class="btn btn-out btn-sm">次へ →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一覧画面 -->
+  <div id="qs-list">
+  <h1 class="pg-t">簡易アンケート配信一覧</h1><p class="pg-d">簡易アンケートの作成・配信状況を管理</p>
+
+  <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+    <div class="st c-bl"><div class="st-lb">総配信数</div><div class="st-val">32</div><div class="st-sub">今月 +4件</div></div>
+    <div class="st c-gn"><div class="st-lb">配信中</div><div class="st-val">4</div><div class="st-sub">アクティブ配信</div></div>
+    <div class="st c-nv"><div class="st-lb">今月回答数</div><div class="st-val">1,248</div><div class="st-sub">前月比 +18%</div></div>
+    <div class="st c-am"><div class="st-lb">付与pt合計</div><div class="st-val">62.4k</div><div class="st-sub">今月実績</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd">
+      <div class="card-t"><i data-lucide="clipboard-list"></i>簡易アンケート一覧</div>
+      <div class="btn-grp">
+        <input class="fi" placeholder="タイトルで検索…" style="width:200px;padding:6px 10px">
+        <select class="fs" style="width:140px;padding:6px 10px">
+          <option>すべて</option>
+          <option>配信中</option>
+          <option>配信終了</option>
+        </select>
+        <button class="btn btn-pr" onclick="document.getElementById('qs-editor').style.display='block';document.getElementById('qs-list').style.display='none'"><i data-lucide="plus" style="width:16px;height:16px"></i>新規作成</button>
+      </div>
+    </div>
+    <div class="tw"><table><thead><tr><th>タイトル</th><th>配信日</th><th>終了日</th><th class="tr">謝礼</th><th class="tr">回答者数</th><th>ステータス</th><th class="tr">操作</th></tr></thead><tbody>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('4月度サービス満足度調査','2026/04/01〜2026/04/15',342,500,'配信中')">
+        <td><strong>4月度サービス満足度調査</strong><br><span class="tx tm">通常診療業務に関する満足度</span></td>
+        <td>2026/04/01</td>
+        <td>2026/04/15</td>
+        <td class="tr fb">50pt</td>
+        <td class="tr"><strong>342</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('新型コロナワクチン接種意向調査','2026/03/28〜2026/04/10',586,800,'配信中')">
+        <td><strong>新型コロナワクチン接種意向調査</strong><br><span class="tx tm">2026年春シーズンの接種傾向</span></td>
+        <td>2026/03/28</td>
+        <td>2026/04/10</td>
+        <td class="tr fb">100pt</td>
+        <td class="tr"><strong>586</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('処方箋電子化への意識調査','2026/03/20〜2026/04/05',421,600,'配信中')">
+        <td><strong>処方箋電子化への意識調査</strong><br><span class="tx tm">電子処方箋の導入状況</span></td>
+        <td>2026/03/20</td>
+        <td>2026/04/05</td>
+        <td class="tr fb">80pt</td>
+        <td class="tr"><strong>421</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb live">● 配信中</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm t-rd">配信停止</button><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('診療報酬改定の影響アンケート','2026/03/15〜2026/03/31',724,900,'配信終了')">
+        <td><strong>診療報酬改定の影響アンケート</strong><br><span class="tx tm">2026年度改定に伴う運営影響</span></td>
+        <td>2026/03/15</td>
+        <td>2026/03/31</td>
+        <td class="tr fb">150pt</td>
+        <td class="tr"><strong>724</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb ok">● 配信終了</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('花粉症患者数の動向調査','2026/03/01〜2026/03/20',508,700,'配信終了')">
+        <td><strong>花粉症患者数の動向調査</strong><br><span class="tx tm">2026年シーズンの来院状況</span></td>
+        <td>2026/03/01</td>
+        <td>2026/03/20</td>
+        <td class="tr fb">50pt</td>
+        <td class="tr"><strong>508</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb ok">● 配信終了</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+      <tr class="row-click" style="cursor:pointer" onclick="qsOpenRespondents('オンライン診療の実施状況調査','2026/02/15〜2026/03/01',389,550,'配信終了')">
+        <td><strong>オンライン診療の実施状況調査</strong><br><span class="tx tm">クリニック単位での実施実態</span></td>
+        <td>2026/02/15</td>
+        <td>2026/03/01</td>
+        <td class="tr fb">100pt</td>
+        <td class="tr"><strong>389</strong><span class="tx tm"> 名</span></td>
+        <td><span class="sb ok">● 配信終了</span></td>
+        <td class="tr" onclick="event.stopPropagation()"><div class="btn-grp" style="justify-content:flex-end"><button class="btn btn-out btn-sm">編集</button></div></td>
+      </tr>
+    </tbody></table></div>
+    <div class="fx fxb fxc mt4"><span class="ts tm">表示: 1–6 / 32件</span><div class="btn-grp"><button class="btn btn-out btn-sm">← 前へ</button><button class="btn btn-out btn-sm">次へ →</button></div></div>
+  </div>
+  </div>
+
+  </div>
+</div>
+<script>
+function qsTypeChange(sel){
+  var card=sel.closest('.qs-q');
+  var type=sel.value;
+  card.setAttribute('data-type',type);
+  ['single','multi','open','scale'].forEach(function(t){
+    var el=card.querySelector('.qs-opt-'+t);
+    if(el)el.style.display=(t===type?'':'none');
+  });
+  if(type==='scale'){
+    var anchor=card.querySelector('.qs-scale-n');
+    if(anchor)qsScaleRender(anchor);
+  }
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+function qsScaleRender(el){
+  var wrap=el.closest('.qs-opt-scale');
+  if(!wrap)return;
+  var n=parseInt(wrap.querySelector('.qs-scale-n').value,10)||5;
+  var minLb=wrap.querySelector('.qs-scale-min').value||'';
+  var maxLb=wrap.querySelector('.qs-scale-max').value||'';
+  var preview=wrap.querySelector('.qs-scale-preview');
+  var html='';
+  for(var i=1;i<=n;i++){
+    var lb=(i===1?minLb:(i===n?maxLb:'　'));
+    html+='<label class="tc" style="cursor:pointer;flex:1;min-width:48px"><div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--g300);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--g600);margin:0 auto 4px">'+i+'</div><span class="tx tm">'+lb+'</span></label>';
+  }
+  preview.innerHTML=html;
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.qs-opt-scale .qs-scale-n').forEach(function(el){qsScaleRender(el);});
+});
+function qsOpenBatch(){
+  document.getElementById('qs-editor').style.display='none';
+  document.getElementById('qs-list').style.display='none';
+  document.getElementById('qs-batch').style.display='block';
+  if(typeof goStep==='function')goStep(1);
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function qsBackToEditor(){
+  document.getElementById('qs-batch').style.display='none';
+  document.getElementById('qs-editor').style.display='block';
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+function qsConfirmSend(){
+  var m=document.getElementById('qs-confirm-modal');
+  if(m)m.style.display='flex';
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+function qsCloseConfirm(){
+  var m=document.getElementById('qs-confirm-modal');
+  if(m)m.style.display='none';
+}
+function qsDoSend(){
+  qsCloseConfirm();
+  alert('配信を開始しました');
+  document.getElementById('qs-batch').style.display='none';
+  document.getElementById('qs-list').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function qsOpenRespondents(title,period,done,target,status){
+  document.getElementById('qs-list').style.display='none';
+  document.getElementById('qs-editor').style.display='none';
+  document.getElementById('qs-batch').style.display='none';
+  document.getElementById('qs-respondents').style.display='block';
+  document.getElementById('qs-rp-title').textContent=title;
+  document.getElementById('qs-rp-period').textContent='配信期間: '+period;
+  document.getElementById('qs-rp-target').textContent=target.toLocaleString()+' 名';
+  document.getElementById('qs-rp-done').textContent=done.toLocaleString()+' 名';
+  document.getElementById('qs-rp-pending').textContent=(target-done).toLocaleString()+' 名';
+  document.getElementById('qs-rp-rate').textContent='回答率 '+Math.round(done/target*100)+'%';
+  document.getElementById('qs-rp-status').textContent=status;
+  document.getElementById('qs-rp-total').textContent=done.toLocaleString();
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function qsBackToList(){
+  document.getElementById('qs-respondents').style.display='none';
+  document.getElementById('qs-list').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('change',function(e){
+  if(e.target&&e.target.classList&&e.target.classList.contains('so-batch-ck')){
+    var cks=document.querySelectorAll('#ss3 .so-batch-ck');
+    var btn=document.getElementById('so-batch-send-btn');
+    if(!btn||!cks.length)return;
+    var all=true;for(var i=0;i<cks.length;i++){if(!cks[i].checked){all=false;break;}}
+    btn.disabled=!all;
+  }
+});
+function qsAddChoice(btn,iconName){
+  var list=btn.previousElementSibling;
+  var row=document.createElement('div');
+  row.className='fx g8 mb4';
+  row.style.alignItems='center';
+  row.innerHTML='<i data-lucide="'+iconName+'" style="width:16px;height:16px;color:var(--g400)"></i><input class="fi" placeholder="選択肢を入力" style="flex:1;max-width:300px"><button class="btn btn-out btn-sm" onclick="this.parentElement.remove()"><i data-lucide="x" style="width:13px;height:13px"></i></button>';
+  list.appendChild(row);
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+</script>
+<script src="js/admin.js"></script>
+</body>
+</html>

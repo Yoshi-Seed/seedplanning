@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>謝礼管理 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="redemption">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i on" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">謝礼管理</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+  <!-- 詳細画面 -->
+  <div id="rd-detail" style="display:none">
+    <h1 class="pg-t">謝礼管理</h1><p class="pg-d">申請詳細</p>
+    <button class="btn btn-out btn-sm mb4" onclick="document.getElementById('rd-detail').style.display='none';document.getElementById('rd-list').style.display='block'">← 一覧に戻る</button>
+
+    <div class="g2">
+      <!-- 左: 申請ヘッダ -->
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="file-text"></i>申請ヘッダ</div></div>
+        <div class="dr"><div class="dr-l">申請番号</div><div class="dr-v fm">AMZ-202604-00128</div></div>
+        <div class="dr"><div class="dr-l">メンバーID</div><div class="dr-v fm">M-104582</div></div>
+        <div class="dr"><div class="dr-l">会員氏名</div><div class="dr-v">山田 太郎</div></div>
+        <div class="dr"><div class="dr-l">交換金額</div><div class="dr-v fb">¥12,000</div></div>
+        <div class="dr"><div class="dr-l">送付先メールアドレス</div><div class="dr-v">taro.yamada@example.com</div></div>
+        <div class="dr"><div class="dr-l">現在ステータス</div><div class="dr-v"><span class="sb live">Processing</span></div></div>
+      </div>
+
+      <!-- 右: ポイント原資内訳 -->
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="layers"></i>ポイント原資内訳</div></div>
+        <div class="tw"><table><thead><tr><th>プロジェクトID</th><th>SeedプロジェクトID</th><th>案件名</th><th class="tr">充当pt</th><th class="tr">残高</th></tr></thead><tbody>
+          <tr>
+            <td class="fm">PRJ-082</td>
+            <td class="fm">SEED-4007</td>
+            <td>高血圧診療調査</td>
+            <td class="tr fb">6,000</td>
+            <td class="tr">¥6,000</td>
+          </tr>
+          <tr>
+            <td class="fm">PRJ-109</td>
+            <td class="fm">SEED-4031</td>
+            <td>高齢者呼吸器アジュバント評価</td>
+            <td class="tr fb">4,000</td>
+            <td class="tr">¥4,000</td>
+          </tr>
+          <tr>
+            <td class="fm">PRJ-118</td>
+            <td class="fm">SEED-4055</td>
+            <td>糖尿病インスリン アンケート</td>
+            <td class="tr fb">2,000</td>
+            <td class="tr">¥2,000</td>
+          </tr>
+        </tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ステータス変更 -->
+    <div class="card">
+      <div class="alt a-info" style="margin-bottom:12px"><i data-lucide="info"></i>審査中の収支内訳を参照し、Amazon送付先の打ち合わせ・処理に移ります</div>
+      <div class="btn-grp" style="justify-content:center;gap:12px">
+        <button class="btn btn-pr" style="padding:10px 32px">Processing</button>
+        <button class="btn btn-ok" style="padding:10px 32px">Fulfilled</button>
+        <button class="btn btn-ng" style="padding:10px 32px">Rejected</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一覧画面 -->
+  <div id="rd-list">
+  <h1 class="pg-t">謝礼管理</h1><p class="pg-d">未完了案件を詳細画面で処理・出力ができます</p>
+
+  <!-- フィルターバー -->
+  <div class="card" style="padding:16px 20px">
+    <div class="so-filters" style="margin-bottom:0;padding-bottom:0;border-bottom:none">
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">ステータス</label>
+        <select class="fs" style="padding:6px 10px;width:150px">
+          <option>未完了すべて</option>
+          <option>Requested</option>
+          <option>Processing</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">交換種別</label>
+        <select class="fs" style="padding:6px 10px;width:140px">
+          <option>全種別</option>
+          <option>Amazonギフト</option>
+          <option>現金振込</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">期間</label>
+        <div class="fx g8">
+          <input class="fi" type="date" value="2026-03-01" style="padding:6px 10px;width:150px">
+          <span style="align-self:center;color:var(--g400)">〜</span>
+          <input class="fi" type="date" value="2026-03-31" style="padding:6px 10px;width:150px">
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl">担当者</label>
+        <select class="fs" style="padding:6px 10px;width:140px">
+          <option>全担当者</option>
+          <option>木原</option>
+          <option>本田</option>
+          <option>長己</option>
+        </select>
+      </div>
+      <div style="margin-left:auto;align-self:flex-end">
+        <button class="btn btn-out"><i data-lucide="download" style="width:15px;height:15px"></i>CSV出力</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 未処理一覧 -->
+  <div class="card">
+    <div class="card-hd"><div class="card-t"><i data-lucide="coins"></i>未処理一覧</div></div>
+    <div class="tw"><table><thead><tr><th>申請番号</th><th>申請日</th><th>メンバーID</th><th>氏名</th><th>交換種別</th><th>金額</th><th>ステータス</th><th>担当者</th><th class="tr">操作</th></tr></thead><tbody>
+      <tr>
+        <td class="fm t-nv">RD-001</td>
+        <td>2026/03/03</td>
+        <td class="fm">M-10294</td>
+        <td>山田 太郎</td>
+        <td>Amazonギフト</td>
+        <td class="fb">¥5,000</td>
+        <td><span class="sb pend">Requested</span></td>
+        <td>木原</td>
+        <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('rd-detail').style.display='block';document.getElementById('rd-list').style.display='none'">詳細</button></td>
+      </tr>
+      <tr>
+        <td class="fm t-nv">RD-002</td>
+        <td>2026/03/03</td>
+        <td class="fm">M-11802</td>
+        <td>石橋 花子</td>
+        <td>現金振込</td>
+        <td class="fb">¥12,000</td>
+        <td><span class="sb live">Processing</span></td>
+        <td>本田</td>
+        <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('rd-detail').style.display='block';document.getElementById('rd-list').style.display='none'">詳細</button></td>
+      </tr>
+      <tr>
+        <td class="fm t-nv">RD-003</td>
+        <td>2026/03/01</td>
+        <td class="fm">M-11071</td>
+        <td>鈴木 一</td>
+        <td>Amazonギフト</td>
+        <td class="fb">¥3,000</td>
+        <td><span class="sb ng">Rejected</span></td>
+        <td>長己</td>
+        <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('rd-detail').style.display='block';document.getElementById('rd-list').style.display='none'">詳細</button></td>
+      </tr>
+      <tr>
+        <td class="fm t-nv">RD-004</td>
+        <td>2026/03/03</td>
+        <td class="fm">M-12345</td>
+        <td>田中 美咲</td>
+        <td>現金振込</td>
+        <td class="fb">¥8,000</td>
+        <td><span class="sb pend">Requested</span></td>
+        <td>木原</td>
+        <td class="tr"><button class="btn btn-out btn-sm" onclick="document.getElementById('rd-detail').style.display='block';document.getElementById('rd-list').style.display='none'">詳細</button></td>
+      </tr>
+    </tbody></table></div>
+    <div class="fx fxb fxc mt4"><span class="ts tm">表示: 1–4 / 4件</span><div class="btn-grp"><button class="btn btn-out btn-sm">← 前へ</button><button class="btn btn-out btn-sm">次へ →</button></div></div>
+  </div>
+
+  </div>
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

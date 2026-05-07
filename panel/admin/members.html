@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会員管理 — Admin Console</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body data-admin-page="members">
+
+<nav class="side">
+  <div class="side-logo"><div class="logo-box">D</div><div>Dパネル<br><span style="font-size:10px;font-weight:400;opacity:.6">Admin Console</span></div></div>
+  <div class="side-nav">
+    <div class="side-sec">メイン</div>
+    <a href="index.html" class="nav-i" data-page="dashboard"><i data-lucide="layout-dashboard" class="ni"></i>ダッシュボード</a>
+    <div class="side-sec">配信</div>
+    <a href="survey-operations.html" class="nav-i" data-page="survey-ops"><i data-lucide="flask-conical" class="ni"></i>Survey Operations<span class="badge">3</span></a>
+    <a href="announcements.html" class="nav-i" data-page="announcements"><i data-lucide="megaphone" class="ni"></i>お知らせ配信</a>
+    <a href="quick-survey.html" class="nav-i" data-page="quick-survey"><i data-lucide="clipboard-list" class="ni"></i>簡易アンケート配信</a>
+    <div class="side-sec">管理</div>
+    <a href="redemption.html" class="nav-i" data-page="redemption"><i data-lucide="coins" class="ni"></i>謝礼管理<span class="badge">5</span></a>
+    <a href="members.html" class="nav-i on" data-page="members"><i data-lucide="users" class="ni"></i>会員管理</a>
+    <a href="member-review.html" class="nav-i" data-page="member-review"><i data-lucide="user-check" class="ni"></i>会員登録審査</a>
+    <a href="qr-codes.html" class="nav-i" data-page="qr-codes"><i data-lucide="qr-code" class="ni"></i>登録用QRコード</a>
+    <a href="operation-log.html" class="nav-i" data-page="operation-log"><i data-lucide="history" class="ni"></i>操作ログ</a>
+    <a href="settings.html" class="nav-i" data-page="settings"><i data-lucide="settings" class="ni"></i>設定</a>
+  </div>
+  <div class="side-ft"><div style="font-size:12px;color:rgba(255,255,255,.7)">管理者：山田 太郎</div><div style="margin-top:2px">最終ログイン 2026/04/01 09:15</div></div>
+</nav>
+
+<div class="main">
+  <div class="topbar"><div class="bc">Admin Console &gt; <b id="bc-pg">会員管理</b></div><div class="topbar-r"><span style="font-size:12px;color:var(--g500)">2026年4月1日 09:30</span><div class="avatar">YT</div></div></div>
+  <div class="content">
+
+<h1 class="pg-t">会員管理</h1><p class="pg-d">パネリスト情報の検索・閲覧・管理</p>
+
+<!-- === 会員一覧 === -->
+<div id="mem-list">
+  <div class="card">
+    <div class="card-hd"><div class="card-t"><i data-lucide="users"></i>会員一覧</div><div class="btn-grp"><button type="button" class="btn btn-out btn-sm">CSV出力</button><button type="button" class="btn btn-out btn-sm" onclick="memResetFilter()">条件クリア</button></div></div>
+    <div class="so-filters">
+      <div class="fg so-q-wrap">
+        <label class="fl" for="mem-q">検索（曖昧一致）</label>
+        <input type="search" class="fs" id="mem-q" placeholder="ID・氏名・勤務先名など" autocomplete="off" onkeyup="memFilter()">
+      </div>
+      <div class="fg" style="width:140px;margin-bottom:0">
+        <label class="fl" for="mem-f-spec">主専門</label>
+        <select class="fs" id="mem-f-spec" onchange="memFilter()">
+          <option value="">すべて</option>
+          <option>内科</option>
+          <option>循環器内科</option>
+          <option>糖尿病内科</option>
+          <option>皮膚科</option>
+          <option>整形外科</option>
+          <option>小児科</option>
+          <option>精神科</option>
+          <option>外科</option>
+        </select>
+      </div>
+      <div class="fg" style="width:140px;margin-bottom:0">
+        <label class="fl" for="mem-f-type">病院の種類</label>
+        <select class="fs" id="mem-f-type" onchange="memFilter()">
+          <option value="">すべて</option>
+          <option>大学病院</option>
+          <option>総合病院</option>
+          <option>一般病院</option>
+          <option>クリニック</option>
+        </select>
+      </div>
+      <div class="fg" style="width:140px;margin-bottom:0">
+        <label class="fl" for="mem-f-pref">都道府県</label>
+        <select class="fs" id="mem-f-pref" onchange="memFilter()">
+          <option value="">すべて</option>
+          <option>東京都</option>
+          <option>大阪府</option>
+          <option>愛知県</option>
+          <option>北海道</option>
+          <option>福岡県</option>
+          <option>神奈川県</option>
+        </select>
+      </div>
+      <div class="fg" style="width:140px;margin-bottom:0">
+        <label class="fl" for="mem-f-status">ステータス</label>
+        <select class="fs" id="mem-f-status" onchange="memFilter()">
+          <option value="">すべて</option>
+          <option value="正常">正常</option>
+          <option value="要注意">要注意</option>
+          <option value="ブラックリスト">ブラックリスト</option>
+        </select>
+      </div>
+      <span class="so-count">全 <strong id="mem-n">10</strong> 件</span>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>会員ID</th><th>氏名</th><th>主専門</th><th>勤務先名</th><th>病院の種類</th><th class="tr">病床数</th><th>都道府県</th><th>役職</th><th>ステータス</th></tr></thead>
+      <tbody id="mem-tbody">
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(0)" data-search="hcp-10392 田中 一郎 たなか いちろう 内科 東京中央病院 大学病院 東京都 正常" data-spec="内科" data-type="大学病院" data-pref="東京都" data-status="正常">
+          <td class="fm t-nv">HCP-10392</td><td>田中 一郎</td><td>内科</td><td>東京中央病院</td><td>大学病院</td><td class="tr">820</td><td>東京都</td><td>部長</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(1)" data-search="hcp-20511 佐藤 花子 さとう はなこ 循環器内科 大阪ハートクリニック クリニック 大阪府 正常" data-spec="循環器内科" data-type="クリニック" data-pref="大阪府" data-status="正常">
+          <td class="fm t-nv">HCP-20511</td><td>佐藤 花子</td><td>循環器内科</td><td>大阪ハートクリニック</td><td>クリニック</td><td class="tr">0</td><td>大阪府</td><td>院長</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(2)" data-search="hcp-54012 鈴木 健太 すずき けんた 糖尿病内科 名古屋第一病院 総合病院 愛知県 要注意" data-spec="糖尿病内科" data-type="総合病院" data-pref="愛知県" data-status="要注意">
+          <td class="fm t-nv">HCP-54012</td><td>鈴木 健太</td><td>糖尿病内科</td><td>名古屋第一病院</td><td>総合病院</td><td class="tr">450</td><td>愛知県</td><td>医長</td><td><span class="sb pend">要注意</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(3)" data-search="hcp-39017 高橋 美咲 たかはし みさき 皮膚科 福岡スキンケアクリニック クリニック 福岡県 正常" data-spec="皮膚科" data-type="クリニック" data-pref="福岡県" data-status="正常">
+          <td class="fm t-nv">HCP-39017</td><td>高橋 美咲</td><td>皮膚科</td><td>福岡スキンケアクリニック</td><td>クリニック</td><td class="tr">0</td><td>福岡県</td><td>院長</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(4)" data-search="hcp-77109 渡辺 大輔 わたなべ だいすけ 整形外科 北海道大学病院 大学病院 北海道 正常" data-spec="整形外科" data-type="大学病院" data-pref="北海道" data-status="正常">
+          <td class="fm t-nv">HCP-77109</td><td>渡辺 大輔</td><td>整形外科</td><td>北海道大学病院</td><td>大学病院</td><td class="tr">920</td><td>北海道</td><td>准教授</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(5)" data-search="hcp-88102 伊藤 真理 いとう まり 小児科 横浜こども医療センター 総合病院 神奈川県 ブラックリスト" data-spec="小児科" data-type="総合病院" data-pref="神奈川県" data-status="ブラックリスト">
+          <td class="fm t-nv">HCP-88102</td><td>伊藤 真理</td><td>小児科</td><td>横浜こども医療センター</td><td>総合病院</td><td class="tr">380</td><td>神奈川県</td><td>医員</td><td><span class="sb ng">ブラックリスト</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(6)" data-search="hcp-11223 山本 雄介 やまもと ゆうすけ 精神科 東京メンタルヘルスクリニック クリニック 東京都 正常" data-spec="精神科" data-type="クリニック" data-pref="東京都" data-status="正常">
+          <td class="fm t-nv">HCP-11223</td><td>山本 雄介</td><td>精神科</td><td>東京メンタルヘルスクリニック</td><td>クリニック</td><td class="tr">0</td><td>東京都</td><td>院長</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(7)" data-search="hcp-33445 中村 さくら なかむら さくら 内科 大阪総合医療センター 総合病院 大阪府 要注意" data-spec="内科" data-type="総合病院" data-pref="大阪府" data-status="要注意">
+          <td class="fm t-nv">HCP-33445</td><td>中村 さくら</td><td>内科</td><td>大阪総合医療センター</td><td>総合病院</td><td class="tr">600</td><td>大阪府</td><td>副部長</td><td><span class="sb pend">要注意</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(8)" data-search="hcp-55667 小林 拓也 こばやし たくや 外科 愛知がんセンター 総合病院 愛知県 正常" data-spec="外科" data-type="総合病院" data-pref="愛知県" data-status="正常">
+          <td class="fm t-nv">HCP-55667</td><td>小林 拓也</td><td>外科</td><td>愛知がんセンター</td><td>総合病院</td><td class="tr">500</td><td>愛知県</td><td>部長</td><td><span class="sb live">正常</span></td>
+        </tr>
+        <tr class="mem-row" style="cursor:pointer" onclick="memDetail(9)" data-search="hcp-99001 加藤 優子 かとう ゆうこ 糖尿病内科 福岡大学病院 大学病院 福岡県 正常" data-spec="糖尿病内科" data-type="大学病院" data-pref="福岡県" data-status="正常">
+          <td class="fm t-nv">HCP-99001</td><td>加藤 優子</td><td>糖尿病内科</td><td>福岡大学病院</td><td>大学病院</td><td class="tr">900</td><td>福岡県</td><td>講師</td><td><span class="sb live">正常</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- === 会員詳細 === -->
+<div id="mem-detail" style="display:none">
+  <div class="fx fxb fxc" style="margin-bottom:16px;flex-wrap:wrap;gap:8px">
+    <button type="button" class="btn btn-out btn-sm" onclick="memBack()"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> 一覧に戻る</button>
+    <div class="btn-grp" id="mem-edit-btns">
+      <button type="button" class="btn btn-pr btn-sm" id="mem-btn-edit" onclick="memEditToggle(true)" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="pencil" style="width:14px;height:14px"></i>編集</button>
+      <button type="button" class="btn btn-ok btn-sm" id="mem-btn-save" onclick="memEditSave()" style="display:none;align-items:center;gap:6px"><i data-lucide="check" style="width:14px;height:14px"></i>保存（モック）</button>
+      <button type="button" class="btn btn-out btn-sm" id="mem-btn-cancel" onclick="memEditToggle(false)" style="display:none">キャンセル</button>
+    </div>
+  </div>
+  <!-- タブ -->
+  <div class="tabs" id="mem-d-tabs">
+    <div class="tab on" data-mtab="info" onclick="memDetailTabSwitch('info')"><i data-lucide="user" style="width:14px;height:14px"></i>会員情報</div>
+    <div class="tab" data-mtab="points" onclick="memDetailTabSwitch('points')"><i data-lucide="coins" style="width:14px;height:14px"></i>ポイント残高一覧</div>
+  </div>
+
+  <!-- 会員情報タブ -->
+  <div id="mem-d-tab-info">
+  <div class="g21">
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="user"></i>基本情報</div><span class="sb live" id="mem-d-status">● アクティブ</span></div>
+        <div class="g2">
+          <div class="dr"><div class="dr-l">現ID</div><div class="dr-v fm" id="mem-d-id">—</div></div>
+          <div class="dr mem-editable" data-field="email"><div class="dr-l">メールアドレス</div><div class="dr-v" id="mem-d-email">—</div></div>
+          <div class="dr mem-editable" data-field="last"><div class="dr-l">苗字</div><div class="dr-v" id="mem-d-last">—</div></div>
+          <div class="dr mem-editable" data-field="first"><div class="dr-l">名前</div><div class="dr-v" id="mem-d-first">—</div></div>
+          <div class="dr mem-editable" data-field="lastK"><div class="dr-l">苗字（かな）</div><div class="dr-v" id="mem-d-last-k">—</div></div>
+          <div class="dr mem-editable" data-field="firstK"><div class="dr-l">名前（かな）</div><div class="dr-v" id="mem-d-first-k">—</div></div>
+          <div class="dr mem-editable" data-field="birth" data-suffix="年"><div class="dr-l">生年</div><div class="dr-v" id="mem-d-birth">—</div></div>
+          <div class="dr mem-editable" data-field="sex" data-type="select" data-options="男性,女性"><div class="dr-l">性別</div><div class="dr-v" id="mem-d-sex">—</div></div>
+          <div class="dr mem-editable" data-field="job"><div class="dr-l">職業</div><div class="dr-v" id="mem-d-job">—</div></div>
+          <div class="dr mem-editable" data-field="position"><div class="dr-l">役職</div><div class="dr-v" id="mem-d-position">—</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="stethoscope"></i>専門領域</div></div>
+        <div class="g2">
+          <div class="dr mem-editable" data-field="mainSpec"><div class="dr-l">主専門</div><div class="dr-v" id="mem-d-main-spec">—</div></div>
+          <div class="dr mem-editable" data-field="subSpec"><div class="dr-l">副専門</div><div class="dr-v" id="mem-d-sub-spec">—</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t"><i data-lucide="building-2"></i>勤務先情報</div></div>
+        <div class="dr mem-editable" data-field="hosp"><div class="dr-l">病院・勤務先名</div><div class="dr-v" id="mem-d-hosp">—</div></div>
+        <div class="dr mem-editable" data-field="hospK"><div class="dr-l">勤務先名（ふりがな）</div><div class="dr-v" id="mem-d-hosp-k">—</div></div>
+        <div class="dr mem-editable" data-field="hospType" data-type="select" data-options="大学病院,総合病院,一般病院,クリニック"><div class="dr-l">病院の種類</div><div class="dr-v" id="mem-d-hosp-type">—</div></div>
+        <div class="dr mem-editable" data-field="beds"><div class="dr-l">病床数</div><div class="dr-v" id="mem-d-beds">—</div></div>
+        <div class="dr mem-editable" data-field="pref"><div class="dr-l">病院都道府県</div><div class="dr-v" id="mem-d-pref">—</div></div>
+        <div class="dr mem-editable" data-field="addr"><div class="dr-l">病院住所</div><div class="dr-v" id="mem-d-addr">—</div></div>
+        <div class="dr mem-editable" data-field="bldg"><div class="dr-l">病院建物</div><div class="dr-v" id="mem-d-bldg">—</div></div>
+        <div class="dr mem-editable" data-field="tel"><div class="dr-l">病院電話番号</div><div class="dr-v" id="mem-d-tel">—</div></div>
+        <div class="dr"><div class="dr-l">病院電話（照合マッチ）</div><div class="dr-v" id="mem-d-tel-match">—</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="card-t"><i data-lucide="file-check-2"></i>回答済みアンケート一覧</div><span class="so-count">全 <strong id="mem-d-survey-n">0</strong> 件</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>案件ID</th><th>調査名</th><th>回答日時</th><th>ステータス</th><th class="tr">謝礼ポイント</th><th class="tr">LOI</th></tr></thead>
+      <tbody id="mem-d-survey-tbody"></tbody>
+    </table></div>
+    <p class="ts tm" id="mem-d-survey-empty" style="text-align:center;padding:20px 0;display:none">回答済みアンケートはありません</p>
+  </div>
+  </div>
+
+  <!-- ポイント残高一覧タブ -->
+  <div id="mem-d-tab-points" style="display:none">
+    <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+      <div class="st c-nv"><div class="st-lb">現在残高</div><div class="st-val" id="mem-d-pt-balance">—</div><div class="st-sub">利用可能ポイント</div></div>
+      <div class="st c-gn"><div class="st-lb">累計獲得pt</div><div class="st-val" id="mem-d-pt-earned">—</div><div class="st-sub">アンケート回答等</div></div>
+      <div class="st c-am"><div class="st-lb">累計交換pt</div><div class="st-val" id="mem-d-pt-redeemed">—</div><div class="st-sub">ギフト・現金交換</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-t"><i data-lucide="history"></i>ポイント獲得・交換履歴</div><div class="btn-grp"><button type="button" class="btn btn-pr btn-sm" onclick="memPtAdjustOpen()" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="pencil" style="width:14px;height:14px"></i>編集</button></div></div>
+      <div class="tw"><table>
+        <thead><tr><th>区分</th><th>日付</th><th>内容</th><th class="tr">増減</th><th class="tr">残高</th></tr></thead>
+        <tbody id="mem-d-pt-tbody"></tbody>
+      </table></div>
+      <p class="ts tm" id="mem-d-pt-empty" style="text-align:center;padding:20px 0;display:none">ポイント履歴はありません</p>
+      <div class="so-count" style="margin-top:8px">全 <strong id="mem-d-pt-n">0</strong> 件</div>
+    </div>
+  </div>
+</div>
+
+<!-- ポイント調整モーダル -->
+<div class="modal-ov" id="mem-pt-modal" style="display:none" onclick="if(event.target===this)memPtAdjustClose()">
+  <div class="modal-bx">
+    <div class="modal-hd">
+      <div class="card-t"><i data-lucide="coins"></i>ポイント調整</div>
+      <button type="button" class="modal-x" onclick="memPtAdjustClose()" aria-label="閉じる"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+    </div>
+    <div class="modal-bd">
+      <div class="fg">
+        <label class="fl" for="mem-pt-adj-kind">区分 <span class="req">*</span></label>
+        <select class="fs" id="mem-pt-adj-kind">
+          <option value="獲得">獲得（付与）</option>
+          <option value="交換">交換（差引）</option>
+          <option value="調整">調整</option>
+          <option value="失効">失効</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl" for="mem-pt-adj-desc">内容 <span class="req">*</span></label>
+        <input type="text" class="fs" id="mem-pt-adj-desc" placeholder="例: 問い合わせ対応によるポイント付与">
+      </div>
+      <div class="fg" style="margin-bottom:0">
+        <label class="fl" for="mem-pt-adj-amt">ポイント数 <span class="req">*</span></label>
+        <input type="number" class="fs" id="mem-pt-adj-amt" placeholder="例: 500（マイナス値で減算）" step="1">
+        <div class="fh">正の値で増加、負の値で減少します。</div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button type="button" class="btn btn-out" onclick="memPtAdjustClose()">キャンセル</button>
+      <button type="button" class="btn btn-pr" onclick="memPtAdjustSave()"><i data-lucide="check" style="width:14px;height:14px"></i>保存（モック）</button>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>
